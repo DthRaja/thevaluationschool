@@ -6682,6 +6682,7 @@ body.no-scroll {
   img {
   width: 100%;
   border-radius: 35px 35px 35px 35px;
+  height: auto;
 }
 
 .get-in-touch-section .get-in-touch-container .get-in-touch-cards .form-card {
