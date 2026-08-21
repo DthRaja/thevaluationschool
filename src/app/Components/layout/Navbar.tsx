@@ -233,8 +233,8 @@ const Navbar = ({ courses }: NavbarProps) => {
                   <Image
                     src="/img/main-logo.jpg"
                     alt="The Valuation School"
-                    width={500}
-                    height={267}
+                    width={135}
+                    height={80}
                   />
                 </Link>
               </div>
