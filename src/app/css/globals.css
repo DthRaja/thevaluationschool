@@ -1,0 +1,16 @@
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    --primary-color: #16945D;
+    --dark-primary-color: #0F7247;
+}
+
+body {
+    background: rgba(248, 255, 251, 1);
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+}

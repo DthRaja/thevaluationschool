@@ -1,0 +1,183 @@
+/* import all fonts */
+
+/* Poppins */
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/poppins/Poppins-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/poppins/Poppins-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/poppins/Poppins-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/poppins/Poppins-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/poppins/Poppins-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/poppins/Poppins-Thin.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Big Soulder Text */
+
+@font-face {
+    font-family: 'Big Soulder Text';
+    src: url('fonts/big-shoulder-text/BigShouldersText-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Big Soulder Text';
+    src: url('fonts/big-shoulder-text/BigShouldersText-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Big Soulder Text';
+    src: url('fonts/big-shoulder-text/BigShouldersText-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'Big Soulder Text';
+    src: url('fonts/big-shoulder-text/BigShouldersText-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Big Soulder Text';
+    src: url('fonts/big-shoulder-text/BigShouldersText-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Sora */
+
+@font-face {
+    font-family: 'Sora';
+    src: url('fonts/sora/Sora-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sora';
+    src: url('fonts/sora/Sora-SemiBold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sora';
+    src: url('fonts/sora/Sora-Bold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sora';
+    src: url('fonts/sora/Sora-ExtraBold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Caveat */
+
+@font-face {
+    font-family: 'Caveat';
+    src: url('fonts/caveat/Caveat-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Caveat';
+    src: url('fonts/caveat/Caveat-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*
+Gilroy is referenced elsewhere in style.css but is a commercial font (not
+available on Google Fonts) and no licensed file has been added to this
+project (fonts/gilroy-medium doesn't exist), so it stays commented out.
+Next's CSS bundler fails the whole file on any unresolved url(), so this
+block must stay disabled until a real, licensed Gilroy file is added.
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('fonts/gilroy-medium/Gilroy-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('fonts/gilroy-medium/Gilroy-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('fonts/gilroy-medium/Gilroy-Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('fonts/gilroy-medium/Gilroy-Heavy.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+*/
