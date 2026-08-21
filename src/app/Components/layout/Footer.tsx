@@ -270,7 +270,7 @@ const Footer = () => {
                       src="/img/footer.png"
                       alt=""
                       width={500}
-                      height={500}
+                      height={400}
                     />
                   </div>
                 </div>

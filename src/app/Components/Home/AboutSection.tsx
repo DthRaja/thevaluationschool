@@ -69,8 +69,8 @@ const AboutSection = () => {
                       src="/img/about-1.png"
                       alt="about-section-image"
                       className="about-section-image"
-                      width={813}
-                      height={881}
+                      width={450}
+                      height={506}
                     />
                   </div>
                 </div>
@@ -183,8 +183,8 @@ const AboutSection = () => {
                       src="/img/unnamed.png"
                       alt="about-section-image"
                       className="about-section-image"
-                      width={861}
-                      height={835}
+                      width={350}
+                      height={380}
                     />
                   </div>
                 </div>

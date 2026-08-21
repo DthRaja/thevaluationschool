@@ -737,12 +737,13 @@ body.no-scroll {
 .about-section .about-container .about-card .image-col .about-section-image {
   position: absolute;
   right: -100px;
-  width: 380px;
+  width: 410px;
+  height: auto;
   bottom: 0px;
   border-radius: 0px 0px 0px 0px;
   z-index: 10;
   /* make sure it sits above */
-  transform: scaleX(-1);
+  transform: none ;
 }
 
 .about-section .about-container .about-card .image-col .crown-icon {
