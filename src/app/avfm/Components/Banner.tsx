@@ -9,6 +9,9 @@ export interface IBannerApi {
   YoutubeThumbnailUrl: string;
   HeaderYoutubeLink: string;
   BrochureLink: string;
+  CourseId: number;
+  WebsiteDemoVideoLink: string;
+  LinkId: number;
 }
 
 const normalizePath = (path?: string) =>
