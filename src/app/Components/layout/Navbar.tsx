@@ -11,15 +11,6 @@ interface NavbarProps {
   courses: CourseMenuItem[];
 }
 
-/**
- * Normalize a path so:
- *
- * /index => /
- * /cfa/  => /cfa
- * /CFA   => /cfa
- *
- * Query strings and hashes are ignored.
- */
 const normalizePath = (url: string | null | undefined) => {
   if (!url) return "/";
 

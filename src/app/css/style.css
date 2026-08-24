@@ -241,7 +241,7 @@ body.no-scroll {
 .header-container .menu-col ul li.dropdown .dropdown-menu .dropdown-item-text {
   display: block;
   width: 100%;
-  padding: 16px 15px;
+  padding: 10px 15px;
   border-radius: 8px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
@@ -3137,7 +3137,7 @@ body.no-scroll {
 .course-details-section {
   width: 100%;
   padding-top: 8px;
-  padding-bottom: 96px;
+  padding-bottom: 36px;
 }
 
 .course-details-section .course-details-container {
@@ -4585,6 +4585,7 @@ body.no-scroll {
 
 .learning-slider-section .learning-slider-content {
   width: 100%;
+  position: relative;
 
   margin-top: 40px;
 }
@@ -4592,7 +4593,9 @@ body.no-scroll {
 .learning-slider-section .learning-slider-content .swiper .swiper-slide {
   width: calc(34% - 15px) !important;
   height: 340px;
-  transition: width 0.5s ease;
+  transition:
+    width 0.5s ease,
+    height 0.5s ease;
 }
 
 .learning-slider-section
@@ -4600,6 +4603,7 @@ body.no-scroll {
   .swiper
   .swiper-slide.swiper-slide-active {
   width: 52% !important;
+  height: 420px !important;
 }
 
 .learning-slider-section .learning-slider-content .learning-slider-card {
@@ -4629,6 +4633,11 @@ body.no-scroll {
   width: 100%;
   flex: 1;
   min-height: 0;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(
     180deg,
     rgba(116, 209, 169, 0.2) 0%,
@@ -4636,6 +4645,13 @@ body.no-scroll {
   );
   border-radius: 15px;
   transition: width 0.5s ease;
+}
+
+.learning-slider-section .learning-slider-content .image-card img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
 }
 
 .learning-slider-section
@@ -4647,10 +4663,6 @@ body.no-scroll {
   width: 48%;
   height: 100%;
   flex: none;
-}
-
-.learning-slider-section .learning-slider-content .image-card img {
-  padding: 20px;
 }
 
 .learning-slider-section .learning-slider-content .details {
@@ -4718,16 +4730,17 @@ body.no-scroll {
 
 .learning-slider-section .learning-slider-content .swiper {
   height: 420px;
+  width: calc(100% - 110px);
 }
 
 .learning-slider-pagination {
   font-family: "Sora", sans-serif;
   font-size: 15px;
-  margin-top: 12px;
   color: #919191;
-  position: relative;
-  top: -133px;
-  text-align: end;
+  position: absolute;
+  right: 0;
+  bottom: 74px;
+  z-index: 20;
 }
 
 .learning-slider-pagination span {
@@ -4737,26 +4750,24 @@ body.no-scroll {
 .learning-slider-section .learning-next,
 .learning-slider-section .learning-prev {
   position: absolute;
-  border: none;
+  border: 1.29px solid rgba(192, 197, 191, 1);
   cursor: pointer;
-  color: var(--primary-color);
+  color: rgba(23, 23, 23, 1);
   background: #fff;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 20;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 60px;
   transition: box-shadow 0.2s ease;
 }
 
 .learning-slider-section .learning-next:hover,
 .learning-slider-section .learning-prev:hover {
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
 .learning-slider-section .learning-next svg,
@@ -4766,16 +4777,20 @@ body.no-scroll {
 }
 
 .learning-slider-section .learning-prev {
-  left: 10px;
+  left: 50%;
+  transform: translateX(calc(-100% - 4px));
 }
 
 .learning-slider-section .learning-next {
-  right: 10px;
+  left: 50%;
+  transform: translateX(4px);
 }
 
 @media (max-width: 900px) {
   .learning-slider-pagination {
-    text-align: left;
+    bottom: 68px;
+    background-color: rgba(248, 255, 251, 1);
+    padding: 2px 0 2px 10px;
   }
 
   .learning-slider-section .learning-slider-content .swiper {
@@ -4792,10 +4807,11 @@ body.no-scroll {
     .swiper
     .swiper-slide.swiper-slide-active {
     width: 78% !important;
+    height: 300px !important;
   }
 
-  .learning-slider-section .learning-slider-content .image-card img {
-    padding: 10px;
+  .learning-slider-section .learning-slider-content .image-card {
+    padding: 14px;
   }
 
   .learning-slider-section .learning-slider-content .learning-slider-card {
@@ -4809,6 +4825,19 @@ body.no-scroll {
     .learning-slider-card
     p {
     max-height: 100px;
+  }
+
+  .learning-slider-section .learning-next,
+  .learning-slider-section .learning-prev {
+    width: 40px;
+    height: 40px;
+    bottom: 8px;
+  }
+
+  .learning-slider-section .learning-next svg,
+  .learning-slider-section .learning-prev svg {
+    width: 16px;
+    height: 16px;
   }
 
   .course-banner-section {
