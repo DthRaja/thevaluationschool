@@ -35,6 +35,12 @@ const Header = async () => {
     console.error("Course dropdown API error:", error);
   }
 
+  // TODO: remove this filter once other course pages are built — for now
+  // only the AVFM page exists, so the dropdown should offer just that.
+  courses = courses.filter(
+    (course) => course.PageName?.trim().toUpperCase() === "AVFM",
+  );
+
   return <Navbar courses={courses} />;
 };
 

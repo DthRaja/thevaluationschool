@@ -198,8 +198,8 @@ body.no-scroll {
   flex-direction: column;
   gap: 2px;
   list-style: none;
-  margin: 10px 0 0;
-  padding: 10px;
+  margin: 5px 0 0;
+  padding: 0;
   min-width: 240px;
   background-color: #fff;
   border-radius: 12px;
@@ -222,6 +222,17 @@ body.no-scroll {
   pointer-events: auto;
 }
 
+/* Forces the dropdown shut right after a menu item is clicked, overriding
+   lingering :hover/:focus-within that would otherwise persist across a
+   client-side navigation (the mouse position and the just-clicked link's
+   focus don't reset on their own when the route changes). */
+.header-container .menu-col ul li.dropdown.dropdown-closing .dropdown-menu {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateX(-50%) translateY(10px) !important;
+}
+
 .header-container .menu-col ul li.dropdown .dropdown-menu li {
   width: 100%;
 }
@@ -230,7 +241,7 @@ body.no-scroll {
 .header-container .menu-col ul li.dropdown .dropdown-menu .dropdown-item-text {
   display: block;
   width: 100%;
-  padding: 10px 15px;
+  padding: 16px 15px;
   border-radius: 8px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
@@ -4578,18 +4589,43 @@ body.no-scroll {
   margin-top: 40px;
 }
 
+.learning-slider-section .learning-slider-content .swiper .swiper-slide {
+  width: calc(34% - 15px) !important;
+  height: 340px;
+  transition: width 0.5s ease;
+}
+
+.learning-slider-section
+  .learning-slider-content
+  .swiper
+  .swiper-slide.swiper-slide-active {
+  width: 52% !important;
+}
+
 .learning-slider-section .learning-slider-content .learning-slider-card {
   width: 100%;
-  height: 340px;
+  height: 100%;
   padding: 24px;
   background-color: rgba(228, 243, 235, 1);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.learning-slider-section
+  .learning-slider-content
+  .swiper
+  .swiper-slide.swiper-slide-active
+  .learning-slider-card {
+  flex-direction: row;
+  align-items: center;
 }
 
 .learning-slider-section .learning-slider-content .image-card {
+  position: relative;
   width: 100%;
   flex: 1;
   min-height: 0;
@@ -4599,19 +4635,37 @@ body.no-scroll {
     rgba(128, 179, 157, 0.2) 100%
   );
   border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: width 0.5s ease;
 }
 
-.learning-slider-section .learning-slider-content .swiper .swiper-slide {
-  width: calc(32% - 15px) !important;
-  transition: all 0.3s ease;
+.learning-slider-section
+  .learning-slider-content
+  .swiper
+  .swiper-slide.swiper-slide-active
+  .learning-slider-card
+  .image-card {
+  width: 48%;
+  height: 100%;
+  flex: none;
 }
 
 .learning-slider-section .learning-slider-content .image-card img {
-  width: 96px;
-  height: auto;
+  padding: 20px;
+}
+
+.learning-slider-section .learning-slider-content .details {
+  width: 100%;
+  min-width: 0;
+  transition: width 0.5s ease;
+}
+
+.learning-slider-section
+  .learning-slider-content
+  .swiper
+  .swiper-slide.swiper-slide-active
+  .learning-slider-card
+  .details {
+  width: 52%;
 }
 
 .learning-slider-section .learning-slider-content h3 {
@@ -4620,6 +4674,18 @@ body.no-scroll {
   font-size: 22px;
   color: rgba(23, 23, 23, 1);
   margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.learning-slider-section
+  .learning-slider-content
+  .swiper
+  .swiper-slide.swiper-slide-active
+  .learning-slider-card
+  h3 {
+  white-space: normal;
 }
 
 .learning-slider-section .learning-slider-content p {
@@ -4628,7 +4694,26 @@ body.no-scroll {
   font-size: 15px;
   line-height: 1.5;
   color: rgba(17, 24, 39, 0.7);
-  margin-bottom: 0px;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    opacity 0.3s ease,
+    max-height 0.5s ease;
+}
+
+.learning-slider-section
+  .learning-slider-content
+  .swiper
+  .swiper-slide.swiper-slide-active
+  .learning-slider-card
+  p {
+  max-height: 160px;
+  opacity: 1;
+  transition:
+    opacity 0.35s ease 0.15s,
+    max-height 0.5s ease;
 }
 
 .learning-slider-section .learning-slider-content .swiper {
@@ -4651,6 +4736,9 @@ body.no-scroll {
 
 .learning-slider-section .learning-next,
 .learning-slider-section .learning-prev {
+  position: absolute;
+  border: none;
+  cursor: pointer;
   color: var(--primary-color);
   background: #fff;
   border-radius: 50%;
@@ -4663,6 +4751,18 @@ body.no-scroll {
   z-index: 20;
   top: 50%;
   transform: translateY(-50%);
+  transition: box-shadow 0.2s ease;
+}
+
+.learning-slider-section .learning-next:hover,
+.learning-slider-section .learning-prev:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+}
+
+.learning-slider-section .learning-next svg,
+.learning-slider-section .learning-prev svg {
+  width: 18px;
+  height: 18px;
 }
 
 .learning-slider-section .learning-prev {
@@ -4671,17 +4771,6 @@ body.no-scroll {
 
 .learning-slider-section .learning-next {
   right: 10px;
-}
-
-.learning-slider-section .learning-next::after,
-.learning-slider-section .learning-prev::after {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.learning-slider-section .learning-next.swiper-button-lock,
-.learning-slider-section .learning-prev.swiper-button-lock {
-  display: none !important;
 }
 
 @media (max-width: 900px) {
@@ -4694,17 +4783,32 @@ body.no-scroll {
   }
 
   .learning-slider-section .learning-slider-content .swiper .swiper-slide {
-    width: calc(78% - 15px) !important;
-    transition: all 0.3s ease;
+    width: calc(48% - 15px) !important;
+    height: 220px;
+  }
+
+  .learning-slider-section
+    .learning-slider-content
+    .swiper
+    .swiper-slide.swiper-slide-active {
+    width: 78% !important;
   }
 
   .learning-slider-section .learning-slider-content .image-card img {
-    width: 72px;
+    padding: 10px;
   }
 
   .learning-slider-section .learning-slider-content .learning-slider-card {
-    height: 220px;
-    padding: 18px;
+    padding: 16px;
+  }
+
+  .learning-slider-section
+    .learning-slider-content
+    .swiper
+    .swiper-slide.swiper-slide-active
+    .learning-slider-card
+    p {
+    max-height: 100px;
   }
 
   .course-banner-section {

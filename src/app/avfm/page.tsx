@@ -33,13 +33,13 @@ export default async function AVFM() {
     <>
       <Banner data={bannerApiData}/>
       <BannerDownSection />
+      <PlansEveryone linkId={bannerApiData.LinkId} />
       <WhatLearn />
       <Practicallearning />
       <LearningModules
         courseId={bannerApiData.CourseId}
         demoVideoLink={bannerApiData.WebsiteDemoVideoLink}
       />
-      <PlansEveryone linkId={bannerApiData.LinkId} />
       <ReviewSection />
       <TakeThisCourse />
       <FAQ courseId={bannerApiData.CourseId} />

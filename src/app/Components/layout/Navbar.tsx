@@ -56,6 +56,8 @@ const Navbar = ({ courses }: NavbarProps) => {
 
   const [mobileCourseOpen, setMobileCourseOpen] = useState(false);
 
+  const [desktopDropdownClosing, setDesktopDropdownClosing] = useState(false);
+
   const currentPath = normalizePath(pathname);
 
   /**
@@ -180,6 +182,21 @@ const Navbar = ({ courses }: NavbarProps) => {
     setMobileCourseOpen(false);
   };
 
+  /**
+   * -------------------------------------------------
+   * CLOSE DESKTOP COURSES DROPDOWN
+   * -------------------------------------------------
+   * The dropdown opens on CSS :hover/:focus-within (no JS state), so
+   * clicking a link doesn't close it on its own — the mouse is still over
+   * the same fixed-header spot and the clicked link keeps focus across the
+   * client-side navigation. Force it shut on click, then let normal hover
+   * behavior resume once the mouse actually leaves the dropdown.
+   */
+  const closeDesktopDropdown = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    setDesktopDropdownClosing(true);
+    e.currentTarget.blur();
+  };
+
   return (
     <>
       <header
@@ -263,7 +280,10 @@ const Navbar = ({ courses }: NavbarProps) => {
                 ============================ */}
 
                 <li
-                  className={`dropdown ${isCourseActive ? "active-item" : ""}`}
+                  className={`dropdown ${isCourseActive ? "active-item" : ""} ${
+                    desktopDropdownClosing ? "dropdown-closing" : ""
+                  }`}
+                  onMouseLeave={() => setDesktopDropdownClosing(false)}
                 >
                   <a
                     href="#"
@@ -289,6 +309,7 @@ const Navbar = ({ courses }: NavbarProps) => {
                               isActive(course.PageUrl) ? "active" : ""
                             }`}
                             href={toSafeHref(course.PageUrl)}
+                            onClick={closeDesktopDropdown}
                           >
                             {course.PageName}
                           </Link>
