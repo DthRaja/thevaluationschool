@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/fonts-global.css";
 import "./css/style.css";
 import "./css/globals.css";
-
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import Header from "./Components/layout/Header";
 import Footer from "./Components/layout/Footer";
@@ -14,6 +13,9 @@ export const metadata: Metadata = {
   title: "The Valuation School",
   description:
     "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.",
+  icons: {
+    icon: "/img/main-logo.jpg",
+  },
 };
 
 // Header reads the incoming request's headers (via ServerApi.getOrigin) on
@@ -26,9 +28,7 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
-export default function RootLayout({
-  children,
-}: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
