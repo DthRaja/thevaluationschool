@@ -35,7 +35,6 @@ export default class ServerApi {
     this.withAuth = !!params.withAuth;
     this.token = params.withAuth ? params.token : undefined;
   }
-  
 
   private async getOrigin(): Promise<string> {
     if (typeof window === "undefined") {
@@ -45,8 +44,7 @@ export default class ServerApi {
 
       const host = h.get("host");
 
-      const protocol =
-        h.get("x-forwarded-proto") || "http";
+      const protocol = h.get("x-forwarded-proto") || "http";
 
       return `${protocol}://${host}`;
     }
@@ -61,7 +59,6 @@ export default class ServerApi {
 
     const res = await fetch(this.uri, {
       method: "POST",
-
       headers: {
         "Content-Type": "application/json",
 
@@ -77,7 +74,7 @@ export default class ServerApi {
           }),
       },
 
-      body: !!reqBody ? JSON.stringify(reqBody): '{}',
+      body: !!reqBody ? JSON.stringify(reqBody) : "{}",
     });
 
     if (res.status === 401) {
