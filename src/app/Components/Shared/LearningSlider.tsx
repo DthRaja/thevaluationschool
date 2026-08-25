@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { type CSSProperties, useId, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { Swiper as SwiperInstance } from "swiper";
+import { Autoplay, EffectFade, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
+import "swiper/css/effect-fade";
 
 export interface LearningSliderCard {
   title: string;
@@ -21,151 +22,202 @@ interface LearningSliderProps {
 }
 
 const AUTOPLAY_DELAY = 2600;
-const TRANSITION_SPEED = 500;
+const CARD_GAP = 15;
+const cardBackground = "#e4f3eb";
+const imageBackground =
+  "linear-gradient(180deg, rgba(116, 209, 169, 0.20) 0%, rgba(128, 179, 157, 0.20) 100%)";
+const headingStyle: CSSProperties = {
+  fontFamily: '"Big Soulder Text", sans-serif',
+  fontWeight: 700,
+  lineHeight: 1.08,
+};
 
-export const LearningSlider = ({ title, description, cards }: LearningSliderProps) => {
-  const swiperRef = useRef<SwiperInstance | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const isPausedRef = useRef(false);
+export const LearningSlider = ({
+  title,
+  description,
+  cards,
+}: LearningSliderProps) => {
+  const navigationId = useId().replace(/:/g, "");
+  const previousClass = `learning-prev-${navigationId}`;
+  const nextClass = `learning-next-${navigationId}`;
   const [activeIndex, setActiveIndex] = useState(0);
-
   const total = cards.length;
 
-  // All navigation (autoplay, arrows, card clicks) goes through this one
-  // path — slideToLoop(realIndex) — instead of Swiper's own slideNext()/
-  // slidePrev()/Autoplay module. Those step via Swiper's internal "snap
-  // grid," which assumes roughly-uniform slide widths; since the active
-  // card is deliberately wider than the rest, that grid doesn't line up
-  // one-to-one with real slides. slideTo/slideToLoop target an explicit
-  // real index directly, sidestepping that mismatch entirely.
-  const goToLoop = useCallback(
-    (index: number) => {
-      const swiper = swiperRef.current;
-
-      if (!swiper || total === 0) return;
-
-      const target = ((index % total) + total) % total;
-
-      swiper.slideToLoop(target, TRANSITION_SPEED);
-    },
-    [total]
-  );
-
-  useEffect(() => {
-    if (total <= 1) return;
-
-    const id = window.setInterval(() => {
-      if (isPausedRef.current) return;
-
-      const swiper = swiperRef.current;
-
-      if (!swiper) return;
-
-      goToLoop(swiper.realIndex + 1);
-    }, AUTOPLAY_DELAY);
-
-    return () => window.clearInterval(id);
-  }, [goToLoop, total]);
-
-  // The active card's width comes from a CSS class Swiper's own layout
-  // engine never queries directly — re-measure once that width transition
-  // actually finishes (not a guessed delay) so slideToLoop keeps landing
-  // on the correct on-screen position for every subsequent navigation.
-  useEffect(() => {
-    const container = containerRef.current;
-
-    if (!container) return;
-
-    const handleTransitionEnd = (e: TransitionEvent) => {
-      if (e.propertyName !== "width") return;
-
-      swiperRef.current?.update();
-    };
-
-    container.addEventListener("transitionend", handleTransitionEnd);
-
-    return () => container.removeEventListener("transitionend", handleTransitionEnd);
-  }, []);
-
-  // One-time correction for the very first render, before any transition
-  // has had a chance to fire — self-heals via the listener above regardless.
-  useEffect(() => {
-    const timer = setTimeout(() => swiperRef.current?.update(), 100);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div className="learning-slider-section">
-      <div className="container">
-        <div className="learning-slider-container">
-          <h3>{title}</h3>
-          <p>{description}</p>
+    <section className="py-5 overflow-hidden" style={{ background: "#f8fffb" }}>
+      <div className="container py-lg-4">
+        <div className="mb-4">
+          <h2 className="mb-2" style={{ ...headingStyle, fontSize: 48 }}>
+            {title}
+          </h2>
+          <p className="mb-0 text-secondary" style={{ maxWidth: 900 }}>
+            {description}
+          </p>
         </div>
-        <div
-          className="learning-slider-content"
-          ref={containerRef}
-          onMouseEnter={() => {
-            isPausedRef.current = true;
-          }}
-          onMouseLeave={() => {
-            isPausedRef.current = false;
-          }}
-        >
+
+        <div className="position-relative" style={{ height: 420 }}>
           <Swiper
-            className="learning-slider-swiper"
-            slidesPerView="auto"
-            spaceBetween={15}
+            modules={[Autoplay, EffectFade, Navigation]}
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            slidesPerView={1}
+            spaceBetween={0}
             loop={total > 1}
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper;
+            speed={500}
+            autoplay={
+              total > 1
+                ? {
+                    delay: AUTOPLAY_DELAY,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                  }
+                : false
+            }
+            navigation={{
+              prevEl: `.${previousClass}`,
+              nextEl: `.${nextClass}`,
             }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+            style={{ height: 420, overflow: "hidden" }}
           >
-            {cards.map((card, index) => (
-              <SwiperSlide key={card.title} onClick={() => goToLoop(index)}>
-                <div className="learning-slider-card">
-                  <div className="image-card">
-                    <Image
-                      src={card.image}
-                      alt="learning-slider-image"
-                      width={200}
-                      height={200}
-                      style={{ width: "auto", height: "auto" }}
-                    />
-                  </div>
-                  <div className="details">
-                    <h3>{card.title}</h3>
-                    <p>{card.description}</p>
-                  </div>
+            {cards.map((_, frameIndex) => {
+            const visibleCards = Array.from(
+              { length: Math.min(4, total) },
+              (__, position) => cards[(frameIndex + position) % total],
+            );
+
+            return (
+              <SwiperSlide key={`learning-frame-${frameIndex}`}>
+                <div
+                  className="d-flex align-items-start h-100"
+                  style={{ gap: CARD_GAP }}
+                >
+                  {visibleCards.map((card, position) => {
+                    const isFeatured = position === 0;
+
+                    return (
+                      <article
+                        key={`${frameIndex}-${position}-${card.title}`}
+                        className={`d-flex flex-shrink-0 p-3 p-lg-4 overflow-hidden ${
+                          isFeatured
+                            ? "flex-column flex-md-row align-items-stretch gap-3"
+                            : "flex-column justify-content-between gap-3"
+                        }`}
+                        style={{
+                          width: isFeatured
+                            ? "min(510px, 86vw)"
+                            : "min(245px, 62vw)",
+                          height: isFeatured ? 420 : 308,
+                          background: cardBackground,
+                          borderRadius: 20,
+                        }}
+                      >
+                        <div
+                          className="d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{
+                            width: isFeatured ? undefined : "100%",
+                            flex: isFeatured ? "0 0 54%" : "1 1 auto",
+                            minHeight: 0,
+                            padding: 20,
+                            background: imageBackground,
+                            borderRadius: 15,
+                          }}
+                        >
+                          <Image
+                            src={card.image}
+                            alt={card.title}
+                            width={200}
+                            height={200}
+                            sizes={isFeatured ? "275px" : "200px"}
+                            style={{
+                              width: "auto",
+                              height: "auto",
+                              maxWidth: "100%",
+                              maxHeight: "100%",
+                              objectFit: "contain",
+                            }}
+                          />
+                        </div>
+
+                        <div
+                          className={`d-flex flex-column ${
+                            isFeatured
+                              ? "flex-grow-1 justify-content-end pb-md-1"
+                              : "flex-grow-0 justify-content-center"
+                          }`}
+                          style={{ minWidth: 0 }}
+                        >
+                          <h3
+                            className="mb-0"
+                            style={{
+                              ...headingStyle,
+                              fontSize: 25,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {card.title}
+                          </h3>
+
+                          {isFeatured && (
+                            <p
+                              className="mt-3 mb-0 text-secondary"
+                              style={{ fontSize: 16, lineHeight: 1.5 }}
+                            >
+                              {card.description}
+                            </p>
+                          )}
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
               </SwiperSlide>
-            ))}
+            );
+            })}
           </Swiper>
 
-          <button
-            type="button"
-            className="learning-prev"
-            aria-label="Previous slide"
-            onClick={() => goToLoop(activeIndex - 1)}
+          <div
+            className="position-absolute d-flex gap-3"
+            style={{
+              left: "min(545px, calc(86vw + 20px))",
+              bottom: 12,
+              zIndex: 10,
+            }}
           >
-            <ChevronLeft aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className="learning-next"
-            aria-label="Next slide"
-            onClick={() => goToLoop(activeIndex + 1)}
-          >
-            <ChevronRight aria-hidden="true" />
-          </button>
+            {total > 1 && (
+              <>
+                <button
+                  type="button"
+                  className={`btn btn-light d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm border ${previousClass}`}
+                  aria-label="Previous slide"
+                  style={{ width: 50, height: 50 }}
+                >
+                  <ChevronLeft aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  className={`btn btn-light d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm border ${nextClass}`}
+                  aria-label="Next slide"
+                  style={{ width: 50, height: 50 }}
+                >
+                  <ChevronRight aria-hidden="true" />
+                </button>
+              </>
+            )}
+          </div>
 
-          <div className="learning-slider-pagination">
-            <span>{activeIndex + 1}</span> of <span>{total}</span>
+          <div
+            className="position-absolute text-secondary"
+            aria-live="polite"
+            style={{ right: 0, bottom: 24, zIndex: 10 }}
+          >
+            <span>{total === 0 ? 0 : activeIndex + 1}</span> of{" "}
+            <span>{total}</span>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

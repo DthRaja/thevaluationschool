@@ -3,11 +3,12 @@ import type { ReactNode } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/fonts-global.css";
-import "./css/style.css";
 import "./css/globals.css";
+import "./css/style.css";
 
-import Header from "./Components/layout/Header";
+import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
+import Header from "./Components/layout/Header";
 
 export const metadata: Metadata = {
   title: "The Valuation School",
@@ -18,23 +19,23 @@ export const metadata: Metadata = {
   },
 };
 
-// Header reads the incoming request's headers (via ServerApi.getOrigin) on
-// every route to satisfy the backend's origin check, so no route under this
-// layout can be statically rendered — mark the whole app dynamic instead of
-// letting Next fail trying to prerender a shell around a per-request header read.
+
 export const dynamic = "force-dynamic";
 
 interface RootLayoutProps {
   children: ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+
+
   return (
     <html lang="en">
       <body>
         <Header />
 
         <main>{children}</main>
+        <ContactSectionWrapper />
         <Footer />
       </body>
     </html>

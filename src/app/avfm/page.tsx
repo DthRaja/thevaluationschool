@@ -27,11 +27,11 @@ export default async function AVFM() {
   const bannerApiData: Partial<IBannerApi> =
     convertData(BannerApiJson?.result) || {};
 
-    console.log(bannerApiData)
+  // console.log(bannerApiData)
 
   return (
     <>
-      <Banner data={bannerApiData}/>
+      <Banner data={bannerApiData} />
       <BannerDownSection />
       <PlansEveryone linkId={bannerApiData.LinkId} />
       <WhatLearn />
