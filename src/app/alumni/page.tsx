@@ -4,6 +4,7 @@ import ServerApi from '@/utils/Server';
 import Companies from './Components/Companies';
 import convertData from '@/utils/convartData';
 import ReviewAlumni from './Components/ReviewAlumni';
+import ReviewForm from './Components/ReviewForm';
 
 export default async function Alumni() {
     const CompaniesApi = new ServerApi({
@@ -27,6 +28,7 @@ export default async function Alumni() {
     <Banner/>
     <Companies data={companiesData}/>
     <ReviewAlumni />
+    <ReviewForm />
     </>
   )
 }
