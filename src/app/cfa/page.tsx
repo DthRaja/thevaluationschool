@@ -1,7 +1,6 @@
-import React from "react";
-import Banner, { IBannerApi } from "./components/Banner";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import Banner, { IBannerApi } from "./components/Banner";
 import BannerDownSection from "./components/BannerDownSection";
 import CfaDetails from "./components/CfaDetails";
 import LearningModules from "./components/LearningModules";
@@ -10,6 +9,8 @@ import Practicallearning from "./components/Practicallearning";
 import ReviewSection from "./components/ReviewSection";
 import FAQ from "./components/FAQ";
 import PlansEveryone from "./components/PlansEveryone";
+import CarrierAfterCfa from "./components/CarrierAfterCfa";
+import YoutubeSection from "./components/YoutubeSection";
 
 export default async function CFA() {
   const BannerApi = new ServerApi({
@@ -26,22 +27,23 @@ export default async function CFA() {
 
   const bannerApiData: Partial<IBannerApi> =
     convertData(BannerApiJson?.result) || {};
-    console.log(bannerApiData)
 
   return (
     <>
       <Banner data={bannerApiData} />
       <BannerDownSection />
-      <PlansEveryone linkId={bannerApiData.LinkId}/>
-      <CfaDetails courseId={bannerApiData.CourseId} />
+      <PlansEveryone linkId={bannerApiData.LinkId} />
+      <CfaDetails />
       <LearningModules
         courseId={1932}
         demoVideoLink={bannerApiData.WebsiteDemoVideoLink}
       />
       <PracticalModules />
       <Practicallearning />
+      <CarrierAfterCfa />
       <ReviewSection />
       <FAQ courseId={1932} />
+      <YoutubeSection />
     </>
   );
 }

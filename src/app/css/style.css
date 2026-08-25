@@ -1487,6 +1487,24 @@ body.no-scroll {
   margin-bottom: 100px;
 }
 
+.cfa-youtube {
+  margin-top: 160px;
+}
+
+.youtube-box {
+  padding: 0 50px 50px 50px;
+}
+
+@media screen and (max-width: 599px) {
+  .cfa-youtube {
+    margin-top: 160px;
+  }
+
+  .youtube-box {
+    padding: 0 10px;
+  }
+}
+
 .youtube-container {
   width: 100%;
   display: flex;
@@ -1604,96 +1622,95 @@ body.no-scroll {
 }
 
 .yout-tube-content-container .custom-btn .lines-effect-icon {
-    position: absolute;
-    right: -40px;
-    bottom: 55px;
+  position: absolute;
+  right: -40px;
+  bottom: 55px;
 }
 
 .youtube-playlist {
-    color: rgb(33, 37, 41);
-    text-decoration: none;
-    font-size: 22px;
+  color: rgb(33, 37, 41);
+  text-decoration: none;
+  font-size: 22px;
 }
 
 .youtube-playlist:hover {
-    text-decoration: underline;
-    color: rgb(33, 37, 41);
+  text-decoration: underline;
+  color: rgb(33, 37, 41);
 }
 
 .yout-tube-content-container h3 {
-    margin-top: 40px;
-    margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 .yout-tube-content-container ul li {
-    margin-bottom: 34px;
+  margin-bottom: 34px;
 }
 
 .yout-tube-content-container .custom-btn {
-    margin-top: 80px;
+  margin-top: 80px;
 }
 
 .yout-tube-content-container {
-    margin-top: 45px;
+  margin-top: 45px;
 }
 
 .yout-tube-content-container.top {
-    display: none;
+  display: none;
 }
 
 @media screen and (max-width: 1199px) {
-    .yout-tube-content-container.top {
-        display: block;
-    }
+  .yout-tube-content-container.top {
+    display: block;
+  }
 
-    .yout-tube-content-container span {
-        display: none;
-    }
+  .yout-tube-content-container span {
+    display: none;
+  }
 
-    .yout-tube-content-container h3 {
-        display: none;
-    }
+  .yout-tube-content-container h3 {
+    display: none;
+  }
 
-    .yout-tube-content-container .description {
-        display: none;
-    }
+  .yout-tube-content-container .description {
+    display: none;
+  }
 }
 
 .yout-tube-content-container.top span {
-    display: flex;
+  display: flex;
 }
 
 .yout-tube-content-container.top h3 {
-    display: block;
+  display: block;
 }
 
 .yout-tube-content-container.top .description {
-    display: block;
+  display: block;
 }
 
 @media screen and (max-width: 1399px) {
-    .yout-tube-content-container .custom-btn {
-        margin-top: 60px;
-    }
+  .yout-tube-content-container .custom-btn {
+    margin-top: 60px;
+  }
 
-    .yout-tube-content-container {
-        margin-top: 20px;
-    }
+  .yout-tube-content-container {
+    margin-top: 20px;
+  }
 
-    .yout-tube-content-container ul li {
-        margin-bottom: 26px;
-    }
+  .yout-tube-content-container ul li {
+    margin-bottom: 26px;
+  }
 }
 
 @media screen and (max-width: 599px) {
-    .yout-tube-content-container .custom-btn {
-        margin-top: 60px;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  .yout-tube-content-container .custom-btn {
+    margin-top: 60px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
-
 
 /* ===============================
    YOUTUBE HERO SWIPER
@@ -3590,7 +3607,7 @@ body.no-scroll {
 }
 
 .course-learning-modules {
-  margin-top: 200px;
+  margin-top: 50px;
 }
 
 .course-learning-modules .course-learning-modules-container {
@@ -5766,11 +5783,20 @@ body.no-scroll {
 }
 
 .course-cfa-details .what-is-cfa-content .slider-col .swiper {
-  height: 700px !important;
+  height: auto;
   padding-left: 50px;
-  padding-right: 20px;
+  padding-right: 40px;
   padding-top: 20px;
   padding-bottom: 20px;
+  overflow: hidden;
+}
+
+.course-cfa-details .what-is-cfa-content .slider-col .swiper .swiper-wrapper {
+  flex-direction: row;
+}
+
+.course-cfa-details .what-is-cfa-content .slider-col .swiper .swiper-slide {
+  height: auto;
 }
 
 .course-cfa-details
@@ -5859,8 +5885,26 @@ body.no-scroll {
   .slider-col
   .swiper
   .swiper-pagination {
-  right: 0px;
+  left: auto !important;
+  right: 0px !important;
+  top: 50% !important;
+  bottom: auto !important;
+  width: auto !important;
+  transform: translateY(-50%);
   z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.course-cfa-details
+  .what-is-cfa-content
+  .slider-col
+  .swiper
+  .swiper-pagination
+  .swiper-pagination-bullet {
+  margin: 0 !important;
 }
 
 .course-cfa-details .what-is-cfa-content .what-is-cfa-card img:nth-child(1) {
@@ -6335,11 +6379,12 @@ body.no-scroll {
   border-radius: 20px;
   border: 1px solid rgba(167, 167, 167, 1);
   box-shadow: 0px 12px 20px 0px rgba(0, 0, 0, 0.08);
+  height: 300px;
 }
 
 .carrier-after-cfa .carrier-after-cfa-container .carrier-after-cfa-swiper {
   width: 100%;
-  height: 330px;
+  height: 400px;
 }
 
 .carrier-after-cfa

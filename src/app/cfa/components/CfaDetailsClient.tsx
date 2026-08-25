@@ -178,6 +178,7 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                 modules={[Autoplay, Pagination]}
                 direction="horizontal"
                 slidesPerView={1}
+                autoHeight
                 loop
                 speed={700}
                 pagination={{ clickable: true }}
@@ -260,7 +261,7 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
           </div>
         </div>
 
-        <div className={`how-to-become${activeTab !== 2 ? " hidden" : ""}`}>
+        <div className={`how-to-become${activeTab !== 2 ? " hidden" : ""}`} >
           <div className="how-to-become-cards">
             {HOW_TO_BECOME.map(({ image, title, description }) => (
               <div className="how-to-become-card" key={title}>
