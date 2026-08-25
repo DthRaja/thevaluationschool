@@ -1603,6 +1603,98 @@ body.no-scroll {
   background-color: var(--dark-primary-color);
 }
 
+.yout-tube-content-container .custom-btn .lines-effect-icon {
+    position: absolute;
+    right: -40px;
+    bottom: 55px;
+}
+
+.youtube-playlist {
+    color: rgb(33, 37, 41);
+    text-decoration: none;
+    font-size: 22px;
+}
+
+.youtube-playlist:hover {
+    text-decoration: underline;
+    color: rgb(33, 37, 41);
+}
+
+.yout-tube-content-container h3 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.yout-tube-content-container ul li {
+    margin-bottom: 34px;
+}
+
+.yout-tube-content-container .custom-btn {
+    margin-top: 80px;
+}
+
+.yout-tube-content-container {
+    margin-top: 45px;
+}
+
+.yout-tube-content-container.top {
+    display: none;
+}
+
+@media screen and (max-width: 1199px) {
+    .yout-tube-content-container.top {
+        display: block;
+    }
+
+    .yout-tube-content-container span {
+        display: none;
+    }
+
+    .yout-tube-content-container h3 {
+        display: none;
+    }
+
+    .yout-tube-content-container .description {
+        display: none;
+    }
+}
+
+.yout-tube-content-container.top span {
+    display: flex;
+}
+
+.yout-tube-content-container.top h3 {
+    display: block;
+}
+
+.yout-tube-content-container.top .description {
+    display: block;
+}
+
+@media screen and (max-width: 1399px) {
+    .yout-tube-content-container .custom-btn {
+        margin-top: 60px;
+    }
+
+    .yout-tube-content-container {
+        margin-top: 20px;
+    }
+
+    .yout-tube-content-container ul li {
+        margin-bottom: 26px;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .yout-tube-content-container .custom-btn {
+        margin-top: 60px;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
 /* ===============================
    YOUTUBE HERO SWIPER
 =============================== */
@@ -6279,6 +6371,18 @@ body.no-scroll {
   width: 60% !important;
 }
 
+.course-plan .course-plan-container .course-plan-cards.single-plan {
+  width: 100%;
+  max-width: 420px;
+}
+
+.course-plan
+  .course-plan-container
+  .course-plan-cards.single-plan
+  .course-plan-card {
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .course-cfa-details .what-is-cfa-content .content-row .content-col {
     width: 100%;
@@ -6907,6 +7011,50 @@ body.no-scroll {
 .enter-review-section .enter-review-container .image-area img {
   width: 200px;
   margin: 0 auto;
+}
+
+.enter-review-section .rating {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  user-select: none;
+}
+
+.enter-review-section .rating .star {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.enter-review-section .rating .star svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+  fill: none;
+  stroke: #999;
+  transition: transform 0.12s ease;
+}
+
+.enter-review-section .rating .star.filled svg {
+  fill: #f6c21a;
+  stroke: #f6c21a;
+}
+
+.enter-review-section .rating .star:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.enter-review-section .submit-review-button[disabled] {
+  cursor: not-allowed;
+}
+
+.enter-review-section .field-error {
+  color: #d22;
+  margin-top: 6px;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {

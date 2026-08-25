@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Toaster } from "react-hot-toast";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/fonts-global.css";
@@ -37,6 +38,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <main>{children}</main>
         <ContactSectionWrapper />
         <Footer />
+        <Toaster position="top-center" />
       </body>
     </html>
   );

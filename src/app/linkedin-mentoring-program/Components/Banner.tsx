@@ -95,7 +95,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                   <Image
                     className="main-image"
                     src={normalizePath(data.YoutubeThumbnailUrl) as string}
-                    alt="erc course preview"
+                    alt="AVFM course preview"
                     fill
                     sizes="(max-width: 1000px) 100vw, 50vw"
                     preload
@@ -109,7 +109,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                     href={data.HeaderYoutubeLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Watch ERC program overview video"
+                    aria-label="Watch AVFM program overview video"
                   >
                     <span className="play-btn-ring" aria-hidden="true"></span>
                     <Image src="/img/Play.svg" alt="" width={26} height={30} />
