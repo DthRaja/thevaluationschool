@@ -19,11 +19,9 @@ const Banner = () => {
         </p>
       </div>
       <div className="banner-image">
-        <Image
+        <img
           src="/img/TVS1-alumni-banner.png"
           alt="alumni-banner"
-          width={500}
-          height={500}
         />
       </div>
     </div>

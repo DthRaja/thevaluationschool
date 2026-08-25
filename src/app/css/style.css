@@ -6434,6 +6434,97 @@ body.no-scroll {
   text-align: center;
 }
 
+/* Alumni companies logo ticker */
+.alumni-companies-section .companies-ticker {
+  --gap: 56px;
+  --pps: 120;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 12px 0;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+
+.alumni-companies-section .ticker-track {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap);
+  will-change: transform;
+  transform: translateX(0);
+}
+
+.alumni-companies-section .companies-ticker.is-ready .ticker-track {
+  animation: alumniCompaniesScroll var(--duration) linear infinite;
+}
+
+.alumni-companies-section .companies-ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes alumniCompaniesScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-1 * var(--distance)));
+  }
+}
+
+.alumni-companies-section .company-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alumni-companies-section .company-card .company-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+  min-width: 160px;
+}
+
+.alumni-companies-section .company-card .company-logo img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+@media (min-width: 1400px) {
+  .alumni-companies-section .company-card .company-logo {
+    height: 110px;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .alumni-companies-section .company-card .company-logo {
+    height: 80px;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .alumni-companies-section .company-card .company-logo {
+    height: 64px;
+    min-width: 120px;
+  }
+}
+
 .alumini-linkdin-section {
   width: 100%;
   margin-top: 100px;
