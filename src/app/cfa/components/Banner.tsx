@@ -2,11 +2,14 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 export interface IBannerApi {
-    HeaderTitle: string;
-    HeaderDescription: string;
-    YoutubeThumbnailUrl: string;
-    HeaderYoutubeLink: string;
-    CourseId: number;
+  HeaderTitle: string;
+  HeaderDescription: string;
+  YoutubeThumbnailUrl: string;
+  HeaderYoutubeLink: string;
+  BrochureLink: string;
+  CourseId: number;
+  WebsiteDemoVideoLink: string;
+  LinkId: number;
 }
 
 const normalizePath = (path?: string) =>

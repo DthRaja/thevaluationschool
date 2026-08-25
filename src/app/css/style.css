@@ -3945,7 +3945,7 @@ body.no-scroll {
   display: flex;
   margin: 0 auto;
   margin-top: 50px;
-  width: 60%;
+  width: 65%;
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
@@ -9379,5 +9379,54 @@ body.no-scroll {
     display: flex;
     flex-direction: row;
     margin-bottom: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .practical-modules
+    .practical-modules-container
+    .practical-card
+    .birght-box.top-right {
+    right: -40px;
+    top: 82px;
+    left: auto;
+  }
+
+  .practical-modules
+    .practical-modules-container
+    .practical-card
+    .birght-box.bottom-right-2 {
+    right: -40px;
+    bottom: -24px;
+    left: auto;
+    padding: 15px 20px;
+    top: auto;
+  }
+
+  .practical-modules
+    .practical-modules-container
+    .practical-card
+    .birght-box.bottom-left-2 {
+    left: -40px;
+    bottom: 10px;
+    padding: 15px 16px;
+    top: auto;
+  }
+
+  .practical-modules
+    .practical-modules-container
+    .practical-card
+    .birght-box.bottom-left {
+    left: -45px;
+    bottom: -14px;
+    top: auto;
+  }
+
+  .practical-modules
+    .practical-modules-container
+    .practical-card
+    .birght-box
+    p {
+    font-size: 11px;
   }
 }
