@@ -8,11 +8,9 @@ interface IEligibilityApiResponse {
   };
 }
 
-interface CfaDetailsProps {
-  courseId?: number;
-}
 
-const CfaDetails = async ({ courseId }: CfaDetailsProps) => {
+
+const CfaDetails = async () => {
   const eligibilityApi = new ServerApi({
     withAuth: false,
     spName: "SPClientAnonymous",
@@ -21,7 +19,7 @@ const CfaDetails = async ({ courseId }: CfaDetailsProps) => {
 
   const eligibilityRes = await eligibilityApi.request({
     UniqueTable: "tblcourse",
-    UniqueTable_Pk: courseId ? String(courseId) : "",
+    UniqueTable_Pk: 1932,
   });
 
   const eligibilityParsed: IEligibilityApiResponse =

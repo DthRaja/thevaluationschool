@@ -1,10 +1,10 @@
-import React from "react";
-import Banner, { IBannerApi } from "./components/Banner";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import Banner, { IBannerApi } from "./components/Banner";
 import BannerDownSection from "./components/BannerDownSection";
-import WhatLearn from "./components/WhatLearn";
 import CfaDetails from "./components/CfaDetails";
+import CarrierAfterCfa from "./components/CarrierAfterCfa";
+import YoutubeSection from "./components/YoutubeSection";
 
 export default async function CFA() {
     const BannerApi = new ServerApi({
@@ -26,8 +26,9 @@ export default async function CFA() {
         <>
             <Banner data={bannerApiData} />
             <BannerDownSection />
-            <CfaDetails courseId={bannerApiData.CourseId} />
-
+            <CfaDetails />
+            <CarrierAfterCfa />
+            <YoutubeSection />
         </>
     );
 }

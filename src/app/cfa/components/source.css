@@ -1,0 +1,460 @@
+:root {
+  --bg: #f6fdf8;
+  --green: #16a34a;
+  --green-700: #15803d;
+  --card: #ffffff;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --radius: 22px;
+}
+
+.wrap {
+  max-width: 1100px;
+}
+
+.cfa-youtube {
+  margin-top: 160px;
+}
+
+.youtube-box {
+  padding: 0 50px 50px 50px;
+}
+
+/* HERO */
+.heroSwiper .swiper-slide img {
+  width: 100%;
+  height: 385px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* BOTTOM STRIP (two big cards + mini box) */
+.bottom-strip {
+  margin-top: 18px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.big-card {
+  flex: 1 1 0;
+  max-width: 48%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  background: #eaeaea;
+  cursor: pointer;
+}
+
+.big-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== MINI BOX: 2x2 grid with +N bottom-right ===== */
+.mini-box {
+  width: 170px;
+  /* room for 2 columns of 72 + gaps */
+  display: grid;
+  grid-template-columns: repeat(2, 72px);
+  grid-template-rows: repeat(2, 72px);
+  gap: 12px;
+  align-items: center;
+  justify-items: center;
+}
+
+.mini-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ddd;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.mini-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.more-bubble {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 18px rgba(22, 163, 74, 0.25);
+  cursor: pointer;
+  grid-column: 2;
+  grid-row: 2;
+  /* lock to bottom-right cell */
+}
+
+/* dots under the strip */
+.dots {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0f5132;
+  opacity: 0.35;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.dot.active {
+  opacity: 1;
+}
+
+/* RIGHT CARD */
+.playlist-box {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.badge-free {
+  background: #fde68a;
+  color: #111827;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.78rem;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.1;
+  margin: 10px 0 6px;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.list-unstyled li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.65rem 0;
+  font-weight: 600;
+  color: #111827;
+}
+
+.list-unstyled i {
+  color: var(--green);
+}
+
+.btn-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--green);
+  border: none;
+  color: #fff;
+  font-weight: 800;
+  border-radius: 14px;
+  padding: 0.9rem 1.25rem;
+  box-shadow: 0 10px 18px rgba(22, 163, 74, 0.25);
+}
+
+.btn-view:hover {
+  background: var(--green-700);
+}
+
+@media (max-width: 991.98px) {
+  .big-card img {
+    height: 130px;
+  }
+
+  .mini-box {
+    width: 156px;
+    grid-template-columns: repeat(2, 64px);
+    grid-template-rows: repeat(2, 64px);
+    gap: 10px;
+  }
+
+  .mini-avatar,
+  .more-bubble {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* Make every slide a positioning context */
+.heroSwiper .swiper-slide {
+  position: relative !important;
+}
+
+/* Only style the main (background) image, not all images inside the slide */
+.heroSwiper .swiper-slide > img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Centered overlay that sits above the image */
+.heroSwiper .play-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  pointer-events: none;
+  /* keeps slide drag/click working */
+}
+
+/* Size the play icon responsively */
+.heroSwiper .play-overlay img {
+  width: clamp(56px, 12%, 120px);
+  height: auto;
+}
+
+/* Smooth transforms for bg image + play icon */
+.heroSwiper .swiper-slide > img {
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
+}
+
+/* Slight zoom + subtle darken on hover/focus */
+.heroSwiper .swiper-slide:hover > img,
+.heroSwiper .swiper-slide:focus-within > img {
+  transform: scale(1.01);
+  filter: brightness(0.9) saturate(1.05);
+}
+
+/* Overlay already centered; add transitions */
+.heroSwiper .play-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.heroSwiper .play-overlay img {
+  width: clamp(56px, 12%, 120px);
+  height: auto;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease,
+    opacity 0.3s ease;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+  opacity: 0.95;
+  will-change: transform, filter;
+}
+
+/* Zoom + glow the play icon */
+.heroSwiper .swiper-slide:hover .play-overlay img,
+.heroSwiper .swiper-slide:focus-within .play-overlay img {
+  transform: scale(1.08);
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.45)) brightness(1.05);
+  opacity: 1;
+}
+
+/* Gentle vignette behind icon for contrast (appears on hover) */
+.heroSwiper .play-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0) 45%,
+    rgba(0, 0, 0, 0.32) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.heroSwiper .swiper-slide:hover .play-overlay::before,
+.heroSwiper .swiper-slide:focus-within .play-overlay::before {
+  opacity: 1;
+}
+
+/* Optional ripple ring when hovered */
+.heroSwiper .play-overlay::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(70px, 15%, 140px);
+  height: clamp(70px, 15%, 140px);
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  transform: translate(-50%, -50%) scale(0.65);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.heroSwiper .swiper-slide:hover .play-overlay::after,
+.heroSwiper .swiper-slide:focus-within .play-overlay::after {
+  animation: heroRipple 1.25s ease-out forwards;
+}
+
+/* Touch feedback */
+.heroSwiper .swiper-slide:active .play-overlay img {
+  transform: scale(1.02);
+}
+
+/* Motion-friendly */
+@keyframes heroRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.65);
+    opacity: 0.65;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroSwiper .swiper-slide > img,
+  .heroSwiper .play-overlay img,
+  .heroSwiper .play-overlay::before {
+    transition: none;
+  }
+
+  .heroSwiper .play-overlay::after {
+    animation: none !important;
+  }
+}
+
+.heroSwiper .slide-link > img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
+}
+
+.heroSwiper .swiper-slide:hover .slide-link > img,
+.heroSwiper .swiper-slide:focus-within .slide-link > img {
+  transform: scale(1.01);
+  filter: brightness(0.9) saturate(1.05);
+}
+
+.yout-tube-content-container .custom-btn .lines-effect-icon {
+  position: absolute;
+  right: -40px;
+  bottom: 55px;
+}
+
+.youtube-playlist {
+  color: #212529;
+  text-decoration: none;
+  font-size: 22px;
+}
+
+.youtube-playlist:hover {
+  text-decoration: underline;
+  color: #212529;
+}
+
+.yout-tube-content-container h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.yout-tube-content-container ul li {
+  margin-bottom: 34px;
+}
+
+.yout-tube-content-container .custom-btn {
+  margin-top: 80px;
+}
+
+.yout-tube-content-container {
+  margin-top: 25px;
+}
+
+.yout-tube-content-container.top {
+  display: none;
+}
+
+@media screen and (max-width: 1199px) {
+  .yout-tube-content-container.top {
+    display: block;
+  }
+
+  .yout-tube-content-container span {
+    display: none;
+  }
+
+  .yout-tube-content-container h3 {
+    display: none;
+  }
+
+  .yout-tube-content-container .description {
+    display: none;
+  }
+}
+
+.yout-tube-content-container.top span {
+  display: flex;
+}
+
+.yout-tube-content-container.top h3 {
+  display: block;
+}
+
+.yout-tube-content-container.top .description {
+  display: block;
+}
+
+@media screen and (max-width: 1399px) {
+  .yout-tube-content-container .custom-btn {
+    margin-top: 60px;
+  }
+
+  .yout-tube-content-container {
+    margin-top: 20px;
+  }
+
+  .yout-tube-content-container ul li {
+    margin-bottom: 26px;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .cfa-youtube {
+    margin-top: 160px;
+  }
+
+  .youtube-box {
+    padding: 0 10px;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .yout-tube-content-container .custom-btn {
+    margin-top: 60px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
