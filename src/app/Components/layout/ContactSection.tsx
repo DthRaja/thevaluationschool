@@ -364,7 +364,7 @@ const ContactSection = () => {
     return (
         <>
             <section
-                style={{ width: "100%", background: "#f8fffb" }}
+                style={{ width: "100%", background: "#f8fffb", marginTop: "80px" }}
                 aria-labelledby="contact-section-title"
             >
                 <div className="container">

@@ -1,7 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import toast from "react-hot-toast";
+
+export interface ICountryCodeOption {
+  label: string;
+}
+
+interface ContactFormProps {
+  countryCodes: ICountryCodeOption[];
+}
 
 interface FormValues {
   firstName: string;
@@ -13,17 +22,26 @@ interface FormValues {
   message: string;
 }
 
-const initialValues: FormValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  queryType: "",
-  countryCode: "+91",
-  phone: "",
-  message: "",
-};
-
+const DEFAULT_COUNTRY_CODE_LABEL = "IN +91";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const INDIA_PHONE_PATTERN = /^[6-9]\d{9}$/;
+const GENERIC_PHONE_PATTERN = /^\d{7,15}$/;
+
+const getDialCode = (countryCodeLabel: string) => countryCodeLabel.match(/\+\d+/)?.[0] ?? "";
+
+const getInitialValues = (countryCodes: ICountryCodeOption[]): FormValues => {
+  const hasDefault = countryCodes.some((c) => c.label === DEFAULT_COUNTRY_CODE_LABEL);
+
+  return {
+    firstName: "",
+    lastName: "",
+    email: "",
+    queryType: "",
+    countryCode: hasDefault ? DEFAULT_COUNTRY_CODE_LABEL : (countryCodes[0]?.label ?? "+91"),
+    phone: "",
+    message: "",
+  };
+};
 
 const validate = (values: FormValues) => {
   const errors: Partial<Record<keyof FormValues, string>> = {};
@@ -44,8 +62,15 @@ const validate = (values: FormValues) => {
     errors.queryType = "Please select a reason.";
   }
 
-  if (values.phone.trim().length < 6) {
-    errors.phone = "Please enter a valid phone number.";
+  const digits = values.phone.replace(/\D/g, "");
+  const dialCode = getDialCode(values.countryCode);
+  const phoneOk = dialCode === "+91" ? INDIA_PHONE_PATTERN.test(digits) : GENERIC_PHONE_PATTERN.test(digits);
+
+  if (!phoneOk) {
+    errors.phone =
+      dialCode === "+91"
+        ? "For Indian numbers, enter 10 digits starting with 6–9."
+        : "Please enter a valid phone number.";
   }
 
   if (values.message.trim().length < 10) {
@@ -55,10 +80,14 @@ const validate = (values: FormValues) => {
   return errors;
 };
 
-const ContactForm = () => {
-  const [values, setValues] = useState<FormValues>(initialValues);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
+type SubmitStatus = "idle" | "submitting" | "error";
+
+const ContactForm = ({ countryCodes }: ContactFormProps) => {
+  const [values, setValues] = useState<FormValues>(() => getInitialValues(countryCodes));
   const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+
+  const errors = useMemo(() => validate(values), [values]);
 
   const update = <K extends keyof FormValues>(key: K, value: FormValues[K]) => {
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -66,30 +95,53 @@ const ContactForm = () => {
 
   const showError = (field: keyof FormValues) => submitted && !!errors[field];
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const validationErrors = validate(values);
-
-    setErrors(validationErrors);
     setSubmitted(true);
 
-    if (Object.keys(validationErrors).length > 0) {
+    if (Object.keys(errors).length > 0) {
       return;
     }
 
-    const subject = `${values.queryType} — message from ${values.firstName} ${values.lastName}`;
-    const body = [
-      `Name: ${values.firstName} ${values.lastName}`,
-      `Email: ${values.email}`,
-      `Phone: ${values.countryCode} ${values.phone}`,
-      `Reason: ${values.queryType}`,
-      "",
-      "Message:",
-      values.message,
-    ].join("\n");
+    setStatus("submitting");
 
-    window.location.href = `mailto:contact@thevaluationschool.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const digitsOnly = values.phone.replace(/\D/g, "");
+    const dialCode = getDialCode(values.countryCode);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: values.firstName.trim(),
+          lastName: values.lastName.trim(),
+          email: values.email.trim(),
+          digitsOnly,
+          dialCode,
+          queryType: values.queryType,
+          message: values.message.trim(),
+          pageUrl: window.location.href,
+          userAgent: navigator.userAgent,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data?.isSuccess) {
+        toast.success("Thanks! Your message has been sent.");
+        setValues(getInitialValues(countryCodes));
+        setSubmitted(false);
+        setStatus("idle");
+      } else {
+        toast.error(data?.errorMessages?.[0] || "Something went wrong. Please try again.");
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error("Contact form submission failed", err);
+      toast.error("Network error. Please try again.");
+      setStatus("error");
+    }
   };
 
   return (
@@ -222,24 +274,32 @@ const ContactForm = () => {
                           value={values.countryCode}
                           onChange={(e) => update("countryCode", e.target.value)}
                         >
-                          <option value="+91">🇮🇳 +91</option>
-                          <option value="+1">🇺🇸 +1</option>
-                          <option value="+44">🇬🇧 +44</option>
-                          <option value="+971">🇦🇪 +971</option>
-                          <option value="+61">🇦🇺 +61</option>
+                          {countryCodes.length === 0 && (
+                            <option value="+91">+91</option>
+                          )}
+                          {countryCodes.map((c, index) => (
+                            <option key={`${c.label}-${index}`} value={c.label}>
+                              {c.label}
+                            </option>
+                          ))}
                         </select>
 
                         <input
                           type="tel"
                           id="phone"
                           name="phone"
-                          placeholder=""
+                          placeholder={getDialCode(values.countryCode) === "+91" ? "99999 99999" : "Phone number"}
                           required
                           aria-describedby="phoneHelp"
                           className="phone-input"
                           value={values.phone}
-                          onChange={(e) => update("phone", e.target.value)}
+                          onChange={(e) =>
+                            update("phone", e.target.value.replace(/[^0-9+\-\s()]/g, ""))
+                          }
                         />
+                      </div>
+                      <div id="phoneHelp" className="form-text">
+                        For India (+91): 10 digits, starts with 6–9.
                       </div>
                       <div className="invalid-feedback">
                         Please enter a valid phone number.
@@ -269,8 +329,9 @@ const ContactForm = () => {
                         type="submit"
                         id="submitBtn"
                         className="custom-btn"
+                        disabled={status === "submitting"}
                       >
-                        Send Message
+                        {status === "submitting" ? "Sending..." : "Send Message"}
                       </button>
                     </div>
                   </div>

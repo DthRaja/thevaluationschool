@@ -33,7 +33,7 @@ const YouTubePlaylist = ({ data }: { data: IYouTubePlaylist[] }) => {
   return (
     <>
       <div className="you-tube-section">
-        <div className="container pt-5">
+        <div className="container">
           <div className="row g-4 align-items-start">
             <div className="yout-tube-content-container top">
               <span>FREE</span>

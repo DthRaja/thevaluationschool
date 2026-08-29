@@ -253,7 +253,7 @@ const Footer = () => {
                     </p>
                   </div>
 
-                  <div className="footer-down-section-full-col">
+                  <div className="footer-down-section-full-col last">
                     <div className="small-border"></div>
                     <p>
                       © 2025{" "}

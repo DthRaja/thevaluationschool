@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useId, useState } from "react";
-import { Minus, Plus } from "lucide-react";
 import type { ICountryCodeOption, ICountryOption, ILearningModule } from "./LearningModules";
 import { BrochureIcon, PlayCircleIcon } from "./LearningModulesIcons";
 import BrochureModal from "./BrochureModal";
@@ -19,7 +18,6 @@ const LearningModulesClient = ({
   countries,
   demoVideoLink,
 }: LearningModulesClientProps) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(modules.length > 0 ? 0 : null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const rawIdSuffix = useId().replace(/:/g, "");
@@ -58,38 +56,19 @@ const LearningModulesClient = ({
             <div className="course-learning-modules-content" id="LearningModulesAnswer">
               {modules.length === 0 && <p>No Learning Modules available at the moment.</p>}
 
-              {modules.map((mod, index) => {
-                const isActive = openIndex === index;
-
-                return (
-                  <div
-                    className={`course-learning-modules-content-item${isActive ? " active" : ""}`}
-                    key={`${mod.number}-${index}`}
-                  >
-                    <div className="tab">
-                      <div>
-                        <h3>{mod.number}</h3>
-                        <p>{mod.label}</p>
-                      </div>
-                      <button
-                        type="button"
-                        aria-expanded={isActive}
-                        aria-label={isActive ? `Collapse ${mod.label}` : `Expand ${mod.label}`}
-                        onClick={() => setOpenIndex(isActive ? null : index)}
-                      >
-                        <Plus aria-hidden="true" />
-                        <Minus aria-hidden="true" />
-                      </button>
-                    </div>
-                    <div className="content">
-                      <div
-                        className="content-inner"
-                        dangerouslySetInnerHTML={{ __html: mod.answerHtml }}
-                      />
+              {modules.map((mod, index) => (
+                <div
+                  className="course-learning-modules-content-item"
+                  key={`${mod.number}-${index}`}
+                >
+                  <div className="tab">
+                    <div>
+                      <h3>{mod.number}</h3>
+                      <p>{mod.label}</p>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
 
             <div className="buttons second">

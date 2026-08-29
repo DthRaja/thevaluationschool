@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 import type { CourseMenuItem } from "./Header";
 
@@ -439,6 +440,7 @@ const Navbar = ({ courses }: NavbarProps) => {
                       }
                     >
                       All Courses
+                      {/* <ChevronDown aria-hidden="true" className="dropdown-caret" /> */}
                     </button>
 
                     <ul className="dropdown-menu">

@@ -178,11 +178,24 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                 modules={[Autoplay, Pagination]}
                 direction="horizontal"
                 slidesPerView={1}
+                spaceBetween={20}
                 autoHeight
                 loop
                 speed={700}
                 pagination={{ clickable: true }}
-                autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                breakpoints={{
+                  500: {
+                    slidesPerView: 1.2,
+                    direction: "horizontal",
+                  },
+                  1200: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                    direction: "vertical",
+                    autoHeight: false,
+                  },
+                }}
               >
                 {TESTIMONIALS.map((testimonial) => (
                   <SwiperSlide key={testimonial.name}>

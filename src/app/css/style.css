@@ -358,6 +358,7 @@ body.no-scroll {
   }
   .hero-section .hero-background .student-count img {
     width: 100px;
+    height: auto;
   }
   .hero-section .hero-background .student-count p {
     font-size: 12px;
@@ -460,7 +461,7 @@ body.no-scroll {
 
 @media screen and (max-width: 1000px) {
   .hero-section .hero-background {
-    margin-bottom: 200px;
+    margin-bottom: 140px;
   }
   .hero-section .hero-background .video-section {
     height: 180px;
@@ -1000,7 +1001,8 @@ body.no-scroll {
 
   .about-section .about-container .about-card .image-col .about-section-image {
     right: 0px;
-    width: 200px;
+    width: 220px;
+    bottom: 124px;
   }
 
   .about-section
@@ -1009,12 +1011,12 @@ body.no-scroll {
     .image-col
     .about-section-image {
     right: 0px;
-    width: 150px;
-    bottom: 15px;
+    width: 200px;
+    bottom: 160px;
   }
 
   .about-section .about-container .about-card .image-col .crown-icon {
-    top: -225px;
+    top: -140px;
     right: 40px;
   }
 
@@ -1256,7 +1258,7 @@ body.no-scroll {
 @media screen and (max-width: 1000px) {
   .course-section .course-container {
     padding: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
   }
   .course-section .course-container .course-heading h3 {
     font-size: 35px;
@@ -1298,7 +1300,7 @@ body.no-scroll {
     .course-card
     .course-card-image
     img {
-    height: 250px;
+    height: 200px;
   }
 }
 
@@ -1410,7 +1412,7 @@ body.no-scroll {
 @media screen and (max-width: 1000px) {
   .compaines-section .compaines-heading h3 {
     font-size: 26px;
-    width: 60%;
+    width: 90%;
     display: block;
   }
   .compaines-section .compaines-heading h3 span {
@@ -1483,7 +1485,7 @@ body.no-scroll {
 }
 
 .you-tube-section {
-  margin-top: 120px;
+  margin-top: 100px;
   margin-bottom: 100px;
 }
 
@@ -1497,7 +1499,8 @@ body.no-scroll {
 
 @media screen and (max-width: 599px) {
   .cfa-youtube {
-    margin-top: 160px;
+    margin-top: 60px;
+    margin-bottom: 100px;
   }
 
   .youtube-box {
@@ -1704,6 +1707,15 @@ body.no-scroll {
 }
 
 @media screen and (max-width: 599px) {
+  .yout-tube-content-container h3 {
+    font-size: 34px;
+    margin: 10px 0;
+  }
+
+  .yout-tube-content-container .description {
+    font-size: 22px;
+  }
+
   .yout-tube-content-container .custom-btn {
     margin-top: 60px;
     width: 80%;
@@ -2024,7 +2036,7 @@ body.no-scroll {
   .yout-tube-content-container {
     width: 100%;
     padding: 20px;
-    margin-top: 50px;
+    margin-top: 0px;
   }
 
   .yout-tube-content-container:not(.top) span {
@@ -2423,6 +2435,15 @@ body.no-scroll {
   }
 }
 
+@media screen and (max-width: 769px) {
+  .footer-section
+    .footer-down-section
+    .footer-down-section-left
+    .footer-down-section-full-col.last {
+    width: 60%;
+  }
+}
+
 .footer-section .footer-container {
   width: 100%;
   position: relative;
@@ -2544,7 +2565,8 @@ body.no-scroll {
   }
 
   .footer-section .footer-down-section .footer-down-section-right img {
-    width: 300px;
+    width: 200px;
+    height: auto;
     right: -20px;
   }
 }
@@ -4306,7 +4328,7 @@ body.no-scroll {
 
 .review-section {
   width: 100%;
-  margin-top: 150px;
+  margin-top: 50px;
 }
 
 .review-section .review-container {
@@ -4562,11 +4584,6 @@ body.no-scroll {
   .have-a-question
   .have-a-question-btn:hover {
   background-color: var(--dark-primary-color);
-}
-
-.frequently-asked-questions-section
-  .frequently-asked-questions-container
-  .questions {
 }
 
 .frequently-asked-questions-section
@@ -5101,6 +5118,7 @@ body.no-scroll {
 
   .course-details-section .course-details-container .course-details-card {
     padding: 16px;
+    display: block;
   }
 
   .course-details-section
@@ -5715,6 +5733,7 @@ body.no-scroll {
   .img-col
   img {
   width: 100%;
+  height: auto;
 }
 
 .course-cfa-details
@@ -5791,7 +5810,11 @@ body.no-scroll {
   overflow: hidden;
 }
 
-.course-cfa-details .what-is-cfa-content .slider-col .swiper .swiper-wrapper {
+.course-cfa-details .what-is-cfa-content .slider-col .swiper.swiper-vertical {
+  height: 600px;
+}
+
+.course-cfa-details .what-is-cfa-content .slider-col .swiper.swiper-horizontal .swiper-wrapper {
   flex-direction: row;
 }
 
@@ -6159,9 +6182,9 @@ body.no-scroll {
 
 .exam-schedule .schedule-table {
   font-family: Arial, sans-serif;
-
   margin: 40px auto;
   color: #000;
+  padding: 12px;
 }
 
 .exam-schedule .header {
@@ -6407,6 +6430,7 @@ body.no-scroll {
   width: 100%;
   margin-top: 20px;
   margin-bottom: 20px;
+  height: auto;
 }
 
 .course-plan
@@ -6431,6 +6455,7 @@ body.no-scroll {
 @media (max-width: 768px) {
   .course-cfa-details .what-is-cfa-content .content-row .content-col {
     width: 100%;
+    padding-right: 0;
   }
 
   .course-cfa-details
@@ -6479,23 +6504,31 @@ body.no-scroll {
     padding-right: 0px !important;
   }
 
+  .course-cfa-details .course-learning-modules-content .tab div p {
+    font-size: 16px;
+  }
+
   .how-to-become .how-to-become-cards {
     flex-wrap: wrap;
   }
   .how-to-become .how-to-become-cards .how-to-become-card {
     width: calc(50% - 15px);
+    height: 324px;
+    padding: 10px 14px;
   }
 
   .how-to-become .how-to-become-cards .how-to-become-card h3 {
-    font-size: 20px;
+    font-size: 14px;
   }
 
   .how-to-become .how-to-become-cards .how-to-become-card p {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   .how-to-become .how-to-become-cards .how-to-become-card img {
-    width: 80px;
+    width: 70px;
+    height: auto;
+    margin: 10px 0;
   }
 
   .how-to-become .how-to-become-cards .how-to-become-card:nth-child(3) {
@@ -6506,23 +6539,40 @@ body.no-scroll {
     margin-top: -80px;
   }
 
-  .exam-schedule .header {
-    grid-template-columns: 0 repeat(5, 1fr);
+  .exam-schedule .schedule-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -12px;
+    padding: 0 12px;
   }
+
+  .exam-schedule .header,
+  .exam-schedule .row {
+    grid-template-columns: 130px repeat(5, minmax(110px, 1fr));
+  }
+
+  .exam-schedule .header .month {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
   .exam-schedule .label {
-    position: absolute;
-    top: -40px;
     font-size: 14px;
   }
 
-  .exam-schedule .section-title {
-    text-align: center;
+  .exam-schedule .cell {
+    height: auto;
+    min-height: 50px;
+    font-size: 13px;
+    padding: 8px;
   }
 
-  .exam-schedule .row {
-    position: relative;
-    grid-template-columns: repeat(5, 1fr);
-    margin-bottom: 50px !important;
+  .course-cfa-details .course-cfa-details-container .tabs {
+    display: block;
+  }
+
+  .course-cfa-details .course-cfa-details-container .tabs .tab {
+    padding: 20px 25px 10px;
   }
 
   .course-cfa-details .course-cfa-details-container .tabs .tab.active p {
@@ -6560,13 +6610,14 @@ body.no-scroll {
     .carrier-after-cfa-swiper
     .carrier-after-cfa-card {
     padding: 15px 10px;
+    height: 230px;
   }
   .carrier-after-cfa
     .carrier-after-cfa-container
     .carrier-after-cfa-swiper
     .carrier-after-cfa-card
     h3 {
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 
@@ -7195,6 +7246,7 @@ body.no-scroll {
   .mobile-menu-logo
   img {
   width: 100%;
+  height: auto;
 }
 
 .mobile-menu-container
@@ -7280,13 +7332,10 @@ body.no-scroll {
   .mobile-menu-list
   ul
   li.dropdown
-  .dropdown-toggle::after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
+  .dropdown-toggle
+  .dropdown-caret {
+  width: 16px;
+  height: 16px;
   transition: transform 0.2s ease;
 }
 
@@ -7295,8 +7344,9 @@ body.no-scroll {
   .mobile-menu-list
   ul
   li.dropdown.open
-  .dropdown-toggle::after {
-  transform: rotate(-135deg);
+  .dropdown-toggle
+  .dropdown-caret {
+  transform: rotate(180deg);
 }
 
 .mobile-menu-container
@@ -9151,7 +9201,7 @@ body.no-scroll {
   }
 
   .header-container .logo-col .logo img {
-    height: 100px;
+    height: auto;
   }
   .filter-select {
     display: none;
