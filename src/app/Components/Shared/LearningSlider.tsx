@@ -1,13 +1,15 @@
 "use client";
 
-import Image from "next/image";
-import React, { type CSSProperties, useId, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { type CSSProperties, useId, useState } from "react";
 import { Autoplay, EffectFade, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
+
+import styles from "./LearningSlider.module.css";
 
 export interface LearningSliderCard {
   title: string;
@@ -25,7 +27,7 @@ const AUTOPLAY_DELAY = 2600;
 const CARD_GAP = 15;
 const cardBackground = "#e4f3eb";
 const imageBackground =
-  "linear-gradient(180deg, rgba(116, 209, 169, 0.20) 0%, rgba(128, 179, 157, 0.20) 100%)";
+  "linear-gradient(180deg, rgba(116, 209, 169, 0.40) 0%, rgba(128, 179, 157, 0.20) 100%)";
 const headingStyle: CSSProperties = {
   fontFamily: '"Big Soulder Text", sans-serif',
   fontWeight: 700,
@@ -67,10 +69,10 @@ export const LearningSlider = ({
             autoplay={
               total > 1
                 ? {
-                    delay: AUTOPLAY_DELAY,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                  }
+                  delay: AUTOPLAY_DELAY,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }
                 : false
             }
             navigation={{
@@ -81,139 +83,151 @@ export const LearningSlider = ({
             style={{ height: 420, overflow: "hidden" }}
           >
             {cards.map((_, frameIndex) => {
-            const visibleCards = Array.from(
-              { length: Math.min(4, total) },
-              (__, position) => cards[(frameIndex + position) % total],
-            );
+              const visibleCards = Array.from(
+                { length: Math.min(4, total) },
+                (__, position) => cards[(frameIndex + position) % total],
+              );
 
-            return (
-              <SwiperSlide key={`learning-frame-${frameIndex}`}>
-                <div
-                  className="d-flex align-items-start h-100"
-                  style={{ gap: CARD_GAP }}
-                >
-                  {visibleCards.map((card, position) => {
-                    const isFeatured = position === 0;
+              return (
+                <SwiperSlide key={`learning-frame-${frameIndex}`}>
+                  <div
+                    className="d-flex align-items-start h-100"
+                    style={{ gap: CARD_GAP }}
+                  >
+                    {visibleCards.map((card, position) => {
+                      const isFeatured = position === 0;
 
-                    return (
-                      <article
-                        key={`${frameIndex}-${position}-${card.title}`}
-                        className={`d-flex flex-shrink-0 p-3 p-lg-4 overflow-hidden ${
-                          isFeatured
+                      return (
+                        <article
+                          key={`${frameIndex}-${position}-${card.title}`}
+                          className={`d-flex flex-shrink-0 p-3 p-lg-4 overflow-hidden ${isFeatured
                             ? "flex-column flex-md-row align-items-stretch gap-3"
                             : "flex-column justify-content-between gap-3"
-                        }`}
-                        style={{
-                          width: isFeatured
-                            ? "min(510px, 86vw)"
-                            : "min(245px, 62vw)",
-                          height: isFeatured ? 420 : 308,
-                          background: cardBackground,
-                          borderRadius: 20,
-                        }}
-                      >
-                        <div
-                          className="d-flex align-items-center justify-content-center flex-shrink-0"
+                            }`}
                           style={{
-                            width: isFeatured ? undefined : "100%",
-                            flex: isFeatured ? "0 0 54%" : "1 1 auto",
-                            minHeight: 0,
-                            padding: 20,
-                            background: imageBackground,
-                            borderRadius: 15,
+                            width: isFeatured
+                              ? "min(510px, 86vw)"
+                              : "min(245px, 62vw)",
+                            height: isFeatured ? 420 : 308,
+                            background: cardBackground,
+                            borderRadius: 20,
                           }}
                         >
-                          <Image
-                            src={card.image}
-                            alt={card.title}
-                            width={200}
-                            height={200}
-                            sizes={isFeatured ? "275px" : "200px"}
+                          <div
+                            className="d-flex align-items-center justify-content-center flex-shrink-0"
                             style={{
-                              width: "auto",
-                              height: "auto",
-                              maxWidth: "100%",
-                              maxHeight: "100%",
-                              objectFit: "contain",
-                            }}
-                          />
-                        </div>
-
-                        <div
-                          className={`d-flex flex-column ${
-                            isFeatured
-                              ? "flex-grow-1 justify-content-end pb-md-1"
-                              : "flex-grow-0 justify-content-center"
-                          }`}
-                          style={{ minWidth: 0 }}
-                        >
-                          <h3
-                            className="mb-0"
-                            style={{
-                              ...headingStyle,
-                              fontSize: 25,
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
+                              width: isFeatured ? undefined : "100%",
+                              flex: isFeatured ? "0 0 54%" : "1 1 auto",
+                              minHeight: 0,
+                              padding: 20,
+                              background: imageBackground,
+                              borderRadius: 15,
                             }}
                           >
-                            {card.title}
-                          </h3>
+                            <Image
+                              src={card.image}
+                              alt={card.title}
+                              width={200}
+                              height={200}
+                              sizes={isFeatured ? "355px" : "200px"}
+                              style={{
+                                width: "auto",
+                                height: "auto",
+                                maxWidth: "100%",
+                                maxHeight: "100%",
+                                objectFit: "contain",
+                              }}
+                            />
+                          </div>
 
-                          {isFeatured && (
-                            <p
-                              className="mt-3 mb-0 text-secondary"
-                              style={{ fontSize: 16, lineHeight: 1.5 }}
+                          <div
+                            className={`d-flex flex-column ${isFeatured
+                              ? "flex-grow-1 justify-content-center pb-md-1"
+                              : "flex-grow-0 justify-content-center"
+                              }`}
+                            style={{ minWidth: 0 }}
+                          >
+                            <h3
+                              className="mb-0"
+                              style={{
+                                ...headingStyle,
+                                fontSize: 25,
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
                             >
-                              {card.description}
-                            </p>
-                          )}
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </SwiperSlide>
-            );
+                              {card.title}
+                            </h3>
+
+                            {isFeatured && (
+                              <p
+                                className="mt-3 mb-0 text-secondary"
+                                style={{ fontSize: 16, lineHeight: 1.5 }}
+                              >
+                                {card.description}
+                              </p>
+                            )}
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                </SwiperSlide>
+              );
             })}
           </Swiper>
 
           <div
-            className="position-absolute d-flex gap-3"
+            className="d-flex align-items-center"
             style={{
-              left: "min(545px, calc(86vw + 20px))",
+              position: "absolute",
               bottom: 12,
+              left: 0,
+              right: 0,
               zIndex: 10,
+              gap: 12,
+              padding: "0 4px",
             }}
           >
-            {total > 1 && (
-              <>
-                <button
-                  type="button"
-                  className={`btn btn-light d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm border ${previousClass}`}
-                  aria-label="Previous slide"
-                  style={{ width: 50, height: 50 }}
-                >
-                  <ChevronLeft aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  className={`btn btn-light d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm border ${nextClass}`}
-                  aria-label="Next slide"
-                  style={{ width: 50, height: 50 }}
-                >
-                  <ChevronRight aria-hidden="true" />
-                </button>
-              </>
-            )}
-          </div>
+            <div className={`d-flex gap-2 gap-sm-3 ${styles.navButtons}`}>
+              {total > 1 && (
+                <>
+                  <button
+                    type="button"
+                    className={`btn btn-light d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm border ${previousClass}`}
+                    aria-label="Previous slide"
+                    style={{
+                      width: "clamp(38px, 9vw, 50px)",
+                      height: "clamp(38px, 9vw, 50px)",
 
-          <div
-            className="position-absolute text-secondary"
-            aria-live="polite"
-            style={{ right: 0, bottom: 24, zIndex: 10 }}
-          >
-            <span>{total === 0 ? 0 : activeIndex + 1}</span> of{" "}
-            <span>{total}</span>
+                    }}
+                  >
+                    <ChevronLeft aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn btn-light d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm border ${nextClass}`}
+                    aria-label="Next slide"
+                    style={{
+                      width: "clamp(38px, 9vw, 50px)",
+                      height: "clamp(38px, 9vw, 50px)",
+
+                    }}
+                  >
+                    <ChevronRight aria-hidden="true" />
+                  </button>
+                </>
+              )}
+            </div>
+
+            <div
+              className="text-secondary flex-shrink-0 ms-auto"
+              aria-live="polite"
+              style={{ zIndex: 10 }}
+            >
+              <span>{total === 0 ? 0 : activeIndex + 1}</span> of{" "}
+              <span>{total}</span>
+            </div>
           </div>
         </div>
       </div>

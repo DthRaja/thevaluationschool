@@ -1,0 +1,17 @@
+.navButtons {
+  margin-left: min(525px, calc(86vw + 15px));
+}
+
+.navButtons button {
+  background-color: #e4f3eb;
+}
+
+@media (max-width: 765px) {
+  .navButtons {
+    margin-left: 0;
+  }
+
+  .navButtons button {
+    background-color: white;
+  }
+}
