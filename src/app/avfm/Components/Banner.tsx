@@ -78,12 +78,6 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                   aria-hidden="true"
                 />
               </a>
-              {/* {data.BrochureLink && (
-                <Link className="btn-hero-secondary" href={data.BrochureLink} target="_blank">
-                  <Download size={18} aria-hidden="true" />
-                  Download Brochure
-                </Link>
-              )} */}
             </div>
           </div>
 

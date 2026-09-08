@@ -31,7 +31,7 @@ const PlanCard = ({ item, isActive }: PlanCardProps) => {
   const packagePriceId = selected?.PackagePriceId ?? item.PackagePriceId;
   const price = selected?.Price ?? item.Price;
 
-  const enrollHref = `/login?redirectUrl=${encodeURIComponent(
+  const enrollHref = `/secure/login?redirectUrl=${encodeURIComponent(
     `/checkout?packageId=${packageId}&priceId=${packagePriceId}`,
   )}`;
 

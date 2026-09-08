@@ -31,7 +31,7 @@ const PlansEveryone = async ({ linkId }: PlansEveryoneProps) => {
 
           <div className="course-plan-cards" id="course-planCard">
             {plans.map((item, index) => {
-              const enrollHref = `/login?redirectUrl=${encodeURIComponent(
+              const enrollHref = `/secure/login?redirectUrl=${encodeURIComponent(
                 `/checkout?packageId=${item.PackageId}&priceId=${item.PackagePriceId}`,
               )}`;
 

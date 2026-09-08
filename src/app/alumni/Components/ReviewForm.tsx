@@ -97,7 +97,7 @@ const ReviewForm = () => {
 
       if (!user) {
         router.push(
-          `/login?redirectUrl=${encodeURIComponent(window.location.href)}`,
+          `/secure/login?redirectUrl=${encodeURIComponent(window.location.href)}`,
         );
         return;
       }

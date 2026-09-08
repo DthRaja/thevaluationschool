@@ -78,7 +78,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                   aria-hidden="true"
                 />
               </a>
-              {data.BrochureLink && (
+              {/* {data.BrochureLink && (
                 <Link
                   className="btn-hero-secondary"
                   href={data.BrochureLink}
@@ -87,7 +87,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                   <Download size={18} aria-hidden="true" />
                   Download Brochure
                 </Link>
-              )}
+              )} */}
             </div>
           </div>
 

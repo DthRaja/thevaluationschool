@@ -39,7 +39,7 @@ const PlansEveryone = async ({ linkId }: PlansEveryoneProps) => {
             id="course-planCard"
           >
             {plans.map((item, index) => {
-              const enrollHref = `/login?redirectUrl=${encodeURIComponent(
+              const enrollHref = `/secure/login?redirectUrl=${encodeURIComponent(
                 `/checkout?packageId=${item.PackageId}&priceId=${item.PackagePriceId}`,
               )}`;
 

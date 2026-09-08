@@ -348,7 +348,7 @@ const Navbar = ({ courses }: NavbarProps) => {
             =============================== */}
 
             <div className="btn-col signupButton">
-              <Link className="custom-btn" href="/login">
+              <Link className="custom-btn" href="/secure/login">
                 Login
               </Link>
             </div>

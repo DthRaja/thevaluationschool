@@ -2574,9 +2574,7 @@ body.no-scroll {
   }
 
   .footer-section .footer-down-section .footer-down-section-right img {
-    width: 200px;
-    height: auto;
-    right: -20px;
+    display: none;
   }
 }
 
@@ -3040,6 +3038,7 @@ body.no-scroll {
   border-color: var(--dark-primary-color);
   transform: translateY(-2px);
   box-shadow: 0 18px 30px -10px rgba(15, 114, 71, 0.55);
+  color: #fff;
 }
 
 .btn-hero-primary:hover .btn-hero-arrow,
@@ -3638,7 +3637,7 @@ body.no-scroll {
 }
 
 .course-learning-modules {
-  margin-top: 50px;
+  margin-top: 110px;
 }
 
 .course-learning-modules .course-learning-modules-container {
@@ -4009,7 +4008,7 @@ body.no-scroll {
   box-shadow: 0px 8px 80px 0px rgba(167, 167, 167, 0.24);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: stretch;
 }
 
 .course-plan
@@ -9967,4 +9966,163 @@ body.no-scroll {
   .blog-article-body .article-content h3 {
     font-size: 19px;
   }
+}
+
+.course-plan .course-plan-container .course-plan-cards .course-plan-card.session {
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: transparent;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-top-style: dashed;
+    border-right-style: dashed;
+    border-bottom-style: dashed;
+    border-left-style: dashed;
+    border-top-color: #c7c7c7;
+    border-right-color: #c7c7c7;
+    border-bottom-color: #c7c7c7;
+    border-left-color: #c7c7c7;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial
+}
+
+.lp2-list {
+    list-style-position: initial;
+    list-style-image: initial;
+    list-style-type: none;
+    margin-top: 14px;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    display: grid;
+    row-gap: 40px;
+    font-family: inherit
+}
+
+.lp2-row {
+    align-items: center;
+    row-gap: 10px;
+    column-gap: 10px
+}
+
+.lp2-num {
+    color: #000;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1
+}
+
+.lp2-title {
+    color: #0f1919;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25
+}
+
+.lp2-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 12px;
+    column-gap: 12px;
+    margin-top: 15px;
+    color: #3c5152;
+    font-size: 15px
+}
+
+.lp2-sep {
+    opacity: .35
+}
+
+.lp2-cal {
+    position: relative;
+    padding-left: 24px
+}
+
+.lp2-time {
+    position: relative;
+    padding-left: 24px
+}
+
+.lp2-cal::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    opacity: .95
+}
+
+.lp2-time::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    opacity: .95
+}
+
+.lp2-cal::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233c5152"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>')
+}
+
+.lp2-time::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233c5152"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm1 12.1l4.2 2.4-1 1.7L11 14V6h2v7.1z"/></svg>')
+}
+
+@media(max-width: 1399px) {
+    .course-plan .course-plan-container .course-plan-cards {
+        width:85%
+    }
+}
+
+@media(max-width: 900px) {
+    .course-plan .course-plan-container .course-plan-cards {
+        width:100%;
+        flex-direction: column
+    }
+}
+
+@media(max-width: 480px) {
+    .lp2-title {
+        font-size:14px
+    }
+
+    .lp2-num {
+        font-size: 14px
+    }
+
+    .lp2-meta {
+        font-size: 14px
+    }
+
+    .course-plan .course-plan-container .course-plan-cards .course-plan-card {
+        padding-top: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        padding-left: 20px
+    }
 }
