@@ -220,13 +220,7 @@ const Footer = () => {
                         <a href="/contact">Contact Us</a>
                       </li>
                       <li>
-                        <a
-                          href="https://blog.thevaluationschool.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Blog
-                        </a>
+                        <a href="/blog">Blog</a>
                       </li>
                       <li>
                         <a href="/alumni">Alumni</a>
