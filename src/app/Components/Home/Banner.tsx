@@ -20,9 +20,9 @@ const Banner = () => {
                         </div>
                         <div className="typography-container">
                             <h1 className="gradient-text">
-                                <span className="gradient-text-1">LET’S</span>
-                                <span className="gradient-text-2">TAKE</span>
-                                <span className="gradient-text-3">IT TO</span>
+                                <span className="gradient-text-1">LET’S</span>{" "}
+                                <span className="gradient-text-2">TAKE</span>{" "}
+                                <span className="gradient-text-3">IT TO</span>{" "}
                                 <span className="gradient-text-4">THE</span>
                                 <br />
                                 NEXT LEVEL TOGETHER!

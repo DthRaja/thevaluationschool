@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import AboutSection from "./Components/Home/AboutSection";
 import Banner from "./Components/Home/Banner";
 import OurCourses from "./Components/Home/OurCourses";
@@ -10,6 +12,16 @@ import YouTubePlaylist, {
 } from "./Components/Home/YouTubePlaylist";
 import convertData from "@/utils/convartData";
 import JoyBringsSection, { IJoyBrings } from "./Components/Home/JoyBringsSection";
+
+export const metadata: Metadata = {
+  title:
+    "The Valuation School | CFA Level 1 Coaching, Valuation & Financial Modelling (AVFM)",
+  description:
+    "Stop memorizing. Start understanding. Master CFA Level 1, valuation & financial modelling (AVFM), equity research and career mentoring with The Valuation School. 20,000+ learners, 350+ hours of lectures.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default async function Home() {
   const StudentsPlacedApi = new ServerApi({

@@ -25,6 +25,7 @@
 
 .header-container .logo-col .logo img {
   width: 100%;
+  height: auto;
 }
 
 .header-container .menu-col {
@@ -55,7 +56,6 @@
   }
   .header-container .logo-col .logo img {
     width: 150px;
-    height: 120px;
   }
   .header-container .logo-col .mobile-menu-icon {
     display: block;
@@ -748,7 +748,7 @@ body.no-scroll {
 
 .about-section .about-container .about-card .image-col .about-section-image {
   position: absolute;
-  right: -100px;
+  right: -70px;
   width: 410px;
   height: auto;
   bottom: 0px;
@@ -786,7 +786,7 @@ body.no-scroll {
 
 .about-section .about-swiper .swiper-pagination {
   top: 50%;
-  left: 275px;
+  left: 7%;
   right: auto;
   bottom: auto;
   width: auto;
@@ -2418,6 +2418,7 @@ body.no-scroll {
 
 .footer-section .footer-down-section .footer-down-section-right img {
   width: 100%;
+  height: auto;
   position: absolute;
   bottom: 0px;
   right: -100px;
@@ -2439,8 +2440,8 @@ body.no-scroll {
 
 @media screen and (max-width: 1200px) {
   .footer-section .footer-down-section .footer-down-section-right img {
-    width: 250px;
-    right: -20px;
+    width: 210px;
+    right: -65px;
   }
 }
 
@@ -4646,7 +4647,7 @@ body.no-scroll {
   .question
   .tab
   button {
-  padding: 10px 16px;
+  padding: 13px 16px;
   border-radius: 50%;
   background-color: white;
   box-shadow: 0px 12px 20px 0px rgba(0, 0, 0, 0.08);
@@ -9214,7 +9215,6 @@ body.no-scroll {
 
   .header-container .logo-col .logo img {
     width: 130px;
-    height: 100%;
   }
   .filter-select {
     display: none;

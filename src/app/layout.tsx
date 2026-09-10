@@ -7,16 +7,21 @@ import "./css/fonts-global.css";
 import "./css/globals.css";
 import "./css/style.css";
 
+import Analytics from "./Components/layout/Analytics";
 import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
 import Header from "./Components/layout/Header";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://thevaluationschool.com"),
   title: "The Valuation School",
   description:
     "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.",
   icons: {
     icon: "/img/main-logo.jpg",
+  },
+  verification: {
+    google: "tuqjc-fdnKAGXcMBQQqRq6Y7XUlVCsTtmHmuB-DwNhI",
   },
 };
 
@@ -39,6 +44,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <ContactSectionWrapper />
         <Footer />
         <Toaster position="top-center" />
+        <Analytics />
       </body>
     </html>
   );

@@ -68,43 +68,77 @@ const HOW_TO_BECOME = [
 ];
 
 const EXAM_MONTHS = [
-  "Feb 2026 (Levels 1 & 3)",
-  "May 2026 (Levels 1 & 2)",
-  "Aug 2026 (All Levels)",
   "Nov 2026 (Levels 1 & 2)",
   "Feb 2027 (Levels 1 & 3)",
+  "May 2027 (Levels 1 & 2)",
+  "Aug 2027 (All Levels)",
+  "Nov 2027 (Levels 1 & 2)",
 ];
 
-const EXAM_ROWS: { section: string; label: string; cells: string[] }[] = [
+const EXAM_ROWS: {
+  section: string;
+  label: string;
+  cells: string[];
+}[] = [
   {
     section: "REGISTRATION",
     label: "Registration Opens",
-    cells: ["29 Apr 2025", "12 Aug 2025", "11 Nov 2025", "11 Feb 2026", "5 May 2026"],
+    cells: [
+      "11 Feb 2026",
+      "5 May 2026",
+      "12 Aug 2026",
+      "3 Nov 2026",
+      "Not yet published",
+    ],
   },
   {
     section: "REGISTRATION",
-    label: "Early Registration deadline",
-    cells: ["7 Jul 2025", "14 Oct 2025", "21 Jan 2026", "15 Apr 2026", "7 Jul 2026"],
+    label: "Early Registration Deadline",
+    cells: [
+      "15 Apr 2026",
+      "7 Jul 2026",
+      "14 Oct 2026",
+      "20 Jan 2027",
+      "Not yet published",
+    ],
   },
   {
     section: "REGISTRATION",
     label: "Final Registration Deadline",
-    cells: ["29 Oct 2025", "12 Feb 2026", "6 May 2026", "11 Aug 2026", "5 Nov 2026"],
+    cells: [
+      "11 Aug 2026",
+      "5 Nov 2026",
+      "10 Feb 2027",
+      "29 Apr 2027",
+      "Not yet published",
+    ],
   },
   {
     section: "CFA® EXAM WINDOWS",
     label: "Level 1",
-    cells: ["02–08 Feb 2026", "12–18 May 2026", "18–24 Aug 2026", "11–17 Nov 2026", "22-28 Feb 2027"],
+    cells: [
+      "11–17 Nov 2026",
+      "22–28 Feb 2027",
+      "11–17 May 2027",
+      "15–22 Aug 2027",
+      "Not yet published",
+    ],
   },
   {
     section: "CFA® EXAM WINDOWS",
     label: "Level 2",
-    cells: ["", "19-23 May 2026", "25-29 Aug 2026", "18-22 Nov 2026", ""],
+    cells: [
+      "18–22 Nov 2026",
+      "—",
+      "18–22 May 2027",
+      "23–27 Aug 2027",
+      "Not yet published",
+    ],
   },
   {
     section: "CFA® EXAM WINDOWS",
     label: "Level 3",
-    cells: ["29 Jan – 01 Feb 2026", "", "13-17 Aug 2026", "", "18-21 Feb 2027"],
+    cells: ["—", "18–21 Feb 2027", "—", "11–14 Aug 2027", "—"],
   },
 ];
 
@@ -148,12 +182,19 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
           </div>
         </div>
 
-        <div className={`what-is-cfa-content${activeTab !== 0 ? " hidden" : ""}`}>
+        <div
+          className={`what-is-cfa-content${activeTab !== 0 ? " hidden" : ""}`}
+        >
           <div className="content-row">
             <div className="content-col">
               <div className="content-col-header">
                 <div className="img-col">
-                  <Image src="/img/cfa-1.png" alt="cfa-icon" width={200} height={200} />
+                  <Image
+                    src="/img/cfa-1.png"
+                    alt="cfa-icon"
+                    width={200}
+                    height={200}
+                  />
                 </div>
                 <div className="content-col-content">
                   <h3>What is CFA® Program</h3>
@@ -163,10 +204,10 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
               <div className="description">
                 <p>
                   The Chartered Financial Analyst (CFA®) Program, offered by CFA
-                  Institute (USA), is the gold standard in global finance. It&apos;s
-                  a rigorous program covering economics, accounting, ethics,
-                  portfolio management, and many more. Recognized in 165+
-                  countries, the CFA® designation opens doors to careers in
+                  Institute (USA), is the gold standard in global finance.
+                  It&apos;s a rigorous program covering economics, accounting,
+                  ethics, portfolio management, and many more. Recognized in
+                  165+ countries, the CFA® designation opens doors to careers in
                   investment banking, equity research, asset management, and
                   beyond.
                 </p>
@@ -183,7 +224,11 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                 loop
                 speed={700}
                 pagination={{ clickable: true }}
-                autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
                 breakpoints={{
                   500: {
                     slidesPerView: 1.2,
@@ -209,10 +254,19 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                       <p>{testimonial.text}</p>
                       <div className="details">
                         <div className="user-image">
-                          <UserCircle2 size={70} strokeWidth={1} aria-hidden="true" />
+                          <UserCircle2
+                            size={70}
+                            strokeWidth={1}
+                            aria-hidden="true"
+                          />
                         </div>
                         <div className="user-details">
-                          <Image src="/img/stars.svg" alt="" width={96} height={19} />
+                          <Image
+                            src="/img/stars.svg"
+                            alt=""
+                            width={96}
+                            height={19}
+                          />
                           <h3>{testimonial.name}</h3>
                           <p>Student The Valuation School</p>
                         </div>
@@ -228,12 +282,17 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
         <div
           className={`eligibility course-learning-modules${activeTab !== 1 ? " hidden" : ""}`}
         >
-          <div className="course-learning-modules-content" id="EligibilityAnswer">
+          <div
+            className="course-learning-modules-content"
+            id="EligibilityAnswer"
+          >
             {eligibilityList.length === 0 ? (
               <></>
             ) : (
               eligibilityList.map((item, index) => {
-                const { title, rest } = splitEligibilityQuestion(item.FaqQuestions);
+                const { title, rest } = splitEligibilityQuestion(
+                  item.FaqQuestions,
+                );
                 const isOpen = eligibilityOpenIndex === index;
 
                 return (
@@ -246,7 +305,9 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                       role="button"
                       tabIndex={0}
                       aria-expanded={isOpen}
-                      onClick={() => setEligibilityOpenIndex(isOpen ? -1 : index)}
+                      onClick={() =>
+                        setEligibilityOpenIndex(isOpen ? -1 : index)
+                      }
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
@@ -259,8 +320,18 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                         <p>{rest}</p>
                       </div>
                       <button type="button" aria-hidden="true" tabIndex={-1}>
-                        <Image src="/img/plus.svg" alt="" width={20} height={20} />
-                        <Image src="/img/minus.svg" alt="" width={20} height={20} />
+                        <Image
+                          src="/img/plus.svg"
+                          alt=""
+                          width={20}
+                          height={20}
+                        />
+                        <Image
+                          src="/img/minus.svg"
+                          alt=""
+                          width={20}
+                          height={20}
+                        />
                       </button>
                     </div>
                     <div
@@ -274,7 +345,7 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
           </div>
         </div>
 
-        <div className={`how-to-become${activeTab !== 2 ? " hidden" : ""}`} >
+        <div className={`how-to-become${activeTab !== 2 ? " hidden" : ""}`}>
           <div className="how-to-become-cards">
             {HOW_TO_BECOME.map(({ image, title, description }) => (
               <div className="how-to-become-card" key={title}>

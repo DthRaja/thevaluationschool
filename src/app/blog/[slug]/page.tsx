@@ -84,6 +84,9 @@ export async function generateMetadata({ params }: BlogDetailsProps): Promise<Me
     title: `${blog.Title} | The Valuation School Blog`,
     description,
     keywords: blog.MetaKeyWords || undefined,
+    alternates: {
+      canonical: `/blog/${blog.Slug}`,
+    },
     openGraph: {
       title: blog.Title,
       description,

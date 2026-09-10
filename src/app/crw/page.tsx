@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 import Banner, { IBannerApi } from "./Components/Banner";
@@ -9,6 +10,13 @@ import LearningModules from "./Components/LearningModules";
 import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
 import FAQ from "./Components/FAQ";
+
+export const metadata: Metadata = {
+  title: "Chart Reading Workshop | Learn Technical Analysis & Price Action",
+  alternates: {
+    canonical: "/crw",
+  },
+};
 
 export default async function CRW() {
   const BannerApi = new ServerApi({

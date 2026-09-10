@@ -33,12 +33,6 @@ interface BlogListProps {
 
 const PLACEHOLDER_COVER = "/img/main-logo.jpg";
 
-export const metadata: Metadata = {
-  title: "Latest Blogs | The Valuation School",
-  description:
-    "Explore our latest articles, insights and updates from the CA, CFA, and valuation domain.",
-};
-
 const buildPageHref = (page: number, categoryId: number | null) => {
   const params = new URLSearchParams();
   if (page > 1) params.set("page", String(page));
@@ -46,6 +40,25 @@ const buildPageHref = (page: number, categoryId: number | null) => {
   const qs = params.toString();
   return qs ? `/blog?${qs}` : "/blog";
 };
+
+export async function generateMetadata({ searchParams }: BlogListProps): Promise<Metadata> {
+  const params = await searchParams;
+  const currentPage = Math.max(1, parseInt(params.page || "1", 10) || 1);
+  const activeCategoryId = params.category ? parseInt(params.category, 10) || null : null;
+
+  // Each page/category combination shows genuinely different posts, so it
+  // self-canonicalizes rather than collapsing every variant back to /blog.
+  const canonical = buildPageHref(currentPage, activeCategoryId);
+
+  return {
+    title: "Latest Blogs | The Valuation School",
+    description:
+      "Explore our latest articles, insights and updates from the CA, CFA, and valuation domain.",
+    alternates: {
+      canonical,
+    },
+  };
+}
 
 const BlogList = async ({ searchParams }: BlogListProps) => {
   const params = await searchParams;
