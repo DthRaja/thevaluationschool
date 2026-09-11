@@ -10093,6 +10093,22 @@ body.no-scroll {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233c5152"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm1 12.1l4.2 2.4-1 1.7L11 14V6h2v7.1z"/></svg>')
 }
 
+#p-m-div a {
+    display: flex;
+    font-weight: 700;
+    width: 280px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.profileLi .signout-btn img {
+    width: 50px;
+    height: 50px;
+}
+#p-m-div span {
+    font-weight: 700;
+}
+
 @media(max-width: 1399px) {
     .course-plan .course-plan-container .course-plan-cards {
         width:85%
