@@ -10,7 +10,9 @@ import "./css/style.css";
 import Analytics from "./Components/layout/Analytics";
 import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
-import Header from "./Components/layout/Header";
+import convertData from "@/utils/convartData";
+import ServerApi from "@/utils/Server";
+import Navbar from "./Components/layout/Navbar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thevaluationschool.com"),
@@ -32,17 +34,45 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
-export default async function RootLayout({ children }: RootLayoutProps) {
+export interface CourseMenuItem {
+  PageName: string;
+  PageUrl: string;
+}
 
+export default async function RootLayout({ children }: RootLayoutProps) {
+  let courses: CourseMenuItem[] = [];
+
+  try {
+    const courseDropDownApi = new ServerApi({
+      withAuth: false,
+      spName: "SPClientAnonymous",
+      mode: 55,
+    });
+
+    const courseDropDownData = await courseDropDownApi.request();
+
+    if (
+      courseDropDownData?.isSuccess &&
+      courseDropDownData?.result
+    ) {
+      const parsedData = convertData(courseDropDownData.result)
+
+      if (Array.isArray(parsedData)) {
+        courses = parsedData;
+      }
+    }
+  } catch (error) {
+    console.error("Course dropdown API error:", error);
+  }
 
   return (
     <html lang="en">
       <body>
-        <Header />
+        <Navbar courses={courses} />
 
         <main>{children}</main>
         <ContactSectionWrapper />
-        <Footer />
+        <Footer courses={courses}/>
         <Toaster position="top-center" />
         <Analytics />
       </body>

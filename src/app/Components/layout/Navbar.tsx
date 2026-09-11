@@ -4,9 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
-
-import type { CourseMenuItem } from "./Header";
+import { CourseMenuItem } from "@/app/layout";
 
 interface NavbarProps {
   courses: CourseMenuItem[];

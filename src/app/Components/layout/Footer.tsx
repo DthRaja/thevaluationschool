@@ -1,7 +1,12 @@
 import Image from "next/image";
 import React from "react";
+import { CourseMenuItem } from "@/app/layout";
 
-const Footer = () => {
+interface NavbarProps {
+  courses: CourseMenuItem[];
+}
+
+const Footer = ({ courses }: NavbarProps) => {
   return (
     <>
       <div className="footer-section">
@@ -196,21 +201,15 @@ const Footer = () => {
                   <div className="footer-down-section-left-col">
                     <h3>COURSES</h3>
                     <ul>
-                      <li>
-                        <a href="/cfa">CFA</a>
+                    {courses.map((course, index) =>(
+                      
+                      <li key={index}>
+                        <a href={course.PageUrl}>
+                          {course.PageName}
+                        </a>
                       </li>
-                      <li>
-                        <a href="/avfm">AVFM</a>
-                      </li>
-                      <li>
-                        <a href="/erc">Equity Research Cohort</a>
-                      </li>
-                      <li>
-                        <a href="/crw">Chart Reading</a>
-                      </li>
-                      <li>
-                        <a href="/linkedin-mentoring-program">LinkedIn</a>
-                      </li>
+                      
+                    ))}
                     </ul>
                   </div>
                   <div className="footer-down-section-left-col">
