@@ -208,7 +208,6 @@ const Footer = ({ courses }: NavbarProps) => {
                           {course.PageName}
                         </a>
                       </li>
-                      
                     ))}
                     </ul>
                   </div>
