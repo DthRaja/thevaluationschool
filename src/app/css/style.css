@@ -10097,7 +10097,7 @@ body.no-scroll {
 #p-m-div a {
     display: flex;
     font-weight: 700;
-    width: 280px;
+    width: auto;
     justify-content: end;
     align-items: center;
     gap: 5px;
