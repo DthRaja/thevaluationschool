@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { CourseMenuItem } from "@/app/layout";
+import Auth, { type IUserModel } from "@/utils/auth";
 
 interface NavbarProps {
   courses: CourseMenuItem[];
@@ -48,7 +49,42 @@ const Navbar = ({ courses }: NavbarProps) => {
 
   const [desktopDropdownClosing, setDesktopDropdownClosing] = useState(false);
 
+  const [authenticatedUser, setAuthenticatedUser] =
+    useState<IUserModel | null>(null);
+
   const currentPath = normalizePath(pathname);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadAuthenticatedUser = async () => {
+      try {
+        const user = await new Auth().authJWTDecode();
+
+        if (isMounted) {
+          setAuthenticatedUser(user ?? null);
+        }
+      } catch (error) {
+        console.error("Unable to decode authentication token:", error);
+
+        if (isMounted) {
+          setAuthenticatedUser(null);
+        }
+      }
+    };
+
+    void loadAuthenticatedUser();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [pathname]);
+
+  const profileName = authenticatedUser
+    ? [authenticatedUser.FirstName, authenticatedUser.LastName]
+        .filter(Boolean)
+        .join(" ")
+    : "";
 
   /**
    * Check whether current page is one of
@@ -345,13 +381,23 @@ const Navbar = ({ courses }: NavbarProps) => {
                 LOGIN
             =============================== */}
 
-            <div className="btn-col signupButton">
+            {!authenticatedUser && <div className="btn-col signupButton">
               <Link className="custom-btn" href="/secure/login">
                 Login
               </Link>
-            </div>
+            </div>}
 
-            <div className="profileLi d-none" />
+            <div className="profileLi">
+              {authenticatedUser &&
+              <div id="p-m-div">
+                <a href="/secure/dashboard" data-spa="true" className="btn signout-btn">
+                  <img src={`https://ui-avatars.com/api/?name=${profileName}&background=16945D&color=fff&rounded=true&size=50`} alt="userProfile2" id="mainImageAvtar" className="signout-img" />
+                  <span className="profile-name"> 
+                    {profileName}
+                  </span>
+                </a>
+              </div>}
+            </div>
           </div>
 
           {/* ==================================
