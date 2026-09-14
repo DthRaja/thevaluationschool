@@ -10098,7 +10098,7 @@ body.no-scroll {
     display: flex;
     font-weight: 700;
     width: 280px;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     gap: 5px;
 }
@@ -10108,6 +10108,12 @@ body.no-scroll {
 }
 #p-m-div span {
     font-weight: 700;
+}
+
+@media (max-width: 575.98px) {
+    #p-m-div span.profile-name {
+        display: none;
+    }
 }
 
 @media(max-width: 1399px) {
