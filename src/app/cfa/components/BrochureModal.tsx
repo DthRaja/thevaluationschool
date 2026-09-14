@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import type { ICountryCodeOption, ICountryOption } from "./LearningModules";
+import Auth from "@/utils/auth";
 
 interface BrochureModalProps {
   isOpen: boolean;
@@ -28,16 +29,23 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const INDIA_PHONE_PATTERN = /^[6-9]\d{9}$/;
 const GENERIC_PHONE_PATTERN = /^\d{7,15}$/;
 
-const getDialCode = (countryCodeLabel: string) => countryCodeLabel.match(/\+\d+/)?.[0] ?? "";
+const getDialCode = (countryCodeLabel: string) =>
+  countryCodeLabel.match(/\+\d+/)?.[0] ?? "";
 
-const getInitialValues = (countryCodes: ICountryCodeOption[]): BrochureFormValues => {
-  const hasDefault = countryCodes.some((c) => c.label === DEFAULT_COUNTRY_CODE_LABEL);
+const getInitialValues = (
+  countryCodes: ICountryCodeOption[],
+): BrochureFormValues => {
+  const hasDefault = countryCodes.some(
+    (c) => c.label === DEFAULT_COUNTRY_CODE_LABEL,
+  );
 
   return {
     firstName: "",
     lastName: "",
     email: "",
-    countryCode: hasDefault ? DEFAULT_COUNTRY_CODE_LABEL : (countryCodes[0]?.label ?? ""),
+    countryCode: hasDefault
+      ? DEFAULT_COUNTRY_CODE_LABEL
+      : (countryCodes[0]?.label ?? ""),
     phone: "",
     country: "",
     employment: "",
@@ -48,17 +56,23 @@ const getInitialValues = (countryCodes: ICountryCodeOption[]): BrochureFormValue
 const validate = (values: BrochureFormValues) => {
   const errors: Partial<Record<FieldName, string>> = {};
 
-  if (!values.firstName.trim()) errors.firstName = "Please enter your first name.";
+  if (!values.firstName.trim())
+    errors.firstName = "Please enter your first name.";
   if (!values.lastName.trim()) errors.lastName = "Please enter your last name.";
-  if (!EMAIL_PATTERN.test(values.email.trim())) errors.email = "Please enter a valid email.";
+  if (!EMAIL_PATTERN.test(values.email.trim()))
+    errors.email = "Please enter a valid email.";
 
   const digits = values.phone.replace(/\D/g, "");
   const dialCode = getDialCode(values.countryCode);
-  const phoneOk = dialCode === "+91" ? INDIA_PHONE_PATTERN.test(digits) : GENERIC_PHONE_PATTERN.test(digits);
+  const phoneOk =
+    dialCode === "+91"
+      ? INDIA_PHONE_PATTERN.test(digits)
+      : GENERIC_PHONE_PATTERN.test(digits);
 
   if (!phoneOk) errors.phone = "Please enter a valid Mobile Number.";
   if (!values.country) errors.country = "Please select your country.";
-  if (!values.employment) errors.employment = "Please select your employment status.";
+  if (!values.employment)
+    errors.employment = "Please select your employment status.";
   if (!values.consent) errors.consent = "You must accept to continue.";
 
   return errors;
@@ -66,20 +80,49 @@ const validate = (values: BrochureFormValues) => {
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
-const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureModalProps) => {
-  const [values, setValues] = useState<BrochureFormValues>(() => getInitialValues(countryCodes));
-  const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
+const BrochureModal = ({
+  isOpen,
+  onClose,
+  countryCodes,
+  countries,
+}: BrochureModalProps) => {
+  const [values, setValues] = useState<BrochureFormValues>(() =>
+    getInitialValues(countryCodes),
+  );
+  const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>(
+    {},
+  );
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [serverError, setServerError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const loggedInUser = await new Auth().authJWTDecode();
+      if (loggedInUser) {
+        setValues((prev) => ({
+          ...prev,
+          firstName: loggedInUser.FirstName ?? prev.firstName,
+          lastName: loggedInUser.LastName ?? prev.lastName,
+          email: loggedInUser.email ?? prev.email,
+        }));
+      }
+    };
+
+    void loadUser();
+  }, []);
 
   const errors = useMemo(() => validate(values), [values]);
   const isValid = Object.keys(errors).length === 0;
 
-  const update = <K extends FieldName>(key: K, value: BrochureFormValues[K]) => {
+  const update = <K extends FieldName>(
+    key: K,
+    value: BrochureFormValues[K],
+  ) => {
     setValues((prev) => ({ ...prev, [key]: value }));
   };
 
-  const markTouched = (key: FieldName) => setTouched((prev) => ({ ...prev, [key]: true }));
+  const markTouched = (key: FieldName) =>
+    setTouched((prev) => ({ ...prev, [key]: true }));
 
   const showError = (field: FieldName) => !!touched[field] && !!errors[field];
 
@@ -173,7 +216,9 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
         setStatus("success");
       } else {
         setStatus("error");
-        setServerError(data?.errorMessages?.[0] || "Something went wrong. Please try again.");
+        setServerError(
+          data?.errorMessages?.[0] || "Something went wrong. Please try again.",
+        );
       }
     } catch (err) {
       console.error("Brochure form submission failed", err);
@@ -206,12 +251,20 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                 Enter your details below for instant access to this brochure
               </div>
             </div>
-            <button type="button" className="btn-close" aria-label="Close" onClick={onClose} />
+            <button
+              type="button"
+              className="btn-close"
+              aria-label="Close"
+              onClick={onClose}
+            />
           </div>
 
           <div className="modal-body">
             {status === "success" ? (
-              <div className="tvs-form-status tvs-form-status--success" role="status">
+              <div
+                className="tvs-form-status tvs-form-status--success"
+                role="status"
+              >
                 Check your inbox — we&apos;ve emailed your CFA Program brochure.
               </div>
             ) : (
@@ -229,7 +282,9 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                       onChange={(e) => update("firstName", e.target.value)}
                       onBlur={() => markTouched("firstName")}
                     />
-                    <div className="invalid-feedback">Please enter your first name.</div>
+                    <div className="invalid-feedback">
+                      Please enter your first name.
+                    </div>
                   </div>
 
                   <div className="col-12">
@@ -244,7 +299,9 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                       onChange={(e) => update("lastName", e.target.value)}
                       onBlur={() => markTouched("lastName")}
                     />
-                    <div className="invalid-feedback">Please enter your last name.</div>
+                    <div className="invalid-feedback">
+                      Please enter your last name.
+                    </div>
                   </div>
 
                   <div className="col-12">
@@ -259,7 +316,9 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                       onChange={(e) => update("email", e.target.value)}
                       onBlur={() => markTouched("email")}
                     />
-                    <div className="invalid-feedback">Please enter a valid email.</div>
+                    <div className="invalid-feedback">
+                      Please enter a valid email.
+                    </div>
                   </div>
 
                   <div className="col-12">
@@ -272,7 +331,9 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                         style={{ maxWidth: 110 }}
                         aria-label="Country code"
                         value={values.countryCode}
-                        onChange={(e) => handleCountryCodeChange(e.target.value)}
+                        onChange={(e) =>
+                          handleCountryCodeChange(e.target.value)
+                        }
                       >
                         {countryCodes.length === 0 && (
                           <option value="IN +91">🇮🇳 +91</option>
@@ -289,13 +350,20 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                         className={`form-control tvs-field${showError("phone") ? " is-invalid" : ""}`}
                         id="phone"
                         name="phone"
-                        placeholder={getDialCode(values.countryCode) === "+91" ? "99999 99999" : "Phone number"}
+                        placeholder={
+                          getDialCode(values.countryCode) === "+91"
+                            ? "99999 99999"
+                            : "Phone number"
+                        }
                         inputMode="tel"
                         required
                         aria-describedby="phoneHelp"
                         value={values.phone}
                         onChange={(e) =>
-                          update("phone", e.target.value.replace(/[^0-9+\-\s()]/g, ""))
+                          update(
+                            "phone",
+                            e.target.value.replace(/[^0-9+\-\s()]/g, ""),
+                          )
                         }
                         onBlur={() => markTouched("phone")}
                       />
@@ -303,7 +371,9 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                     <div id="phoneHelp" className="form-text">
                       For India (+91): 10 digits, starts with 6–9.
                     </div>
-                    <div className={`invalid-feedback${showError("phone") ? " d-block" : ""}`}>
+                    <div
+                      className={`invalid-feedback${showError("phone") ? " d-block" : ""}`}
+                    >
                       Please enter a valid Mobile Number.
                     </div>
                   </div>
@@ -330,7 +400,9 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                         </option>
                       ))}
                     </select>
-                    <div className="invalid-feedback">Please select your country.</div>
+                    <div className="invalid-feedback">
+                      Please select your country.
+                    </div>
                   </div>
 
                   <div className="col-12">
@@ -352,10 +424,14 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                       <option value="Student">Student</option>
                       <option value="Employed">Employed</option>
                       <option value="Self-employed">Self-employed</option>
-                      <option value="Looking for opportunities">Looking for opportunities</option>
+                      <option value="Looking for opportunities">
+                        Looking for opportunities
+                      </option>
                       <option value="Other">Other</option>
                     </select>
-                    <div className="invalid-feedback">Please select your employment status.</div>
+                    <div className="invalid-feedback">
+                      Please select your employment status.
+                    </div>
                   </div>
 
                   <div className="col-12">
@@ -373,26 +449,43 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
                           markTouched("consent");
                         }}
                       />
-                      <label className="form-check-label bro-text" htmlFor="consent">
-                        I agree to receive the brochure and occasional course updates from The
-                        Valuation School. I have read and understood the{" "}
-                        <a href="/PrivacyPolicy" target="_blank" rel="noopener noreferrer">
+                      <label
+                        className="form-check-label bro-text"
+                        htmlFor="consent"
+                      >
+                        I agree to receive the brochure and occasional course
+                        updates from The Valuation School. I have read and
+                        understood the{" "}
+                        <a
+                          href="/PrivacyPolicy"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           Privacy Policy{" "}
                         </a>
                         and{" "}
-                        <a href="/Terms" target="_blank" rel="noopener noreferrer">
+                        <a
+                          href="/Terms"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {" "}
                           Terms &amp; Conditions
                         </a>
                         .
                       </label>
-                      <div className="invalid-feed">You can unsubscribe anytime.</div>
+                      <div className="invalid-feed">
+                        You can unsubscribe anytime.
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {status === "error" && serverError && (
-                  <div className="tvs-form-status tvs-form-status--error" role="alert">
+                  <div
+                    className="tvs-form-status tvs-form-status--error"
+                    role="alert"
+                  >
                     {serverError}
                   </div>
                 )}

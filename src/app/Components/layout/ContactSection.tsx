@@ -1,6 +1,7 @@
 "use client";
 
-import ServerApi from "@/utils/Server";
+import Auth, { type IUserModel } from "@/utils/auth";
+import type { ScheduleCalendarData } from "@/app/layout";
 import { ArrowRight, Mail, MessageCircle, Phone, PhoneCall, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type ReactNode, type SubmitEvent, useCallback, useEffect, useId, useRef, useState } from "react";
@@ -8,21 +9,11 @@ import { type ReactNode, type SubmitEvent, useCallback, useEffect, useId, useRef
 type ModalKind = "whatsapp" | "schedule" | null;
 type FieldErrors = Record<string, string>;
 
-interface CalendarData {
-    startDate: string;
-    endDate: string;
-    unavailableDates: string[];
-    slots: string[];
-    topics: string[];
+interface ContactSectionProps {
+    countries: string[];
+    countryCodes: string[];
+    calendar: ScheduleCalendarData;
 }
-
-const EMPTY_CALENDAR: CalendarData = {
-    startDate: "",
-    endDate: "",
-    unavailableDates: [],
-    slots: [],
-    topics: [],
-};
 
 const cardData = [
     { label: <>Chat on<br />WhatsApp</>, ariaLabel: "Chat with us on WhatsApp", icon: "whatsapp" },
@@ -53,29 +44,6 @@ const namePattern = /^[\p{L}][\p{L}\p{M} .'-]{1,79}$/u;
 
 const FieldError = ({ message }: { message?: string }) =>
     message ? <div className="invalid-feedback d-block">{message}</div> : null;
-
-const parseResult = (result: unknown): unknown => {
-    if (typeof result !== "string") return result;
-
-    try {
-        return JSON.parse(result);
-    } catch {
-        return null;
-    }
-};
-
-const labelsFrom = (value: unknown): string[] =>
-    Array.isArray(value)
-        ? value
-            .map((item) => {
-                if (typeof item === "string") return item;
-                if (item && typeof item === "object" && "label" in item) {
-                    return String(item.label);
-                }
-                return "";
-            })
-            .filter(Boolean)
-        : [];
 
 const tomorrow = () => {
     const date = new Date();
@@ -164,7 +132,7 @@ const ContactModal = ({ title, note, onClose, children }: ModalProps) => {
     );
 };
 
-const ContactSection = () => {
+const ContactSection = ({ countries, countryCodes: rawCountryCodes, calendar }: ContactSectionProps) => {
     const router = useRouter();
     const [hoveredCard, setHoveredCard] = useState<number | null>(null);
     const [modal, setModal] = useState<ModalKind>(null);
@@ -173,52 +141,16 @@ const ContactSection = () => {
     const [scheduleError, setScheduleError] = useState("");
     const [scheduleStatus, setScheduleStatus] = useState("");
     const [submitting, setSubmitting] = useState(false);
-    const [countries, setCountries] = useState<string[]>([]);
-    const [countryCodes, setCountryCodes] = useState(fallbackCountryCodes);
-    const [calendar, setCalendar] = useState<CalendarData>(EMPTY_CALENDAR);
+    const [user, setUser] = useState<IUserModel | null>(null);
+    const countryCodes = rawCountryCodes.length ? rawCountryCodes : fallbackCountryCodes;
 
     useEffect(() => {
-        let cancelled = false;
-
-        const loadScheduleOptions = async () => {
-            try {
-                const [countryResponse, codeResponse, calendarResponse] = await Promise.all([
-                    new ServerApi({ spName: "SPClientAnonymous", mode: 12 }).request(),
-                    new ServerApi({ spName: "SPClientAnonymous", mode: 41 }).request(),
-                    new ServerApi({ spName: "SPClientAnonymous", mode: 47 }).request(),
-                ]);
-
-                if (cancelled) return;
-
-                const loadedCountries = labelsFrom(parseResult(countryResponse.result));
-                const loadedCodes = labelsFrom(parseResult(codeResponse.result));
-                const calendarResult = parseResult(calendarResponse.result) as Record<string, unknown> | null;
-                const slots = Array.isArray(calendarResult?.ScheduleCallTimeSlot)
-                    ? calendarResult.ScheduleCallTimeSlot.map((item) => String((item as { TimeSlot?: string }).TimeSlot ?? "")).filter(Boolean)
-                    : [];
-                const loadedTopics = Array.isArray(calendarResult?.ScheduleCallTopic)
-                    ? calendarResult.ScheduleCallTopic.map((item) => String((item as { Topic?: string }).Topic ?? "")).filter(Boolean)
-                    : [];
-                const unavailableDates = Array.isArray(calendarResult?.ScheduleCallUnavailableDate)
-                    ? calendarResult.ScheduleCallUnavailableDate.map((item) => String((item as { UnavailableDate?: string }).UnavailableDate ?? "")).filter(Boolean)
-                    : [];
-
-                setCountries(loadedCountries);
-                if (loadedCodes.length) setCountryCodes(loadedCodes);
-                setCalendar({
-                    startDate: String(calendarResult?.StartDate ?? ""),
-                    endDate: String(calendarResult?.EndDate ?? ""),
-                    slots,
-                    topics: loadedTopics,
-                    unavailableDates,
-                });
-            } catch {
-                // The form remains usable with its local fallback options.
-            }
+        const loadUser = async () => {
+            const loggedInUser = await new Auth().authJWTDecode();
+            setUser(loggedInUser ?? null);
         };
 
-        void loadScheduleOptions();
-        return () => { cancelled = true; };
+        void loadUser();
     }, []);
 
     const closeModal = useCallback(() => {
@@ -336,17 +268,23 @@ const ContactSection = () => {
         setScheduleStatus("");
 
         try {
-            const response = await new ServerApi({ spName: "SPClientAnonymous", mode: 36 }).request({
-                FirstName: firstName,
-                LastName: lastName,
-                Email: email,
-                Country: country,
-                PhoneNumber: `${countryCode} ${phone}`,
-                BookDate: bookDate,
-                TimeSlotId: slot,
-                Topic: topic,
-                QueryText: query,
+            const res = await fetch("/api/contact/schedule", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    email,
+                    country,
+                    phoneNumber: `${countryCode} ${phone}`,
+                    bookDate,
+                    timeSlotId: slot,
+                    topic,
+                    queryText: query,
+                }),
             });
+
+            const response = await res.json();
 
             if (!response.isSuccess) throw new Error("Request failed");
             form.reset();
@@ -469,17 +407,17 @@ const ContactSection = () => {
                         <div className="row g-3">
                             <div className="col-sm-6">
                                 <label className="form-label fw-semibold" htmlFor="schedule-first-name">First Name *</label>
-                                <input className={`form-control ${scheduleErrors.firstName ? "is-invalid" : ""}`} style={inputStyle} id="schedule-first-name" name="firstName" aria-invalid={!!scheduleErrors.firstName} autoComplete="given-name" onChange={() => setScheduleErrors((current) => ({ ...current, firstName: "" }))} />
+                                <input className={`form-control ${scheduleErrors.firstName ? "is-invalid" : ""}`} style={inputStyle} id="schedule-first-name" name="firstName" defaultValue={user?.FirstName ?? ""} aria-invalid={!!scheduleErrors.firstName} autoComplete="given-name" onChange={() => setScheduleErrors((current) => ({ ...current, firstName: "" }))} />
                                 <FieldError message={scheduleErrors.firstName} />
                             </div>
                             <div className="col-sm-6">
                                 <label className="form-label fw-semibold" htmlFor="schedule-last-name">Last Name *</label>
-                                <input className={`form-control ${scheduleErrors.lastName ? "is-invalid" : ""}`} style={inputStyle} id="schedule-last-name" name="lastName" aria-invalid={!!scheduleErrors.lastName} autoComplete="family-name" onChange={() => setScheduleErrors((current) => ({ ...current, lastName: "" }))} />
+                                <input className={`form-control ${scheduleErrors.lastName ? "is-invalid" : ""}`} style={inputStyle} id="schedule-last-name" name="lastName" defaultValue={user?.LastName ?? ""} aria-invalid={!!scheduleErrors.lastName} autoComplete="family-name" onChange={() => setScheduleErrors((current) => ({ ...current, lastName: "" }))} />
                                 <FieldError message={scheduleErrors.lastName} />
                             </div>
                             <div className="col-sm-6">
                                 <label className="form-label fw-semibold" htmlFor="schedule-email">Email *</label>
-                                <input className={`form-control ${scheduleErrors.email ? "is-invalid" : ""}`} style={inputStyle} id="schedule-email" type="email" name="email" aria-invalid={!!scheduleErrors.email} autoComplete="email" onChange={() => setScheduleErrors((current) => ({ ...current, email: "" }))} />
+                                <input className={`form-control ${scheduleErrors.email ? "is-invalid" : ""}`} style={inputStyle} id="schedule-email" type="email" name="email" defaultValue={user?.email ?? ""} aria-invalid={!!scheduleErrors.email} autoComplete="email" onChange={() => setScheduleErrors((current) => ({ ...current, email: "" }))} />
                                 <FieldError message={scheduleErrors.email} />
                             </div>
                             <div className="col-sm-6">
@@ -490,7 +428,7 @@ const ContactSection = () => {
                                 </select>
                                 <FieldError message={scheduleErrors.country} />
                             </div>
-                            <div className="col-12">
+                            <div className="col-sm-6">
                                 <label className="form-label fw-semibold" htmlFor="schedule-phone">Phone Number *</label>
                                 <div className="d-flex gap-2">
                                     <select className={`form-select flex-shrink-0 ${scheduleErrors.countryCode ? "is-invalid" : ""}`} style={{ ...inputStyle, width: 125 }} name="countryCode" aria-label="Country code" defaultValue="+91" onChange={() => setScheduleErrors((current) => ({ ...current, countryCode: "", phone: "" }))}>
@@ -513,7 +451,7 @@ const ContactSection = () => {
                                 </select>
                                 <FieldError message={scheduleErrors.slot} />
                             </div>
-                            <div className="col-12">
+                            <div className="col-sm-6">
                                 <label className="form-label fw-semibold" htmlFor="schedule-topic">Doubt related to *</label>
                                 <select className={`form-select ${scheduleErrors.topic ? "is-invalid" : ""}`} style={inputStyle} id="schedule-topic" name="topic" aria-invalid={!!scheduleErrors.topic} defaultValue="" onChange={() => setScheduleErrors((current) => ({ ...current, topic: "" }))}>
                                     <option value="" disabled>Select a topic</option>

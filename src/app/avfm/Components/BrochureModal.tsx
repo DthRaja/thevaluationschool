@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import type { ICountryCodeOption, ICountryOption } from "./LearningModules";
+import Auth from "@/utils/auth";
 
 interface BrochureModalProps {
   isOpen: boolean;
@@ -71,6 +72,22 @@ const BrochureModal = ({ isOpen, onClose, countryCodes, countries }: BrochureMod
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [serverError, setServerError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const loggedInUser = await new Auth().authJWTDecode();
+      if (loggedInUser) {
+        setValues((prev) => ({
+          ...prev,
+          firstName: loggedInUser.FirstName ?? prev.firstName,
+          lastName: loggedInUser.LastName ?? prev.lastName,
+          email: loggedInUser.email ?? prev.email,
+        }));
+      }
+    };
+
+    void loadUser();
+  }, []);
 
   const errors = useMemo(() => validate(values), [values]);
   const isValid = Object.keys(errors).length === 0;
