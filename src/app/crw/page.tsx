@@ -1,16 +1,15 @@
-import React from "react";
-import type { Metadata } from "next";
+import { getOrigin } from "@/app/lib/getOrigin";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import type { Metadata } from "next";
 import Banner, { IBannerApi } from "./Components/Banner";
 import BannerDownSection from "./Components/BannerDownSection";
-import PlansEveryone from "./Components/PlansEveryone";
-import WhatLearn from "./Components/WhatLearn";
+import FAQ from "./Components/FAQ";
 import LearningModules from "./Components/LearningModules";
+import PlansEveryone from "./Components/PlansEveryone";
 import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
-import FAQ from "./Components/FAQ";
-import { getOrigin } from "@/utils/getOrigin";
+import WhatLearn from "./Components/WhatLearn";
 
 export const metadata: Metadata = {
   title: "Chart Reading Workshop | Learn Technical Analysis & Price Action",

@@ -18,9 +18,23 @@ interface ScheduleSubmitBody {
 // server-side and proxies the Schedule a Call submission on the client's behalf.
 export async function POST(request: Request) {
   const body: ScheduleSubmitBody = await request.json();
-  const { firstName, lastName, email, country, phoneNumber, bookDate, timeSlotId, topic, queryText } = body;
+  const {
+    firstName,
+    lastName,
+    email,
+    country,
+    phoneNumber,
+    bookDate,
+    timeSlotId,
+    topic,
+    queryText,
+  } = body;
 
-  const api = new ServerApi({ withAuth: false, spName: "SPClientAnonymous", mode: 36 });
+  const api = new ServerApi({
+    withAuth: false,
+    spName: "SPClientAnonymous",
+    mode: 36,
+  });
 
   const result = await api.request({
     FirstName: firstName,

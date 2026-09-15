@@ -1,7 +1,7 @@
-import Link from "next/link";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";

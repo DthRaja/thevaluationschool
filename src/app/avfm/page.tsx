@@ -1,17 +1,16 @@
-import React from "react";
-import type { Metadata } from "next";
-import Banner, { IBannerApi } from "./Components/Banner";
+import { getOrigin } from "@/app/lib/getOrigin";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import type { Metadata } from "next";
+import Banner, { IBannerApi } from "./Components/Banner";
 import BannerDownSection from "./Components/BannerDownSection";
-import WhatLearn from "./Components/WhatLearn";
-import Practicallearning from "./Components/Practicallearning";
+import FAQ from "./Components/FAQ";
 import LearningModules from "./Components/LearningModules";
 import PlansEveryone from "./Components/PlansEveryone";
+import Practicallearning from "./Components/Practicallearning";
 import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
-import FAQ from "./Components/FAQ";
-import { getOrigin } from "@/utils/getOrigin";
+import WhatLearn from "./Components/WhatLearn";
 
 export const metadata: Metadata = {
   title: "Advanced Valuation & Financial Modelling Course | AVFM by The Valuation School",

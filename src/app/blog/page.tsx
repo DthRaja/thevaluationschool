@@ -1,11 +1,10 @@
-import React from "react";
-import Link from "next/link";
-import type { Metadata } from "next";
 import { Inbox } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
 
+import { getOrigin } from "@/app/lib/getOrigin";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
-import { getOrigin } from "@/utils/getOrigin";
 
 export interface IBlogCategory {
   CategoryId: number;

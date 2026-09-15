@@ -1,12 +1,11 @@
-import React from 'react'
-import type { Metadata } from 'next'
-import Banner from './Components/Banner'
-import ServerApi from '@/utils/Server';
-import Companies from './Components/Companies';
+import { getOrigin } from '@/app/lib/getOrigin';
 import convertData from '@/utils/convartData';
+import ServerApi from '@/utils/Server';
+import type { Metadata } from 'next';
+import Banner from './Components/Banner';
+import Companies from './Components/Companies';
 import ReviewAlumni from './Components/ReviewAlumni';
 import ReviewForm from './Components/ReviewForm';
-import { getOrigin } from '@/utils/getOrigin';
 
 export const metadata: Metadata = {
   title: 'The Valuation School Alumni | Success Stories & Career Journeys of Our Students',

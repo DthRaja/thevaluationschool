@@ -1,10 +1,9 @@
-import React from "react";
-import type { Metadata } from "next";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import type { Metadata } from "next";
 
+import { getOrigin } from "@/app/lib/getOrigin";
 import ContactForm, { type ICountryCodeOption } from "./Components/ContactForm";
-import { getOrigin } from "@/utils/getOrigin";
 
 export const metadata: Metadata = {
   title: "Contact The Valuation School | Get in Touch with Team The Valuation School",

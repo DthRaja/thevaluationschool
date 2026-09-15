@@ -7,14 +7,13 @@ import "./css/fonts-global.css";
 import "./css/globals.css";
 import "./css/style.css";
 
+import { getOrigin } from "@/app/lib/getOrigin";
+import convertData from "@/utils/convartData";
+import ServerApi from "@/utils/Server";
 import Analytics from "./Components/layout/Analytics";
 import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
-import convertData from "@/utils/convartData";
-import ServerApi from "@/utils/Server";
 import Navbar from "./Components/layout/Navbar";
-import { headers } from "next/headers";
-import { getOrigin } from "@/utils/getOrigin";
 
 
 
