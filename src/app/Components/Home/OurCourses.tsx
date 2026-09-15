@@ -51,17 +51,17 @@ const courses: Course[] = [
     ),
     description: "Registration open for August 2026 Workshop.",
   },
-  {
-    href: "/linkedin-mentoring-program",
-    image: "/img/courses/LMC.png",
-    title: (
-      <>
-        LinkedIn Mentoring <br />
-        Cohort
-      </>
-    ),
-    description: "Registration open for Apr 2026",
-  },
+  // {
+  //   href: "/linkedin-mentoring-program",
+  //   image: "/img/courses/LMC.png",
+  //   title: (
+  //     <>
+  //       LinkedIn Mentoring <br />
+  //       Cohort
+  //     </>
+  //   ),
+  //   description: "Registration open for Apr 2026",
+  // },
 ];
 
 const OurCourses = () => {
