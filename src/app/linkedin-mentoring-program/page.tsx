@@ -12,14 +12,16 @@ import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
 import WhatLearn from "./Components/WhatLearn";
 
-export const metadata: Metadata = {
-  title: "LinkedIn Mentoring Cohort | Build Personal Brand & Career Opportunities",
-  description:
-    "Learn how to optimize your LinkedIn profile, create high-impact content, and build a powerful personal brand. Turn networking into real job opportunities with practical LinkedIn mentoring.",
-  alternates: {
-    canonical: new URL(await getOrigin()),
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "LinkedIn Mentoring Cohort | Build Personal Brand & Career Opportunities",
+    description:
+      "Learn how to optimize your LinkedIn profile, create high-impact content, and build a powerful personal brand. Turn networking into real job opportunities with practical LinkedIn mentoring.",
+    alternates: {
+      canonical: new URL(await getOrigin("/linkedin-mentoring-program")),
+    },
+  };
+}
 
 export default async function ERC() {
   const BannerApi = new ServerApi({

@@ -12,14 +12,16 @@ import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
 import WhatLearn from "./Components/WhatLearn";
 
-export const metadata: Metadata = {
-  title: "Advanced Valuation & Financial Modelling Course | AVFM by The Valuation School",
-  description:
-    "Master valuation, financial modelling, DCF, Excel, and real company analysis with hands-on practice. Build career-ready finance skills with AVFM by The Valuation School.",
-  alternates: {
-    canonical: new URL(await getOrigin()),
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Advanced Valuation & Financial Modelling Course | AVFM by The Valuation School",
+    description:
+      "Master valuation, financial modelling, DCF, Excel, and real company analysis with hands-on practice. Build career-ready finance skills with AVFM by The Valuation School.",
+    alternates: {
+      canonical: new URL(await getOrigin("/avfm")),
+    },
+  };
+}
 
 export default async function AVFM() {
   const BannerApi = new ServerApi({

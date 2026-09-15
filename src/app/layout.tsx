@@ -17,18 +17,20 @@ import Navbar from "./Components/layout/Navbar";
 
 
 
-export const metadata: Metadata = {
-  metadataBase: new URL(await getOrigin()),
-  title: "The Valuation School",
-  description:
-    "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.",
-  icons: {
-    icon: "/img/main-logo.jpg",
-  },
-  verification: {
-    google: "tuqjc-fdnKAGXcMBQQqRq6Y7XUlVCsTtmHmuB-DwNhI",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    metadataBase: new URL(await getOrigin()),
+    title: "The Valuation School",
+    description:
+      "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.",
+    icons: {
+      icon: "/img/main-logo.jpg",
+    },
+    verification: {
+      google: "tuqjc-fdnKAGXcMBQQqRq6Y7XUlVCsTtmHmuB-DwNhI",
+    },
+  };
+}
 
 
 export const dynamic = "force-dynamic";

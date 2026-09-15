@@ -1,11 +1,9 @@
 import { headers } from "next/headers";
 
-export async function getOrigin() {
+export async function getOrigin(pathname = "") {
   const headersList = await headers();
-  // const host = headersList.get('host');
-  // const protocol = headersList.get('x-forwarded-proto') || 'http';
-  const pathname = headersList.get("referer") || "";
-  const origin = `${pathname}`;
+  const host = headersList.get("host");
+  const protocol = headersList.get("x-forwarded-proto") || "http";
 
-  return origin;
+  return `${protocol}://${host}${pathname}`;
 }

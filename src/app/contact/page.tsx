@@ -5,14 +5,16 @@ import type { Metadata } from "next";
 import { getOrigin } from "@/app/lib/getOrigin";
 import ContactForm, { type ICountryCodeOption } from "./Components/ContactForm";
 
-export const metadata: Metadata = {
-  title: "Contact The Valuation School | Get in Touch with Team The Valuation School",
-  description:
-    "Have a question or need guidance? Contact The Valuation School for course queries, payments, partnerships, or general support. We're here to help you move forward.",
-  alternates: {
-    canonical: new URL(await getOrigin()),
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Contact The Valuation School | Get in Touch with Team The Valuation School",
+    description:
+      "Have a question or need guidance? Contact The Valuation School for course queries, payments, partnerships, or general support. We're here to help you move forward.",
+    alternates: {
+      canonical: new URL(await getOrigin("/contact")),
+    },
+  };
+}
 
 const ContactPage = async () => {
   const countryCodeApi = new ServerApi({ withAuth: false, spName: "SPClientAnonymous", mode: 42 });

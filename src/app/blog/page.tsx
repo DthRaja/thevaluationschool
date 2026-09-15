@@ -55,7 +55,7 @@ export async function generateMetadata({ searchParams }: BlogListProps): Promise
     description:
       "Explore our latest articles, insights and updates from the CA, CFA, and valuation domain.",
     alternates: {
-      canonical: new URL(await getOrigin()),
+      canonical: new URL(await getOrigin(canonical)),
     },
   };
 }

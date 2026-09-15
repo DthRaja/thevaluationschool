@@ -7,14 +7,16 @@ import Companies from './Components/Companies';
 import ReviewAlumni from './Components/ReviewAlumni';
 import ReviewForm from './Components/ReviewForm';
 
-export const metadata: Metadata = {
-  title: 'The Valuation School Alumni | Success Stories & Career Journeys of Our Students',
-  description:
-    'Explore the success stories of The Valuation School alumni. See how students transformed learning into real finance careers through mentorship, practical skills, and focused guidance.',
-  alternates: {
-    canonical: new URL(await getOrigin()),
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'The Valuation School Alumni | Success Stories & Career Journeys of Our Students',
+    description:
+      'Explore the success stories of The Valuation School alumni. See how students transformed learning into real finance careers through mentorship, practical skills, and focused guidance.',
+    alternates: {
+      canonical: new URL(await getOrigin('/alumni')),
+    },
+  };
+}
 
 export default async function Alumni() {
   const CompaniesApi = new ServerApi({

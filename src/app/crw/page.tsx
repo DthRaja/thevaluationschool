@@ -11,12 +11,14 @@ import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
 import WhatLearn from "./Components/WhatLearn";
 
-export const metadata: Metadata = {
-  title: "Chart Reading Workshop | Learn Technical Analysis & Price Action",
-  alternates: {
-    canonical: new URL(await getOrigin()),
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Chart Reading Workshop | Learn Technical Analysis & Price Action",
+    alternates: {
+      canonical: new URL(await getOrigin("/crw")),
+    },
+  };
+}
 
 export default async function CRW() {
   const BannerApi = new ServerApi({
