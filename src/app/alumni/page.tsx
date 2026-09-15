@@ -6,24 +6,25 @@ import Companies from './Components/Companies';
 import convertData from '@/utils/convartData';
 import ReviewAlumni from './Components/ReviewAlumni';
 import ReviewForm from './Components/ReviewForm';
+import { getOrigin } from '@/utils/getOrigin';
 
 export const metadata: Metadata = {
   title: 'The Valuation School Alumni | Success Stories & Career Journeys of Our Students',
   description:
     'Explore the success stories of The Valuation School alumni. See how students transformed learning into real finance careers through mentorship, practical skills, and focused guidance.',
   alternates: {
-    canonical: '/alumni',
+    canonical: new URL(await getOrigin()),
   },
 };
 
 export default async function Alumni() {
-    const CompaniesApi = new ServerApi({
-      withAuth: false,
-      spName: "SPClientAnonymous",
-      mode: 57,
-    });
+  const CompaniesApi = new ServerApi({
+    withAuth: false,
+    spName: "SPClientAnonymous",
+    mode: 57,
+  });
 
-    const [companiesJson ] = 
+  const [companiesJson] =
     await Promise.all([
       CompaniesApi.request({
         GroupName: "Companies where our students are placed",
@@ -31,14 +32,14 @@ export default async function Alumni() {
       })
     ])
 
-    const companiesData = convertData(companiesJson?.result) || [];
-    console.log(companiesData)
+  const companiesData = convertData(companiesJson?.result) || [];
+  console.log(companiesData)
   return (
     <>
-    <Banner/>
-    <Companies data={companiesData}/>
-    <ReviewAlumni />
-    <ReviewForm />
+      <Banner />
+      <Companies data={companiesData} />
+      <ReviewAlumni />
+      <ReviewForm />
     </>
   )
 }

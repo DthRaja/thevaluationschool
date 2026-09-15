@@ -10,11 +10,12 @@ import LearningModules from "./Components/LearningModules";
 import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
 import FAQ from "./Components/FAQ";
+import { getOrigin } from "@/utils/getOrigin";
 
 export const metadata: Metadata = {
   title: "Chart Reading Workshop | Learn Technical Analysis & Price Action",
   alternates: {
-    canonical: "/crw",
+    canonical: new URL(await getOrigin()),
   },
 };
 
@@ -34,20 +35,20 @@ export default async function CRW() {
   const bannerApiData: Partial<IBannerApi> =
     convertData(BannerApiJson?.result) || {};
 
-    console.log(bannerApiData)
+  console.log(bannerApiData)
   return (
     <>
-      <Banner data={bannerApiData}/>
+      <Banner data={bannerApiData} />
       <BannerDownSection />
       <PlansEveryone linkId={bannerApiData.LinkId} />
       <WhatLearn />
-            <LearningModules
+      <LearningModules
         courseId={bannerApiData.CourseId}
         demoVideoLink={bannerApiData.WebsiteDemoVideoLink}
       />
       <ReviewSection />
       <TakeThisCourse />
-      <FAQ courseId={2006}/>
+      <FAQ courseId={2006} />
     </>
   );
 }

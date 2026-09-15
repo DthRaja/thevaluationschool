@@ -10,13 +10,14 @@ import LearningModules from "./Components/LearningModules";
 import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
 import FAQ from "./Components/FAQ";
+import { getOrigin } from "@/utils/getOrigin";
 
 export const metadata: Metadata = {
   title: "LinkedIn Mentoring Cohort | Build Personal Brand & Career Opportunities",
   description:
     "Learn how to optimize your LinkedIn profile, create high-impact content, and build a powerful personal brand. Turn networking into real job opportunities with practical LinkedIn mentoring.",
   alternates: {
-    canonical: "/linkedin-mentoring-program",
+    canonical: new URL(await getOrigin()),
   },
 };
 

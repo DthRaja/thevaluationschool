@@ -2,7 +2,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export default async function NotFound(): Promise<never> {
+export default async function NotFound() {
   const headersList = await headers();
   // Get the full relative path including query params (e.g., "/dashboard?ref=123")
   const rawUrl = headersList.get('x-url') || headersList.get('x-invoke-path') || '';
@@ -11,11 +11,16 @@ export default async function NotFound(): Promise<never> {
   const [pathname, search] = rawUrl.split('?');
   const queryString = search ? `?${search}` : '';
 
+  // Let sitemap.xml and robots.txt 404 normally instead of redirecting
+  if (pathname === '/sitemap.xml' || pathname === '/robots.txt') {
+    return null;
+  }
+
   // Prevent infinite redirects
   if (pathname.startsWith('/secure')) {
     redirect(`/secure${queryString}`);
   }
 
   // Redirects /dashboard?ref=123 -> /secure/dashboard?ref=123
-  redirect(`/secure${pathname}${queryString}`);
+  redirect(`${pathname}${queryString}`);
 }

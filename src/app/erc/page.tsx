@@ -10,13 +10,14 @@ import LearningModules from "./Components/LearningModules";
 import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
 import FAQ from "./Components/FAQ";
+import { getOrigin } from "@/utils/getOrigin";
 
 export const metadata: Metadata = {
   title: "Equity Research Cohort | Learn Equity Research with Real Company Analysis",
   description:
     "Learn equity research the practical way. Analyze real companies, study annual reports & concalls, detect red flags, build full equity research reports, and prepare for finance interviews with TVS.",
   alternates: {
-    canonical: "/erc",
+    canonical: new URL(await getOrigin()),
   },
 };
 
@@ -49,7 +50,7 @@ export default async function ERC() {
       />
       <ReviewSection />
       <TakeThisCourse />
-      <FAQ courseId={1675}/>
+      <FAQ courseId={1675} />
     </>
   );
 }

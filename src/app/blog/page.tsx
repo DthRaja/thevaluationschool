@@ -5,6 +5,7 @@ import { Inbox } from "lucide-react";
 
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import { getOrigin } from "@/utils/getOrigin";
 
 export interface IBlogCategory {
   CategoryId: number;
@@ -55,7 +56,7 @@ export async function generateMetadata({ searchParams }: BlogListProps): Promise
     description:
       "Explore our latest articles, insights and updates from the CA, CFA, and valuation domain.",
     alternates: {
-      canonical,
+      canonical: new URL(await getOrigin()),
     },
   };
 }

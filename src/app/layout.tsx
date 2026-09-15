@@ -13,9 +13,13 @@ import Footer from "./Components/layout/Footer";
 import convertData from "@/utils/convartData";
 import ServerApi from "@/utils/Server";
 import Navbar from "./Components/layout/Navbar";
+import { headers } from "next/headers";
+import { getOrigin } from "@/utils/getOrigin";
+
+
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://thevaluationschool.com"),
+  metadataBase: new URL(await getOrigin()),
   title: "The Valuation School",
   description:
     "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.",
@@ -58,14 +62,14 @@ const EMPTY_SCHEDULE_CALENDAR: ScheduleCalendarData = {
 const labelsFrom = (value: unknown): string[] =>
   Array.isArray(value)
     ? value
-        .map((item) => {
-          if (typeof item === "string") return item;
-          if (item && typeof item === "object" && "label" in item) {
-            return String((item as { label: unknown }).label);
-          }
-          return "";
-        })
-        .filter(Boolean)
+      .map((item) => {
+        if (typeof item === "string") return item;
+        if (item && typeof item === "object" && "label" in item) {
+          return String((item as { label: unknown }).label);
+        }
+        return "";
+      })
+      .filter(Boolean)
     : [];
 
 export default async function RootLayout({ children }: RootLayoutProps) {
@@ -144,7 +148,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           countryCodes={scheduleCountryCodes}
           calendar={scheduleCalendar}
         />
-        <Footer courses={courses}/>
+        <Footer courses={courses} />
         <Toaster position="top-center" />
         <Analytics />
       </body>

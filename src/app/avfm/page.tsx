@@ -11,13 +11,14 @@ import PlansEveryone from "./Components/PlansEveryone";
 import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
 import FAQ from "./Components/FAQ";
+import { getOrigin } from "@/utils/getOrigin";
 
 export const metadata: Metadata = {
   title: "Advanced Valuation & Financial Modelling Course | AVFM by The Valuation School",
   description:
     "Master valuation, financial modelling, DCF, Excel, and real company analysis with hands-on practice. Build career-ready finance skills with AVFM by The Valuation School.",
   alternates: {
-    canonical: "/avfm",
+    canonical: new URL(await getOrigin()),
   },
 };
 
