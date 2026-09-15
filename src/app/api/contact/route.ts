@@ -21,11 +21,25 @@ interface ContactSubmitBody {
 // submission on the client's behalf, alongside the Google Sheets webhook.
 export async function POST(request: Request) {
   const body: ContactSubmitBody = await request.json();
-  const { firstName, lastName, email, digitsOnly, dialCode, queryType, message, pageUrl, userAgent } = body;
+  const {
+    firstName,
+    lastName,
+    email,
+    digitsOnly,
+    dialCode,
+    queryType,
+    message,
+    pageUrl,
+    userAgent,
+  } = body;
 
   const formattedPhone = `${dialCode} ${digitsOnly}`;
 
-  const api = new ServerApi({ withAuth: false, spName: "SPClientAnonymous", mode: 63 });
+  const api = new ServerApi({
+    withAuth: false,
+    spName: "SPClientAnonymous",
+    mode: 63,
+  });
 
   const [backendResult, sheetResult] = await Promise.allSettled([
     api.request({
@@ -38,7 +52,9 @@ export async function POST(request: Request) {
     }),
     fetch(SHEET_WEB_APP_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
       body: new URLSearchParams({
         firstName,
         lastName,
@@ -56,7 +72,10 @@ export async function POST(request: Request) {
   ]);
 
   if (sheetResult.status === "rejected") {
-    console.error("Contact form: Google Sheets webhook failed (non-blocking)", sheetResult.reason);
+    console.error(
+      "Contact form: Google Sheets webhook failed (non-blocking)",
+      sheetResult.reason,
+    );
   }
 
   if (backendResult.status === "fulfilled" && backendResult.value?.isSuccess) {
@@ -64,10 +83,15 @@ export async function POST(request: Request) {
   }
 
   const errorMessage =
-    backendResult.status === "fulfilled" ? backendResult.value?.errorMessages?.[0] : undefined;
+    backendResult.status === "fulfilled"
+      ? backendResult.value?.errorMessages?.[0]
+      : undefined;
 
   return Response.json(
-    { isSuccess: false, errorMessages: errorMessage ? [errorMessage] : undefined },
+    {
+      isSuccess: false,
+      errorMessages: errorMessage ? [errorMessage] : undefined,
+    },
     { status: 502 },
   );
 }

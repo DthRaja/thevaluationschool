@@ -1,8 +1,8 @@
-import React from "react";
-import Link from "next/link";
-import type { Metadata } from "next";
 import { Inbox } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
 
+import { getOrigin } from "@/app/lib/getOrigin";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 
@@ -55,7 +55,7 @@ export async function generateMetadata({ searchParams }: BlogListProps): Promise
     description:
       "Explore our latest articles, insights and updates from the CA, CFA, and valuation domain.",
     alternates: {
-      canonical,
+      canonical: new URL(await getOrigin(canonical)),
     },
   };
 }

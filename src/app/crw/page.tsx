@@ -1,22 +1,24 @@
-import React from "react";
-import type { Metadata } from "next";
+import { getOrigin } from "@/app/lib/getOrigin";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import type { Metadata } from "next";
 import Banner, { IBannerApi } from "./Components/Banner";
 import BannerDownSection from "./Components/BannerDownSection";
-import PlansEveryone from "./Components/PlansEveryone";
-import WhatLearn from "./Components/WhatLearn";
+import FAQ from "./Components/FAQ";
 import LearningModules from "./Components/LearningModules";
+import PlansEveryone from "./Components/PlansEveryone";
 import ReviewSection from "./Components/ReviewSection";
 import TakeThisCourse from "./Components/TakeThisCourse";
-import FAQ from "./Components/FAQ";
+import WhatLearn from "./Components/WhatLearn";
 
-export const metadata: Metadata = {
-  title: "Chart Reading Workshop | Learn Technical Analysis & Price Action",
-  alternates: {
-    canonical: "/crw",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Chart Reading Workshop | Learn Technical Analysis & Price Action",
+    alternates: {
+      canonical: new URL(await getOrigin("/crw")),
+    },
+  };
+}
 
 export default async function CRW() {
   const BannerApi = new ServerApi({
@@ -34,20 +36,20 @@ export default async function CRW() {
   const bannerApiData: Partial<IBannerApi> =
     convertData(BannerApiJson?.result) || {};
 
-    console.log(bannerApiData)
+  console.log(bannerApiData)
   return (
     <>
-      <Banner data={bannerApiData}/>
+      <Banner data={bannerApiData} />
       <BannerDownSection />
       <PlansEveryone linkId={bannerApiData.LinkId} />
       <WhatLearn />
-            <LearningModules
+      <LearningModules
         courseId={bannerApiData.CourseId}
         demoVideoLink={bannerApiData.WebsiteDemoVideoLink}
       />
       <ReviewSection />
       <TakeThisCourse />
-      <FAQ courseId={2006}/>
+      <FAQ courseId={2006} />
     </>
   );
 }

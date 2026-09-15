@@ -8,26 +8,36 @@ import "./css/fonts-global.css";
 import "./css/globals.css";
 import "./css/style.css";
 
+import { getOrigin } from "@/app/lib/getOrigin";
+import convertData from "@/utils/convartData";
+import ServerApi from "@/utils/Server";
 import Analytics from "./Components/layout/Analytics";
 import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
+<<<<<<< HEAD
 import MobileBottomNav from "./Components/layout/MobileBottomNav";
 import convertData from "@/utils/convartData";
 import ServerApi from "@/utils/Server";
+=======
+>>>>>>> 4753678d350a3e4b40ba26ad07120d3f0f555c94
 import Navbar from "./Components/layout/Navbar";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://thevaluationschool.com"),
-  title: "The Valuation School",
-  description:
-    "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.",
-  icons: {
-    icon: "/img/main-logo.jpg",
-  },
-  verification: {
-    google: "tuqjc-fdnKAGXcMBQQqRq6Y7XUlVCsTtmHmuB-DwNhI",
-  },
-};
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    metadataBase: new URL(await getOrigin()),
+    title: "The Valuation School",
+    description:
+      "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.",
+    icons: {
+      icon: "/img/main-logo.jpg",
+    },
+    verification: {
+      google: "tuqjc-fdnKAGXcMBQQqRq6Y7XUlVCsTtmHmuB-DwNhI",
+    },
+  };
+}
 
 
 export const dynamic = "force-dynamic";
@@ -60,14 +70,14 @@ const EMPTY_SCHEDULE_CALENDAR: ScheduleCalendarData = {
 const labelsFrom = (value: unknown): string[] =>
   Array.isArray(value)
     ? value
-        .map((item) => {
-          if (typeof item === "string") return item;
-          if (item && typeof item === "object" && "label" in item) {
-            return String((item as { label: unknown }).label);
-          }
-          return "";
-        })
-        .filter(Boolean)
+      .map((item) => {
+        if (typeof item === "string") return item;
+        if (item && typeof item === "object" && "label" in item) {
+          return String((item as { label: unknown }).label);
+        }
+        return "";
+      })
+      .filter(Boolean)
     : [];
 
 export default async function RootLayout({ children }: RootLayoutProps) {
@@ -146,8 +156,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           countryCodes={scheduleCountryCodes}
           calendar={scheduleCalendar}
         />
+<<<<<<< HEAD
         <Footer courses={courses}/>
         <MobileBottomNav />
+=======
+        <Footer courses={courses} />
+>>>>>>> 4753678d350a3e4b40ba26ad07120d3f0f555c94
         <Toaster position="top-center" />
         <Analytics />
       </body>

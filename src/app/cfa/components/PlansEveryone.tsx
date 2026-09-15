@@ -1,4 +1,3 @@
-import React from "react";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 import PlanCard from "./PlanCard";

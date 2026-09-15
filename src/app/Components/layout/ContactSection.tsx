@@ -1,7 +1,7 @@
 "use client";
 
-import Auth, { type IUserModel } from "@/utils/auth";
 import type { ScheduleCalendarData } from "@/app/layout";
+import Auth, { type IUserModel } from "@/utils/auth";
 import { ArrowRight, Mail, MessageCircle, Phone, PhoneCall, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type ReactNode, type SubmitEvent, useCallback, useEffect, useId, useRef, useState } from "react";

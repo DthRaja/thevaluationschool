@@ -1,8 +1,8 @@
 "use client";
 
+import Auth from "@/utils/auth";
 import React, { useEffect, useMemo, useState } from "react";
 import type { ICountryCodeOption, ICountryOption } from "./LearningModules";
-import Auth from "@/utils/auth";
 
 interface BrochureModalProps {
   isOpen: boolean;

@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 
+import convertData from "@/utils/convartData";
+import ServerApi from "@/utils/Server";
 import AboutSection from "./Components/Home/AboutSection";
 import Banner from "./Components/Home/Banner";
+import JoyBringsSection, { IJoyBrings } from "./Components/Home/JoyBringsSection";
 import OurCourses from "./Components/Home/OurCourses";
-import ServerApi from "@/utils/Server";
 import StudentsPlaced, {
   IStudentsPlaced,
 } from "./Components/Home/StudentsPlaced";
 import YouTubePlaylist, {
   IYouTubePlaylist,
 } from "./Components/Home/YouTubePlaylist";
-import convertData from "@/utils/convartData";
-import JoyBringsSection, { IJoyBrings } from "./Components/Home/JoyBringsSection";
 
 export const metadata: Metadata = {
   title:
@@ -67,7 +67,7 @@ export default async function Home() {
       <OurCourses />
       <StudentsPlaced data={studentPlacedData} />
       <YouTubePlaylist data={youTubeVideoData} />
-      <JoyBringsSection data={joyBringsData}/>
+      <JoyBringsSection data={joyBringsData} />
     </>
   );
 }

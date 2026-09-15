@@ -1,26 +1,29 @@
-import type { Metadata } from "next";
+import { getOrigin } from "@/app/lib/getOrigin";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import type { Metadata } from "next";
 import Banner, { IBannerApi } from "./components/Banner";
 import BannerDownSection from "./components/BannerDownSection";
+import CarrierAfterCfa from "./components/CarrierAfterCfa";
 import CfaDetails from "./components/CfaDetails";
+import FAQ from "./components/FAQ";
 import LearningModules from "./components/LearningModules";
+import PlansEveryone from "./components/PlansEveryone";
 import PracticalModules from "./components/PracticalModules";
 import Practicallearning from "./components/Practicallearning";
 import ReviewSection from "./components/ReviewSection";
-import FAQ from "./components/FAQ";
-import PlansEveryone from "./components/PlansEveryone";
-import CarrierAfterCfa from "./components/CarrierAfterCfa";
 import YoutubeSection from "./components/YoutubeSection";
 
-export const metadata: Metadata = {
-  title: "CFA Level 1 Course in India | Live + Recorded | The Valuation School",
-  description:
-    "Crack CFA Level 1 with 300+ hours classes, revision, MCQs, study notes, practical finance teaching & mentor support. Enroll for May 2026.",
-  alternates: {
-    canonical: "/cfa",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "CFA Level 1 Course in India | Live + Recorded | The Valuation School",
+    description:
+      "Crack CFA Level 1 with 300+ hours classes, revision, MCQs, study notes, practical finance teaching & mentor support. Enroll for May 2026.",
+    alternates: {
+      canonical: new URL(await getOrigin("/cfa")),
+    },
+  };
+}
 
 export default async function CFA() {
   const BannerApi = new ServerApi({

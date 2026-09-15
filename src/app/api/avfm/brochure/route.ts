@@ -21,11 +21,25 @@ interface BrochureSubmitBody {
 // behalf, matching how every other ServerApi call in this app already works.
 export async function POST(request: Request) {
   const body: BrochureSubmitBody = await request.json();
-  const { firstName, lastName, email, digitsOnly, dialCode, country, employment, pageUrl, userAgent } = body;
+  const {
+    firstName,
+    lastName,
+    email,
+    digitsOnly,
+    dialCode,
+    country,
+    employment,
+    pageUrl,
+    userAgent,
+  } = body;
 
   const formattedPhone = `${dialCode} ${digitsOnly}`;
 
-  const api = new ServerApi({ withAuth: false, spName: "SPClientAnonymous", mode: 37 });
+  const api = new ServerApi({
+    withAuth: false,
+    spName: "SPClientAnonymous",
+    mode: 37,
+  });
 
   const [backendResult, sheetResult] = await Promise.allSettled([
     api.request({
@@ -41,7 +55,9 @@ export async function POST(request: Request) {
     }),
     fetch(SHEET_WEB_APP_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
       body: new URLSearchParams({
         FirstName: firstName,
         LastName: lastName,
@@ -61,7 +77,10 @@ export async function POST(request: Request) {
   ]);
 
   if (sheetResult.status === "rejected") {
-    console.error("Brochure form: Google Sheets webhook failed (non-blocking)", sheetResult.reason);
+    console.error(
+      "Brochure form: Google Sheets webhook failed (non-blocking)",
+      sheetResult.reason,
+    );
   }
 
   if (backendResult.status === "fulfilled" && backendResult.value?.isSuccess) {
@@ -69,7 +88,9 @@ export async function POST(request: Request) {
   }
 
   const message =
-    backendResult.status === "fulfilled" ? backendResult.value?.errorMessages?.[0] : undefined;
+    backendResult.status === "fulfilled"
+      ? backendResult.value?.errorMessages?.[0]
+      : undefined;
 
   return Response.json(
     { isSuccess: false, errorMessages: message ? [message] : undefined },

@@ -1,7 +1,6 @@
-import React from "react";
-import Image from "next/image";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import Image from "next/image";
 import FAQAccordion from "./FAQAccordion";
 
 export interface IFaqItem {

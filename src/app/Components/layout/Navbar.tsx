@@ -1,11 +1,11 @@
 "use client";
 
+import { CourseMenuItem } from "@/app/layout";
+import Auth, { type IUserModel } from "@/utils/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { CourseMenuItem } from "@/app/layout";
-import Auth, { type IUserModel } from "@/utils/auth";
 
 interface NavbarProps {
   courses: CourseMenuItem[];
@@ -82,8 +82,8 @@ const Navbar = ({ courses }: NavbarProps) => {
 
   const profileName = authenticatedUser
     ? [authenticatedUser.FirstName, authenticatedUser.LastName]
-        .filter(Boolean)
-        .join(" ")
+      .filter(Boolean)
+      .join(" ")
     : "";
 
   /**
@@ -142,16 +142,16 @@ const Navbar = ({ courses }: NavbarProps) => {
           header.classList.remove("header--hidden", "header--scrolled");
         } else if (currentY > lastScrollY && currentY > hideThreshold) {
 
-        /**
-         * Scrolling DOWN
-         */
+          /**
+           * Scrolling DOWN
+           */
           header.classList.add("header--hidden");
           header.classList.remove("header--scrolled");
         } else if (currentY < lastScrollY) {
 
-        /**
-         * Scrolling UP
-         */
+          /**
+           * Scrolling UP
+           */
           header.classList.remove("header--hidden");
 
           header.classList.add("header--scrolled");
@@ -306,9 +306,8 @@ const Navbar = ({ courses }: NavbarProps) => {
                 ============================ */}
 
                 <li
-                  className={`dropdown ${isCourseActive ? "active-item" : ""} ${
-                    desktopDropdownClosing ? "dropdown-closing" : ""
-                  }`}
+                  className={`dropdown ${isCourseActive ? "active-item" : ""} ${desktopDropdownClosing ? "dropdown-closing" : ""
+                    }`}
                   onMouseLeave={() => setDesktopDropdownClosing(false)}
                 >
                   <a
@@ -331,9 +330,8 @@ const Navbar = ({ courses }: NavbarProps) => {
                       courses.map((course, index) => (
                         <li key={`${course.PageUrl}-${index}`}>
                           <Link
-                            className={`dropdown-item ${
-                              isActive(course.PageUrl) ? "active" : ""
-                            }`}
+                            className={`dropdown-item ${isActive(course.PageUrl) ? "active" : ""
+                              }`}
                             href={toSafeHref(course.PageUrl)}
                             onClick={closeDesktopDropdown}
                           >
@@ -389,14 +387,14 @@ const Navbar = ({ courses }: NavbarProps) => {
 
             <div className="profileLi">
               {authenticatedUser &&
-              <div id="p-m-div">
-                <a href="/secure/dashboard" data-spa="true" className="btn signout-btn">
-                  <img src={`https://ui-avatars.com/api/?name=${profileName}&background=16945D&color=fff&rounded=true&size=50`} alt="userProfile2" id="mainImageAvtar" className="signout-img" />
-                  <span className="profile-name"> 
-                    {profileName}
-                  </span>
-                </a>
-              </div>}
+                <div id="p-m-div">
+                  <a href="/secure/dashboard" data-spa="true" className="btn signout-btn">
+                    <img src={`https://ui-avatars.com/api/?name=${profileName}&background=16945D&color=fff&rounded=true&size=50`} alt="userProfile2" id="mainImageAvtar" className="signout-img" />
+                    <span className="profile-name">
+                      {profileName}
+                    </span>
+                  </a>
+                </div>}
             </div>
           </div>
 
@@ -406,9 +404,8 @@ const Navbar = ({ courses }: NavbarProps) => {
 
           <div
             id="mobile-menu-container"
-            className={`mobile-menu-container ${
-              mobileMenuOpen ? "active" : ""
-            }`}
+            className={`mobile-menu-container ${mobileMenuOpen ? "active" : ""
+              }`}
           >
             <div className="mobile-menu-content">
               {/* Mobile Header */}
@@ -475,9 +472,8 @@ const Navbar = ({ courses }: NavbarProps) => {
                   <li className={`dropdown ${mobileCourseOpen ? "open" : ""}`}>
                     <button
                       type="button"
-                      className={`dropdown-toggle ${
-                        isCourseActive ? "active" : ""
-                      }`}
+                      className={`dropdown-toggle ${isCourseActive ? "active" : ""
+                        }`}
                       aria-expanded={mobileCourseOpen}
                       onClick={() =>
                         setMobileCourseOpen((previous) => !previous)
@@ -492,9 +488,8 @@ const Navbar = ({ courses }: NavbarProps) => {
                         courses.map((course, index) => (
                           <li key={`mobile-${course.PageUrl}-${index}`}>
                             <Link
-                              className={`dropdown-item ${
-                                isActive(course.PageUrl) ? "active" : ""
-                              }`}
+                              className={`dropdown-item ${isActive(course.PageUrl) ? "active" : ""
+                                }`}
                               href={toSafeHref(course.PageUrl)}
                               onClick={closeMobileMenu}
                             >
