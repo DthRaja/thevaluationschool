@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./css/fonts-global.css";
 import "./css/globals.css";
 import "./css/style.css";
@@ -10,6 +11,7 @@ import "./css/style.css";
 import Analytics from "./Components/layout/Analytics";
 import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
+import MobileBottomNav from "./Components/layout/MobileBottomNav";
 import convertData from "@/utils/convartData";
 import ServerApi from "@/utils/Server";
 import Navbar from "./Components/layout/Navbar";
@@ -145,6 +147,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           calendar={scheduleCalendar}
         />
         <Footer courses={courses}/>
+        <MobileBottomNav />
         <Toaster position="top-center" />
         <Analytics />
       </body>
