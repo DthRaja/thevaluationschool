@@ -14,12 +14,7 @@ import ServerApi from "@/utils/Server";
 import Analytics from "./Components/layout/Analytics";
 import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
-<<<<<<< HEAD
 import MobileBottomNav from "./Components/layout/MobileBottomNav";
-import convertData from "@/utils/convartData";
-import ServerApi from "@/utils/Server";
-=======
->>>>>>> 4753678d350a3e4b40ba26ad07120d3f0f555c94
 import Navbar from "./Components/layout/Navbar";
 
 
@@ -156,12 +151,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           countryCodes={scheduleCountryCodes}
           calendar={scheduleCalendar}
         />
-<<<<<<< HEAD
-        <Footer courses={courses}/>
-        <MobileBottomNav />
-=======
         <Footer courses={courses} />
->>>>>>> 4753678d350a3e4b40ba26ad07120d3f0f555c94
+        <MobileBottomNav />
         <Toaster position="top-center" />
         <Analytics />
       </body>
