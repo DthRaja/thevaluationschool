@@ -71,6 +71,7 @@ const AboutSection = () => {
                       className="about-section-image"
                       width={450}
                       height={506}
+                      sizes="(max-width: 768px) 195px, (max-width: 1000px) 290px, 410px"
                     />
                   </div>
                 </div>
@@ -185,6 +186,7 @@ const AboutSection = () => {
                       className="about-section-image"
                       width={350}
                       height={380}
+                      sizes="(max-width: 768px) 200px, (max-width: 1000px) 250px, 410px"
                     />
                   </div>
                 </div>

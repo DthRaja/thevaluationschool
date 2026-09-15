@@ -92,7 +92,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                     alt="AVFM course preview"
                     fill
                     sizes="(max-width: 1000px) 100vw, 50vw"
-                    preload
+                    priority
                   />
                 )}
                 <span className="hero-video-overlay" aria-hidden="true"></span>

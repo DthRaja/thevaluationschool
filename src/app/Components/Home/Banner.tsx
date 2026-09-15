@@ -45,7 +45,7 @@ const Banner = () => {
                                     alt="video-icon"
                                     width={1280}
                                     height={720}
-                                    preload
+                                    priority
                                 />
                                 <HeroVideoModal />
                             </div>

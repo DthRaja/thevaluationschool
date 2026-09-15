@@ -16,6 +16,7 @@ const HeroVideoModal = () => {
                 type="button"
                 className="play-btn"
                 id="playButton"
+                aria-label="Play video"
                 onClick={() => setIsVideoOpen(true)}
             >
                 <Image src="/img/Play.svg" alt="" width={39} height={44} />
@@ -29,7 +30,7 @@ const HeroVideoModal = () => {
                     if (e.target === e.currentTarget) closeVideo();
                 }}
             >
-                <button type="button" className="close-btn" id="closeModal" onClick={closeVideo}>
+                <button type="button" className="close-btn" id="closeModal" aria-label="Close video" onClick={closeVideo}>
                     &times;
                 </button>
                 <div className="video-modal-content">

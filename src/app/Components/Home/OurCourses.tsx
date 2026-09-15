@@ -98,6 +98,7 @@ const OurCourses = () => {
                       alt="course-card-image"
                       width={1280}
                       height={720}
+                      sizes="(max-width: 767px) 85vw, (max-width: 1800px) 40vw, 33vw"
                     />
                   </Link>
                 </div>

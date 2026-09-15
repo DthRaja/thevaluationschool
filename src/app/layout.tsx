@@ -16,6 +16,7 @@ import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
 import MobileBottomNav from "./Components/layout/MobileBottomNav";
 import Navbar from "./Components/layout/Navbar";
+import PreloadFonts from "./Components/layout/PreloadFonts";
 
 
 
@@ -143,6 +144,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
+        <PreloadFonts />
         <Navbar courses={courses} />
 
         <main>{children}</main>

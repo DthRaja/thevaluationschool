@@ -56,6 +56,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                                         alt="CFA level 1 course preview"
                                         fill
                                         sizes="(max-width: 1000px) 100vw, 50vw"
+                                        priority
                                     />
                                 )}
                                 <span className="hero-video-overlay" aria-hidden="true"></span>
