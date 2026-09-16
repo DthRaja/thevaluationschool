@@ -1,9 +1,12 @@
-import { headers } from "next/headers";
+export function getOrigin(pathname = ""): string {
+  const envOrigin =
+    process.env.NEXT_PUBLIC_ORIGIN_URL ?? "https://thevaluationschool.com";
 
-export async function getOrigin(pathname = "") {
-  const headersList = await headers();
-  const host = headersList.get("host");
-  const protocol = headersList.get("x-forwarded-proto") || "http";
-
-  return `${protocol}://${host}${pathname}`;
+  if (pathname === "") {
+    return envOrigin + "/";
+  } else if (pathname.startsWith("/")) {
+    return `${envOrigin}${pathname}`;
+  } else {
+    return `${envOrigin}/${pathname}`;
+  }
 }

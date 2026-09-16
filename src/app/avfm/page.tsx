@@ -1,4 +1,5 @@
 import { getOrigin } from "@/app/lib/getOrigin";
+import { buildSocialMetadata } from "@/app/lib/seo";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 import type { Metadata } from "next";
@@ -13,13 +14,17 @@ import TakeThisCourse from "./Components/TakeThisCourse";
 import WhatLearn from "./Components/WhatLearn";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const title = "Advanced Valuation & Financial Modelling Course | AVFM by The Valuation School";
+  const description =
+    "Master valuation, financial modelling, DCF, Excel, and real company analysis with hands-on practice. Build career-ready finance skills with AVFM by The Valuation School.";
+
   return {
-    title: "Advanced Valuation & Financial Modelling Course | AVFM by The Valuation School",
-    description:
-      "Master valuation, financial modelling, DCF, Excel, and real company analysis with hands-on practice. Build career-ready finance skills with AVFM by The Valuation School.",
+    title,
+    description,
     alternates: {
       canonical: new URL(await getOrigin("/avfm")),
     },
+    ...buildSocialMetadata({ title, description, path: "/avfm" }),
   };
 }
 

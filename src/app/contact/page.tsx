@@ -3,16 +3,21 @@ import convertData from "@/utils/convartData";
 import type { Metadata } from "next";
 
 import { getOrigin } from "@/app/lib/getOrigin";
+import { buildSocialMetadata } from "@/app/lib/seo";
 import ContactForm, { type ICountryCodeOption } from "./Components/ContactForm";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const title = "Contact The Valuation School | Get in Touch with Team The Valuation School";
+  const description =
+    "Have a question or need guidance? Contact The Valuation School for course queries, payments, partnerships, or general support. We're here to help you move forward.";
+
   return {
-    title: "Contact The Valuation School | Get in Touch with Team The Valuation School",
-    description:
-      "Have a question or need guidance? Contact The Valuation School for course queries, payments, partnerships, or general support. We're here to help you move forward.",
+    title,
+    description,
     alternates: {
       canonical: new URL(await getOrigin("/contact")),
     },
+    ...buildSocialMetadata({ title, description, path: "/contact" }),
   };
 }
 

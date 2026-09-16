@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { buildSocialMetadata } from "@/app/lib/seo";
 import convertData from "@/utils/convartData";
 import ServerApi from "@/utils/Server";
 import AboutSection from "./Components/Home/AboutSection";
@@ -13,14 +14,18 @@ import YouTubePlaylist, {
   IYouTubePlaylist,
 } from "./Components/Home/YouTubePlaylist";
 
+const title =
+  "The Valuation School | CFA Level 1 Coaching, Valuation & Financial Modelling (AVFM)";
+const description =
+  "Stop memorizing. Start understanding. Master CFA Level 1, valuation & financial modelling (AVFM), equity research and career mentoring with The Valuation School. 20,000+ learners, 350+ hours of lectures.";
+
 export const metadata: Metadata = {
-  title:
-    "The Valuation School | CFA Level 1 Coaching, Valuation & Financial Modelling (AVFM)",
-  description:
-    "Stop memorizing. Start understanding. Master CFA Level 1, valuation & financial modelling (AVFM), equity research and career mentoring with The Valuation School. 20,000+ learners, 350+ hours of lectures.",
+  title,
+  description,
   alternates: {
     canonical: "/",
   },
+  ...buildSocialMetadata({ title, description, path: "/" }),
 };
 
 export default async function Home() {

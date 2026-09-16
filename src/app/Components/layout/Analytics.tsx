@@ -6,7 +6,7 @@ const FB_PIXEL_ID = "1752935632496207";
 const Analytics = () => {
   return (
     <>
-      <Script
+      {/* <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="lazyOnload"
       />
@@ -32,7 +32,7 @@ const Analytics = () => {
           fbq('init', '${FB_PIXEL_ID}');
           fbq('track', 'PageView');
         `}
-      </Script>
+      </Script> */}
     </>
   );
 };

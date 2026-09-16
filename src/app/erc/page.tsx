@@ -1,4 +1,5 @@
 import { getOrigin } from "@/app/lib/getOrigin";
+import { buildSocialMetadata } from "@/app/lib/seo";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 import type { Metadata } from "next";
@@ -13,13 +14,17 @@ import TakeThisCourse from "./Components/TakeThisCourse";
 import WhatLearn from "./Components/WhatLearn";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const title = "Equity Research Cohort | Learn Equity Research with Real Company Analysis";
+  const description =
+    "Learn equity research the practical way. Analyze real companies, study annual reports & concalls, detect red flags, build full equity research reports, and prepare for finance interviews with TVS.";
+
   return {
-    title: "Equity Research Cohort | Learn Equity Research with Real Company Analysis",
-    description:
-      "Learn equity research the practical way. Analyze real companies, study annual reports & concalls, detect red flags, build full equity research reports, and prepare for finance interviews with TVS.",
+    title,
+    description,
     alternates: {
       canonical: new URL(await getOrigin("/erc")),
     },
+    ...buildSocialMetadata({ title, description, path: "/erc" }),
   };
 }
 

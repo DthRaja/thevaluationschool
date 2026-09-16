@@ -1,4 +1,5 @@
 import { getOrigin } from '@/app/lib/getOrigin';
+import { buildSocialMetadata } from '@/app/lib/seo';
 import convertData from '@/utils/convartData';
 import ServerApi from '@/utils/Server';
 import type { Metadata } from 'next';
@@ -8,13 +9,27 @@ import ReviewAlumni from './Components/ReviewAlumni';
 import ReviewForm from './Components/ReviewForm';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const title = 'The Valuation School Alumni | Success Stories & Career Journeys of Our Students';
+  const description =
+    'Explore the success stories of The Valuation School alumni. See how students transformed learning into real finance careers through mentorship, practical skills, and focused guidance.';
+
   return {
-    title: 'The Valuation School Alumni | Success Stories & Career Journeys of Our Students',
-    description:
-      'Explore the success stories of The Valuation School alumni. See how students transformed learning into real finance careers through mentorship, practical skills, and focused guidance.',
+    title,
+    description,
     alternates: {
       canonical: new URL(await getOrigin('/alumni')),
     },
+    ...buildSocialMetadata({
+      title,
+      description,
+      path: '/alumni',
+      image: {
+        url: '/img/TVS1-alumni-banner.png',
+        width: 900,
+        height: 309,
+        alt: 'The Valuation School Alumni',
+      },
+    }),
   };
 }
 

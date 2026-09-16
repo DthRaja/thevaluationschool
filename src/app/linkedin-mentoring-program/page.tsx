@@ -1,4 +1,5 @@
 import { getOrigin } from "@/app/lib/getOrigin";
+import { buildSocialMetadata } from "@/app/lib/seo";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 import type { Metadata } from "next";
@@ -13,13 +14,17 @@ import TakeThisCourse from "./Components/TakeThisCourse";
 import WhatLearn from "./Components/WhatLearn";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const title = "LinkedIn Mentoring Cohort | Build Personal Brand & Career Opportunities";
+  const description =
+    "Learn how to optimize your LinkedIn profile, create high-impact content, and build a powerful personal brand. Turn networking into real job opportunities with practical LinkedIn mentoring.";
+
   return {
-    title: "LinkedIn Mentoring Cohort | Build Personal Brand & Career Opportunities",
-    description:
-      "Learn how to optimize your LinkedIn profile, create high-impact content, and build a powerful personal brand. Turn networking into real job opportunities with practical LinkedIn mentoring.",
+    title,
+    description,
     alternates: {
       canonical: new URL(await getOrigin("/linkedin-mentoring-program")),
     },
+    ...buildSocialMetadata({ title, description, path: "/linkedin-mentoring-program" }),
   };
 }
 

@@ -1,4 +1,5 @@
 import { getOrigin } from "@/app/lib/getOrigin";
+import { buildSocialMetadata } from "@/app/lib/seo";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 import type { Metadata } from "next";
@@ -15,13 +16,17 @@ import ReviewSection from "./components/ReviewSection";
 import YoutubeSection from "./components/YoutubeSection";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const title = "CFA Level 1 Course in India | Live + Recorded | The Valuation School";
+  const description =
+    "Crack CFA Level 1 with 300+ hours classes, revision, MCQs, study notes, practical finance teaching & mentor support. Enroll for May 2026.";
+
   return {
-    title: "CFA Level 1 Course in India | Live + Recorded | The Valuation School",
-    description:
-      "Crack CFA Level 1 with 300+ hours classes, revision, MCQs, study notes, practical finance teaching & mentor support. Enroll for May 2026.",
+    title,
+    description,
     alternates: {
       canonical: new URL(await getOrigin("/cfa")),
     },
+    ...buildSocialMetadata({ title, description, path: "/cfa" }),
   };
 }
 

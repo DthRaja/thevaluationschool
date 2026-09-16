@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { getOrigin } from "@/app/lib/getOrigin";
+import { buildSocialMetadata } from "@/app/lib/seo";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 
@@ -50,13 +51,17 @@ export async function generateMetadata({ searchParams }: BlogListProps): Promise
   // self-canonicalizes rather than collapsing every variant back to /blog.
   const canonical = buildPageHref(currentPage, activeCategoryId);
 
+  const title = "Latest Blogs | The Valuation School";
+  const description =
+    "Explore our latest articles, insights and updates from the CA, CFA, and valuation domain.";
+
   return {
-    title: "Latest Blogs | The Valuation School",
-    description:
-      "Explore our latest articles, insights and updates from the CA, CFA, and valuation domain.",
+    title,
+    description,
     alternates: {
       canonical: new URL(await getOrigin(canonical)),
     },
+    ...buildSocialMetadata({ title, description, path: canonical }),
   };
 }
 

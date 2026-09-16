@@ -9,6 +9,7 @@ import "./css/globals.css";
 import "./css/style.css";
 
 import { getOrigin } from "@/app/lib/getOrigin";
+import { buildSocialMetadata } from "@/app/lib/seo";
 import convertData from "@/utils/convartData";
 import ServerApi from "@/utils/Server";
 import Analytics from "./Components/layout/Analytics";
@@ -21,17 +22,21 @@ import PreloadFonts from "./Components/layout/PreloadFonts";
 
 
 export async function generateMetadata(): Promise<Metadata> {
+  const title = "The Valuation School";
+  const description =
+    "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.";
+
   return {
     metadataBase: new URL(await getOrigin()),
-    title: "The Valuation School",
-    description:
-      "Finance courses in valuation, CFA, equity research, and financial modelling — taught by The Valuation School.",
+    title,
+    description,
     icons: {
       icon: "/img/main-logo.jpg",
     },
     verification: {
       google: "tuqjc-fdnKAGXcMBQQqRq6Y7XUlVCsTtmHmuB-DwNhI",
     },
+    ...buildSocialMetadata({ title, description, path: "/" }),
   };
 }
 

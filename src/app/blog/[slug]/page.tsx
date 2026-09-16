@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { buildSocialMetadata, DEFAULT_OG_IMAGE } from "@/app/lib/seo";
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
 import type { IBlogListItem, IBlogListResponse } from "../page";
@@ -87,17 +88,15 @@ export async function generateMetadata({ params }: BlogDetailsProps): Promise<Me
     alternates: {
       canonical: `/blog/${blog.Slug}`,
     },
-    openGraph: {
+    ...buildSocialMetadata({
       title: blog.Title,
       description,
+      path: `/blog/${blog.Slug}`,
       type: "article",
-      images: blog.CoverMediaUrl ? [{ url: blog.CoverMediaUrl }] : undefined,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: blog.Title,
-      description,
-    },
+      image: blog.CoverMediaUrl
+        ? { url: blog.CoverMediaUrl, alt: blog.Title }
+        : DEFAULT_OG_IMAGE,
+    }),
   };
 }
 
