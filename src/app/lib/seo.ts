@@ -7,9 +7,9 @@ export const SITE_NAME = "The Valuation School";
 // No dedicated 1200x630 OG asset exists yet; the main logo is the closest
 // aspect ratio available until a proper social-share image is designed.
 export const DEFAULT_OG_IMAGE = {
-  url: "/img/main-logo.jpg",
-  width: 500,
-  height: 267,
+  url: "/img/favicon/web-app-manifest-512x512.png",
+  width: 512,
+  height: 512,
   alt: SITE_NAME,
 };
 

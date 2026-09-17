@@ -34,7 +34,7 @@ const Banner = () => {
                             <Image
                                 className="lines-effect"
                                 src="/img/3lineseffect.svg"
-                                alt=""
+                                alt="Decorative accent lines"
                                 width={43}
                                 height={48}
                             />
@@ -52,7 +52,7 @@ const Banner = () => {
                             <div className="arrow-icon-container">
                                 <Image
                                     src="/img/hero-arrow.svg"
-                                    alt=""
+                                    alt="Arrow pointing to the video"
                                     width={109}
                                     height={120}
                                 />

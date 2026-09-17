@@ -41,7 +41,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
               <div className="hero-trust-item">
                 <Image
                   src="/img/course-students.png"
-                  alt=""
+                  alt="Avatars of enrolled students"
                   width={79}
                   height={32}
                   className="hero-trust-avatars"
@@ -57,7 +57,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
               <div className="hero-trust-item">
                 <Image
                   src="/img/stars.svg"
-                  alt=""
+                  alt="5-star rating"
                   width={96}
                   height={19}
                   className="hero-trust-stars"
@@ -116,7 +116,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                     aria-label="Watch AVFM program overview video"
                   >
                     <span className="play-btn-ring" aria-hidden="true"></span>
-                    <Image src="/img/Play.svg" alt="" width={26} height={30} />
+                    <Image src="/img/Play.svg" alt="Play button" width={26} height={30} />
                   </a>
                 )}
 

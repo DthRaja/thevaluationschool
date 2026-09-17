@@ -21,7 +21,7 @@ const Footer = ({ courses }: NavbarProps) => {
 
                 <Image
                   src="/img/footerarrow.svg"
-                  alt=""
+                  alt="Arrow pointing to social media icons"
                   className="arrow-icon"
                   width={92}
                   height={152}
@@ -260,7 +260,7 @@ const Footer = ({ courses }: NavbarProps) => {
                   <div className="fixed-image">
                     <Image
                       src="/img/footer.png"
-                      alt=""
+                      alt="Parth Verma speaking at a microphone"
                       width={500}
                       height={400}
                     />

@@ -19,7 +19,7 @@ const HeroVideoModal = () => {
                 aria-label="Play video"
                 onClick={() => setIsVideoOpen(true)}
             >
-                <Image src="/img/Play.svg" alt="" width={39} height={44} />
+                <Image src="/img/Play.svg" alt="Play button" width={39} height={44} />
             </button>
 
             {/* Video modal  */}

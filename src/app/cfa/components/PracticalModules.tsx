@@ -8,7 +8,7 @@ const PracticalModules = () => {
       <div className="practical-card">
         <div className="practical-card-wrapper">
           <h3>What you will get</h3>
-          <img src="/img/Mentoring Sessions.png" />
+          <img src="/img/Mentoring Sessions.png" alt="Illustration of a mentoring video call with career growth icons" />
           <div className="birght-box top-right">
             <p>
               300+ Hours <br />
@@ -33,7 +33,7 @@ const PracticalModules = () => {
       <div className="practical-card">
         <div className="practical-card-wrapper">
           <h3>Add ons you get</h3>
-          <img src="/img/practicalmodule.png" />
+          <img src="/img/practicalmodule.png" alt="Illustration of study materials with a ruler and pencil" />
           <div className="birght-box top-right-2">
             <p>
               The Valuation School<br />

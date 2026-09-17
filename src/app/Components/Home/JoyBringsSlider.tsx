@@ -23,7 +23,7 @@ interface IconBoxProps {
 
 const IconBox = ({ url }: IconBoxProps) => {
     const icon = (
-        <Image src="/img/LinkedIn.svg" alt="" width={27} height={25} />
+        <Image src="/img/LinkedIn.svg" alt="LinkedIn icon" width={27} height={25} />
     );
 
     if (!url) {
@@ -115,13 +115,13 @@ const JoyBringsSlider = ({ data }: JoyBringsSliderProps) => {
                             <div className="student-review">
                                 <Image
                                     src="/img/message-left-icon.svg"
-                                    alt=""
+                                    alt="Opening quotation mark"
                                     width={48}
                                     height={36}
                                 />
                                 <Image
                                     src="/img/message-right-icon.svg"
-                                    alt=""
+                                    alt="Closing quotation mark"
                                     width={48}
                                     height={36}
                                 />

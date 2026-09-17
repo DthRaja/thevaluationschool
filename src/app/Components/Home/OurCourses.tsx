@@ -75,7 +75,7 @@ const OurCourses = () => {
                 Our Courses
                 <Image
                   src="/img/course-section-line.svg"
-                  alt=""
+                  alt="Decorative underline"
                   width={150}
                   height={12}
                 />

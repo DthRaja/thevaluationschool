@@ -32,7 +32,7 @@ const StudentsPlaced = ({ data }: { data: IStudentsPlaced[] }) => {
               placed
               <Image
                 src="/img/companies-header-line.svg"
-                alt=""
+                alt="Decorative underline"
                 width={150}
                 height={12}
               />

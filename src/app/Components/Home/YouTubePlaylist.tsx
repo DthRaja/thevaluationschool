@@ -62,7 +62,7 @@ const YouTubePlaylist = ({ data }: { data: IYouTubePlaylist[] }) => {
                   <li key={p.href}>
                     <Image
                       src="/img/play-icon.svg"
-                      alt=""
+                      alt="Play icon"
                       width={32}
                       height={32}
                     />
@@ -86,14 +86,14 @@ const YouTubePlaylist = ({ data }: { data: IYouTubePlaylist[] }) => {
                 View All
                 <Image
                   src="/img/arrow-icon.svg"
-                  alt=""
+                  alt="Arrow icon"
                   className="arrow-icon"
                   width={32}
                   height={32}
                 />
                 <Image
                   src="/img/3lineseffect.svg"
-                  alt=""
+                  alt="Decorative accent lines"
                   className="lines-effect-icon"
                   width={43}
                   height={48}

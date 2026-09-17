@@ -19,7 +19,7 @@ const normalizePath = (url: string | null | undefined) => {
     .split("#")[0]
     .replace(/\/+$/, "")
     .toLowerCase();
-
+         
   if (!path || path === "/index") {
     path = "/";
   }
@@ -295,7 +295,7 @@ const Navbar = ({ courses }: NavbarProps) => {
 
                   <Image
                     src="/img/navbar-active.svg"
-                    alt=""
+                    alt="Active menu indicator"
                     width={47}
                     height={7}
                   />
@@ -320,7 +320,7 @@ const Navbar = ({ courses }: NavbarProps) => {
 
                   <Image
                     src="/img/navbar-active.svg"
-                    alt=""
+                    alt="Active menu indicator"
                     width={47}
                     height={7}
                   />
@@ -355,7 +355,7 @@ const Navbar = ({ courses }: NavbarProps) => {
 
                   <Image
                     src="/img/navbar-active.svg"
-                    alt=""
+                    alt="Active menu indicator"
                     width={47}
                     height={7}
                   />
@@ -367,7 +367,7 @@ const Navbar = ({ courses }: NavbarProps) => {
 
                   <Image
                     src="/img/navbar-active.svg"
-                    alt=""
+                    alt="Active menu indicator"
                     width={47}
                     height={7}
                   />

@@ -22,7 +22,7 @@ const CompanyCard = ({ row, hidden }: CompanyCardProps) => (
         <div className="company-card-image">
             <Image
                 src={normalizePath(row.studentPhoto)}
-                alt={hidden ? "" : row.name}
+                alt={row.name === '' ? 'student-img' : row.name }
                 loading="lazy"
                 tabIndex={hidden ? -1 : undefined}
                 width={400}
@@ -33,7 +33,7 @@ const CompanyCard = ({ row, hidden }: CompanyCardProps) => (
         <div className="company-card-content">
             <Image
                 src={normalizePath(row.companyImage)}
-                alt={hidden ? "" : `${row.name}'s company logo`}
+                alt={`${row.name}'s company logo`}
                 loading="lazy"
                 tabIndex={hidden ? -1 : undefined}
                 width={160}

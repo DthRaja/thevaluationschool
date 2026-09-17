@@ -247,7 +247,7 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                     <div className="what-is-cfa-card">
                       <Image
                         src="/img/message-left-icon.svg"
-                        alt=""
+                        alt="Quotation mark"
                         width={40}
                         height={40}
                       />
@@ -263,7 +263,7 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                         <div className="user-details">
                           <Image
                             src="/img/stars.svg"
-                            alt=""
+                            alt="5-star rating"
                             width={96}
                             height={19}
                           />
@@ -322,13 +322,13 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
                       <button type="button" aria-hidden="true" tabIndex={-1}>
                         <Image
                           src="/img/plus.svg"
-                          alt=""
+                          alt="Expand"
                           width={20}
                           height={20}
                         />
                         <Image
                           src="/img/minus.svg"
-                          alt=""
+                          alt="Collapse"
                           width={20}
                           height={20}
                         />
@@ -349,7 +349,7 @@ const CfaDetailsClient = ({ eligibilityList }: CfaDetailsClientProps) => {
           <div className="how-to-become-cards">
             {HOW_TO_BECOME.map(({ image, title, description }) => (
               <div className="how-to-become-card" key={title}>
-                <Image src={image} alt="" width={100} height={100} />
+                <Image src={image} alt={title} width={100} height={100} />
                 <h3>{title}</h3>
                 <p>{description}</p>
               </div>

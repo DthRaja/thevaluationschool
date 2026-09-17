@@ -71,7 +71,7 @@ const Banner = ({ data }: { data: Partial<IBannerApi> }) => {
                                         aria-label="Watch CFA level 1 announcement video"
                                     >
                                         <span className="play-btn-ring" aria-hidden="true"></span>
-                                        <Image src="/img/Play.svg" alt="" width={26} height={30} />
+                                        <Image src="/img/Play.svg" alt="Play button" width={26} height={30} />
                                     </a>
                                 )}
                             </div>

@@ -63,7 +63,7 @@ const YouTubeHeroSwiper = ({ data }: YouTubeHeroSwiperProps) => {
                             <div className="play-overlay">
                                 <Image
                                     src="/img/youtube-play-icon.svg"
-                                    alt=""
+                                    alt="Play button"
                                     width={90}
                                     height={64}
                                 />
