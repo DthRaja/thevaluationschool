@@ -10222,6 +10222,11 @@ body.no-scroll {
     font-size: 11px;
     font-weight: 500;
     line-height: 1;
+    font-family: inherit;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
     transition:
       background-color 0.2s ease,
       color 0.2s ease;

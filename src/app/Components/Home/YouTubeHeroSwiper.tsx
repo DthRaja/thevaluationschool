@@ -86,7 +86,7 @@ const YouTubeHeroSwiper = ({ data }: YouTubeHeroSwiperProps) => {
                         {v && (
                             <Image
                                 src={normalizePath(v.img)}
-                                alt=""
+                                alt={v.title || `Video ${i + 1}`}
                                 width={1280}
                                 height={720}
                             />
@@ -107,7 +107,7 @@ const YouTubeHeroSwiper = ({ data }: YouTubeHeroSwiperProps) => {
                             {v && (
                                 <Image
                                     src={normalizePath(v.img)}
-                                    alt=""
+                                    alt={v.title || `Video ${i + 1}`}
                                     width={1280}
                                     height={720}
                                 />

@@ -16,16 +16,11 @@ const MobileBottomNav = () => {
         <span>Whatsapp</span>
       </a>
 
-      {/* TODO: replace "#" with the Play Store / App Store link once available */}
-      <a
-        className="mobile-bottom-nav-item"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="bi bi-cloud-arrow-down-fill" aria-hidden="true" />
-        <span>Our App</span>
-      </a>
+      {/* TODO: wire up to the site search once available */}
+      <button type="button" className="mobile-bottom-nav-item" aria-label="Search">
+        <i className="bi bi-search" aria-hidden="true" />
+        <span>Search</span>
+      </button>
 
       <a className="mobile-bottom-nav-item" href="mailto:contact@thevaluationschool.com">
         <i className="bi bi-envelope-fill" aria-hidden="true" />

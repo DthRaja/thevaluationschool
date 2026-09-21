@@ -17,7 +17,7 @@ export async function GET(request: Request) {
         errorMessages: [`cookie "${name}" not found`],
         result: undefined,
       };
-      return Response.json(res, { status: 404 });
+      return Response.json(res, { status: 200 });
     }
 
     const res: ApiResponse = {
