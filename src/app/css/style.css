@@ -10244,3 +10244,113 @@ body.no-scroll {
     outline: none;
   }
 }
+
+/* ==========================================================
+   COOKIE CONSENT BANNER (see Components/layout/Analytics.tsx)
+   Small card, bottom-right. Fonts scale with the viewport.
+   ========================================================== */
+
+.cookie-consent {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vw, 12px);
+  width: min(clamp(260px, 26vw, 340px), calc(100vw - 32px));
+  padding: clamp(12px, 1.4vw, 18px);
+  background-color: #fff;
+  border: 1px solid rgba(25, 150, 95, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(16, 24, 40, 0.16);
+}
+
+.cookie-consent-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: #667085;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cookie-consent-close:hover {
+  color: #101828;
+  background-color: #f2f4f7;
+}
+
+.cookie-consent-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cookie-consent-title {
+  padding-right: 24px; /* keep the title clear of the close button */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #101828;
+}
+
+.cookie-consent-icon {
+  flex-shrink: 0;
+  width: clamp(18px, 1.5vw, 22px);
+  height: clamp(18px, 1.5vw, 22px);
+  color: var(--primary-color);
+}
+
+.cookie-consent-text {
+  margin: 0;
+  font-size: clamp(12px, 0.95vw, 14px);
+  line-height: 1.5;
+  color: #475467;
+}
+
+.cookie-consent-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cookie-consent-btn {
+  flex: 1 1 0;
+  padding: clamp(6px, 0.6vw, 8px) clamp(10px, 1vw, 16px);
+  font-family: inherit;
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid var(--primary-color);
+}
+
+.cookie-consent-btn-primary {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+
+.cookie-consent-btn-primary:hover {
+  background-color: var(--dark-primary-color);
+}
+
+.cookie-consent-btn-secondary {
+  color: var(--primary-color);
+  background-color: #fff;
+}
+
+@media (max-width: 767px) {
+  .cookie-consent {
+    bottom: 72px; /* clear the 64px mobile bottom nav */
+  }
+}
