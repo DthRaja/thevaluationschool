@@ -17,10 +17,10 @@ const MobileBottomNav = () => {
       </a>
 
       {/* TODO: wire up to the site search once available */}
-      <button type="button" className="mobile-bottom-nav-item" aria-label="Search">
+      {/* <button type="button" className="mobile-bottom-nav-item" aria-label="Search">
         <i className="bi bi-search" aria-hidden="true" />
         <span>Search</span>
-      </button>
+      </button> */}
 
       <a className="mobile-bottom-nav-item" href="mailto:contact@thevaluationschool.com">
         <i className="bi bi-envelope-fill" aria-hidden="true" />

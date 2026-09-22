@@ -12,6 +12,6 @@ export default  function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/secure/",
     },
-    sitemap: `${origin}/sitemap.xml`,
+    sitemap: `${origin}sitemap.xml`,
   };
 }
