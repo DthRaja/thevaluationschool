@@ -1,79 +1,41 @@
 "use client";
 import { Cookie, X } from "lucide-react";
-import Script from "next/script";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useState, useTransition } from "react";
 
-interface MetaScript {
-  src?: string;
-  content?: string;
+import { setConsent } from "@/app/actions/consent";
+import type { ConsentValue } from "@/app/lib/consent";
+
+interface AnalyticsProps {
+  // Read server-side from the consent cookie (see HeadScripts/BodyContent,
+  // which render the actual GA/GTM/Meta Pixel tags once this is "accepted").
+  // undefined = visitor hasn't chosen yet.
+  initialConsent: ConsentValue | undefined;
 }
 
-const CONSENT_KEY = "tvs-cookie-consent";
-const CONSENT_EVENT = "tvs-cookie-consent-change";
-
-// "unknown" = server render / first hydration pass, so nothing flashes and
-// server + client markup match. "none" = visitor has not chosen yet.
-type ConsentState = "unknown" | "none" | "accepted" | "rejected";
-
-const subscribe = (onChange: () => void) => {
-  window.addEventListener(CONSENT_EVENT, onChange);
-  window.addEventListener("storage", onChange); // choice made in another tab
-  return () => {
-    window.removeEventListener(CONSENT_EVENT, onChange);
-    window.removeEventListener("storage", onChange);
-  };
-};
-
-const getSnapshot = (): ConsentState => {
-  try {
-    const value = localStorage.getItem(CONSENT_KEY);
-    return value === "accepted" || value === "rejected" ? value : "none";
-  } catch {
-    return "none"; // storage blocked: ask every visit, load nothing
-  }
-};
-
-const getServerSnapshot = (): ConsentState => "unknown";
-
-const saveConsent = (value: "accepted" | "rejected") => {
-  try {
-    localStorage.setItem(CONSENT_KEY, value);
-  } catch {
-    /* storage blocked — choice only lasts until reload */
-  }
-  window.dispatchEvent(new Event(CONSENT_EVENT));
-};
-
-const Analytics = () => {
-  const consent = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const [scripts, setScripts] = useState<MetaScript[]>([]);
+const Analytics = ({ initialConsent }: AnalyticsProps) => {
+  const [isPending, startTransition] = useTransition();
+  const [consent, setLocalConsent] = useState(initialConsent);
   // Closing the banner is not a choice: it is only hidden until the next full
   // page load, and keeps coming back until the visitor accepts or declines.
   const [dismissed, setDismissed] = useState(false);
 
-  // The meta scripts are only requested once the visitor has accepted.
-  useEffect(() => {
-    if (consent !== "accepted") return;
-
-    let cancelled = false;
-
-    fetch("/api/meta-scripts")
-      .then((res) => (res.ok ? res.json() : { scripts: [] }))
-      .then((data: { scripts?: MetaScript[] }) => {
-        if (!cancelled) setScripts(data.scripts ?? []);
-      })
-      .catch(() => {
-        /* analytics is optional — fail silently */
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [consent]);
+  const choose = (value: ConsentValue) => {
+    setLocalConsent(value);
+    startTransition(async () => {
+      await setConsent(value);
+      // HeadScripts/BodyContent render literal <script>/<noscript> tags in
+      // the server HTML. Browsers only execute <script> elements they parse
+      // natively out of the document — ones React inserts client-side (which
+      // is all a router.refresh() soft-merge would do) never run. A full
+      // reload is the only way to get the browser to parse and execute them
+      // once accepted.
+      window.location.reload();
+    });
+  };
 
   return (
     <>
-      {consent === "none" && !dismissed && (
+      {consent === undefined && !dismissed && (
         <div
           className="cookie-consent"
           role="dialog"
@@ -100,36 +62,22 @@ const Analytics = () => {
             <button
               type="button"
               className="cookie-consent-btn cookie-consent-btn-secondary"
-              onClick={() => saveConsent("rejected")}
+              disabled={isPending}
+              onClick={() => choose("rejected")}
             >
               Decline
             </button>
             <button
               type="button"
               className="cookie-consent-btn cookie-consent-btn-primary"
-              onClick={() => saveConsent("accepted")}
+              disabled={isPending}
+              onClick={() => choose("accepted")}
             >
               Accept
             </button>
           </div>
         </div>
       )}
-
-      {consent === "accepted" &&
-        scripts.map(({ src, content }, index) =>
-          src ? (
-            <Script
-              key={index}
-              id={`meta-script-${index}`}
-              src={src}
-              strategy="lazyOnload"
-            />
-          ) : (
-            <Script key={index} id={`meta-script-${index}`} strategy="lazyOnload">
-              {content}
-            </Script>
-          ),
-        )}
     </>
   );
 };

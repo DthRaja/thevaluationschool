@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     optimizeCss: true,
+    serverActions: {
+      allowedOrigins: ["thevaluationschool.com", "www.thevaluationschool.com"],
+    },
   },
   images: {
     remotePatterns: [

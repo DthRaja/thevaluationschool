@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(rm -f \"C:/Users/USER/AppData/Local/Temp/claude/d--theValuationSchool/47992b2b-2992-4bae-b421-51539c19acee/scratchpad/\"*.png \"C:/Users/USER/AppData/Local/Temp/claude/d--theValuationSchool/47992b2b-2992-4bae-b421-51539c19acee/scratchpad/served2.css\" *)"
+      "Bash(rm -f \"C:/Users/USER/AppData/Local/Temp/claude/d--theValuationSchool/47992b2b-2992-4bae-b421-51539c19acee/scratchpad/\"*.png \"C:/Users/USER/AppData/Local/Temp/claude/d--theValuationSchool/47992b2b-2992-4bae-b421-51539c19acee/scratchpad/served2.css\" *)",
+      "Bash(npx tsc *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\USER\\AppData\\Local\\Temp\\claude\\d--theValuationSchool\\47992b2b-2992-4bae-b421-51539c19acee\\scratchpad"

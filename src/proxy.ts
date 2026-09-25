@@ -5,6 +5,8 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   // Pass full relative URL (e.g. /dashboard?ref=123) to downstream components
   requestHeaders.set('x-url', request.nextUrl.pathname + request.nextUrl.search);
+  // Pathname only (e.g. /dashboard), for server components that key data by slug
+  requestHeaders.set('x-pathname', request.nextUrl.pathname);
 
   return NextResponse.next({
     request: {

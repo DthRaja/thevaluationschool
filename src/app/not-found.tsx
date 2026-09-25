@@ -1,3 +1,4 @@
+
 // app/not-found.tsx
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -22,5 +23,5 @@ export default async function NotFound() {
   }
 
   // Redirects /dashboard?ref=123 -> /secure/dashboard?ref=123
-  redirect(`${pathname}${queryString}`);
+  redirect(`/secure/${pathname}${queryString}`);
 }

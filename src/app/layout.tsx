@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 
@@ -8,16 +9,20 @@ import "./css/fonts-global.css";
 import "./css/globals.css";
 import "./css/style.css";
 
+import { CONSENT_COOKIE, isConsentValue } from "@/app/lib/consent";
 import { getOrigin } from "@/app/lib/getOrigin";
 import { buildSocialMetadata } from "@/app/lib/seo";
 import convertData from "@/utils/convartData";
 import ServerApi from "@/utils/Server";
 import Analytics from "./Components/layout/Analytics";
+import BodyContent from "./Components/layout/BodyContent";
 import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
 import Footer from "./Components/layout/Footer";
+import HeadScripts from "./Components/layout/HeadScripts";
 import MobileBottomNav from "./Components/layout/MobileBottomNav";
 import Navbar from "./Components/layout/Navbar";
 import PreloadFonts from "./Components/layout/PreloadFonts";
+import JsonLdScripts from "./Components/layout/JsonLdScripts";
 
 
 
@@ -146,8 +151,16 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     console.error("Schedule options API error:", error);
   }
 
+  const cookieStore = await cookies();
+  const rawConsent = cookieStore.get(CONSENT_COOKIE)?.value;
+  const initialConsent = isConsentValue(rawConsent) ? rawConsent : undefined;
+
   return (
     <html lang="en">
+      <head>
+        <HeadScripts />
+        <JsonLdScripts/>
+      </head>
       <body>
         <PreloadFonts />
         <Navbar courses={courses} />
@@ -160,8 +173,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         />
         <Footer courses={courses} />
         <MobileBottomNav />
+        <BodyContent />
+        <Analytics initialConsent={initialConsent} />
         <Toaster position="top-center" />
-        <Analytics />
       </body>
     </html>
   );
