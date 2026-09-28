@@ -1,28 +1,28 @@
-import { Award, Clock, FileSpreadsheet, Presentation } from "lucide-react";
+import { Award, Clock, FileSpreadsheet, Presentation, Book } from "lucide-react";
 import React from "react";
 
 const courseHighlights = [
     {
         Icon: Clock,
-        title: "200+ Hours",
-        description: "Hands-on practical learning",
+        title: "300+ Hours",
+        description: "CFA® concept coaching",
         id: "i16ds",
     },
     {
-        Icon: Presentation,
-        title: "Live Sessions",
-        description: "Learn directly with faculty",
+        Icon: Clock,
+        title: "50+ Hours",
+        description: "Revision classes",
         id: "imb04",
     },
     {
-        Icon: FileSpreadsheet,
-        title: "Study Material",
-        description: "Excel models, templates & resources",
+        Icon: Clock,
+        title: "10+ Hours",
+        description: "Practical learning",
     },
     {
-        Icon: Award,
-        title: "Certification",
-        description: "Certificate on course completion",
+        Icon: Book,
+        title: "Study Material",
+        description: "Prep tools like MCQ, Doubtforum",
     },
 ];
 

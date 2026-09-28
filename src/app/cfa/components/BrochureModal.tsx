@@ -207,6 +207,9 @@ const BrochureModal = ({
           employment: values.employment,
           pageUrl: window.location.href,
           userAgent: navigator.userAgent,
+          packageId: 1361,
+          packageName: "CFA",
+          pageId: 15,
         }),
       });
 
@@ -330,14 +333,14 @@ const BrochureModal = ({
                         required
                         style={{ maxWidth: 110 }}
                         aria-label="Country code"
-                        value={values.countryCode}
+                        // value={values.countryCode}
                         onChange={(e) =>
                           handleCountryCodeChange(e.target.value)
                         }
+                        defaultValue={"IN +91"}
                       >
-                        {countryCodes.length === 0 && (
-                          <option value="IN +91">🇮🇳 +91</option>
-                        )}
+                        <option value="IN +91">🇮🇳 +91</option>
+
                         {countryCodes.map((c, index) => (
                           <option key={`${c.label}-${index}`} value={c.label}>
                             {c.label}

@@ -5,24 +5,24 @@ const courseHighlights = [
   {
     Icon: Clock,
     title: "200+ Hours",
-    description: "Hands-on practical learning",
+    description: "Hands on lecture",
     id: "i16ds",
   },
   {
     Icon: Presentation,
     title: "Live Sessions",
-    description: "Learn directly with faculty",
+    description: "Learn at your own pace",
     id: "imb04",
   },
   {
     Icon: FileSpreadsheet,
     title: "Study Material",
-    description: "Excel models, templates & resources",
+    description: "Detailed excel models & more",
   },
   {
     Icon: Award,
     title: "Certification",
-    description: "Certificate on course completion",
+    description: "On course completion",
   },
 ];
 

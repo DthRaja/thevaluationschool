@@ -13,6 +13,9 @@ interface BrochureSubmitBody {
   employment: string;
   pageUrl?: string;
   userAgent?: string;
+  packageId?: number;
+  packageName?: string;
+  pageId?: number;
 }
 
 // The backend (panel.dthlms.com) sends no Access-Control-Allow-Origin header,
@@ -31,6 +34,9 @@ export async function POST(request: Request) {
     employment,
     pageUrl,
     userAgent,
+    packageId = 655,
+    packageName = "AVFM Program",
+    pageId = 10
   } = body;
 
   const formattedPhone = `${dialCode} ${digitsOnly}`;
@@ -49,9 +55,9 @@ export async function POST(request: Request) {
       Phone: formattedPhone,
       Country: country,
       UserType: employment,
-      PackageId: 655,
-      PackageName: "AVFM Program",
-      PageId: 10,
+      PackageId: packageId,
+      PackageName: packageName,
+      PageId: pageId,
     }),
     fetch(SHEET_WEB_APP_URL, {
       method: "POST",
@@ -59,15 +65,15 @@ export async function POST(request: Request) {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
       body: new URLSearchParams({
-        FirstName: firstName,
-        LastName: lastName,
-        Email: email,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
         CountryCode: dialCode,
-        Phone: digitsOnly,
-        Country: country,
-        Employment: employment,
-        packageId: "655",
-        packageName: "AVFM Program",
+        phone: digitsOnly,
+        country: country,
+        employment: employment,
+        packageId: packageId?.toString(),
+        packageName: packageName,
         submittedAt: new Date().toISOString(),
         source: "Brochure Modal",
         pageUrl: pageUrl ?? "",
