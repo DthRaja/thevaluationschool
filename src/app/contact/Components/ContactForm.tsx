@@ -27,17 +27,22 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const INDIA_PHONE_PATTERN = /^[6-9]\d{9}$/;
 const GENERIC_PHONE_PATTERN = /^\d{7,15}$/;
 
-const getDialCode = (countryCodeLabel: string) => countryCodeLabel.match(/\+\d+/)?.[0] ?? "";
+const getDialCode = (countryCodeLabel: string) =>
+  countryCodeLabel.match(/\+\d+/)?.[0] ?? "";
 
 const getInitialValues = (countryCodes: ICountryCodeOption[]): FormValues => {
-  const hasDefault = countryCodes.some((c) => c.label === DEFAULT_COUNTRY_CODE_LABEL);
+  const hasDefault = countryCodes.some(
+    (c) => c.label === DEFAULT_COUNTRY_CODE_LABEL,
+  );
 
   return {
     firstName: "",
     lastName: "",
     email: "",
     queryType: "",
-    countryCode: hasDefault ? DEFAULT_COUNTRY_CODE_LABEL : (countryCodes[0]?.label ?? "+91"),
+    countryCode: hasDefault
+      ? DEFAULT_COUNTRY_CODE_LABEL
+      : (countryCodes[0]?.label ?? "+91"),
     phone: "",
     message: "",
   };
@@ -64,7 +69,10 @@ const validate = (values: FormValues) => {
 
   const digits = values.phone.replace(/\D/g, "");
   const dialCode = getDialCode(values.countryCode);
-  const phoneOk = dialCode === "+91" ? INDIA_PHONE_PATTERN.test(digits) : GENERIC_PHONE_PATTERN.test(digits);
+  const phoneOk =
+    dialCode === "+91"
+      ? INDIA_PHONE_PATTERN.test(digits)
+      : GENERIC_PHONE_PATTERN.test(digits);
 
   if (!phoneOk) {
     errors.phone =
@@ -83,7 +91,9 @@ const validate = (values: FormValues) => {
 type SubmitStatus = "idle" | "submitting" | "error";
 
 const ContactForm = ({ countryCodes }: ContactFormProps) => {
-  const [values, setValues] = useState<FormValues>(() => getInitialValues(countryCodes));
+  const [values, setValues] = useState<FormValues>(() =>
+    getInitialValues(countryCodes),
+  );
   const [submitted, setSubmitted] = useState(false);
   const [status, setStatus] = useState<SubmitStatus>("idle");
 
@@ -134,7 +144,9 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
         setSubmitted(false);
         setStatus("idle");
       } else {
-        toast.error(data?.errorMessages?.[0] || "Something went wrong. Please try again.");
+        toast.error(
+          data?.errorMessages?.[0] || "Something went wrong. Please try again.",
+        );
         setStatus("error");
       }
     } catch (err) {
@@ -180,7 +192,9 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
 
                 <form id="contactForm" noValidate onSubmit={handleSubmit}>
                   <div className="form-row">
-                    <div className={`form-col ${showError("firstName") ? "has-error" : ""}`}>
+                    <div
+                      className={`form-col ${showError("firstName") ? "has-error" : ""}`}
+                    >
                       <input
                         type="text"
                         id="firstName"
@@ -195,7 +209,9 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
                       </div>
                     </div>
 
-                    <div className={`form-col ${showError("lastName") ? "has-error" : ""}`}>
+                    <div
+                      className={`form-col ${showError("lastName") ? "has-error" : ""}`}
+                    >
                       <input
                         type="text"
                         id="lastName"
@@ -210,7 +226,9 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
                       </div>
                     </div>
 
-                    <div className={`form-col full ${showError("email") ? "has-error" : ""}`}>
+                    <div
+                      className={`form-col full ${showError("email") ? "has-error" : ""}`}
+                    >
                       <input
                         type="email"
                         id="email"
@@ -236,34 +254,37 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
                       Reason for contacting
                     </legend>
 
-                    {["Course Query", "Payment Issue", "Invite us as a speaker", "For Hiring", "Others"].map(
-                      (option) => (
-                        <label className="radio-wrapper" key={option}>
-                          <input
-                            type="radio"
-                            name="queryType"
-                            value={option}
-                            checked={values.queryType === option}
-                            onChange={(e) => update("queryType", e.target.value)}
-                            required
-                          />
-                          <span className="custom-radio"></span>
-                          <span className="label-text">{option}</span>
-                        </label>
-                      ),
-                    )}
+                    {[
+                      "Course Query",
+                      "Payment Issue",
+                      "Invite us as a speaker",
+                      "For Hiring",
+                      "Others",
+                    ].map((option) => (
+                      <label className="radio-wrapper" key={option}>
+                        <input
+                          type="radio"
+                          name="queryType"
+                          value={option}
+                          checked={values.queryType === option}
+                          onChange={(e) => update("queryType", e.target.value)}
+                          required
+                        />
+                        <span className="custom-radio"></span>
+                        <span className="label-text">{option}</span>
+                      </label>
+                    ))}
 
-                    <div
-                      className="invalid-feedback"
-                      id="queryError"
-                    >
+                    <div className="invalid-feedback" id="queryError">
                       Please select a reason.
                     </div>
                   </fieldset>
 
                   <div className="form-row">
                     {/* PHONE WITH COUNTRY CODE */}
-                    <div className={`form-col full ${showError("phone") ? "has-error" : ""}`}>
+                    <div
+                      className={`form-col full ${showError("phone") ? "has-error" : ""}`}
+                    >
                       <div className="phone-wrap">
                         <select
                           id="countryCode"
@@ -271,12 +292,14 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
                           className="country-code-select"
                           required
                           aria-label="Country code"
-                          value={values.countryCode}
-                          onChange={(e) => update("countryCode", e.target.value)}
+                          style={{ minWidth: 100 }}
+                          // value={values.countryCode}
+                          onChange={(e) =>
+                            update("countryCode", e.target.value)
+                          }
+                          defaultValue={"IN +91"}
                         >
-                          {countryCodes.length === 0 && (
-                            <option value="+91">+91</option>
-                          )}
+                          <option value="IN +91">🇮🇳 +91</option>
                           {countryCodes.map((c, index) => (
                             <option key={`${c.label}-${index}`} value={c.label}>
                               {c.label}
@@ -288,13 +311,20 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
                           type="tel"
                           id="phone"
                           name="phone"
-                          placeholder={getDialCode(values.countryCode) === "+91" ? "99999 99999" : "Phone number"}
+                          placeholder={
+                            getDialCode(values.countryCode) === "+91"
+                              ? "99999 99999"
+                              : "Phone number"
+                          }
                           required
                           aria-describedby="phoneHelp"
                           className="phone-input"
                           value={values.phone}
                           onChange={(e) =>
-                            update("phone", e.target.value.replace(/[^0-9+\-\s()]/g, ""))
+                            update(
+                              "phone",
+                              e.target.value.replace(/[^0-9+\-\s()]/g, ""),
+                            )
                           }
                         />
                       </div>
@@ -307,7 +337,9 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
                     </div>
 
                     {/* MESSAGE */}
-                    <div className={`form-col full ${showError("message") ? "has-error" : ""}`}>
+                    <div
+                      className={`form-col full ${showError("message") ? "has-error" : ""}`}
+                    >
                       <textarea
                         id="message"
                         name="message"
@@ -331,7 +363,9 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
                         className="custom-btn"
                         disabled={status === "submitting"}
                       >
-                        {status === "submitting" ? "Sending..." : "Send Message"}
+                        {status === "submitting"
+                          ? "Sending..."
+                          : "Send Message"}
                       </button>
                     </div>
                   </div>

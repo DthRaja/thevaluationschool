@@ -431,7 +431,8 @@ const ContactSection = ({ countries, countryCodes: rawCountryCodes, calendar }: 
                             <div className="col-sm-6">
                                 <label className="form-label fw-semibold" htmlFor="schedule-phone">Phone Number *</label>
                                 <div className="d-flex gap-2">
-                                    <select className={`form-select flex-shrink-0 ${scheduleErrors.countryCode ? "is-invalid" : ""}`} style={{ ...inputStyle, width: 125 }} name="countryCode" aria-label="Country code" defaultValue="+91" onChange={() => setScheduleErrors((current) => ({ ...current, countryCode: "", phone: "" }))}>
+                                    <select className={`form-select flex-shrink-0 ${scheduleErrors.countryCode ? "is-invalid" : ""}`} style={{ ...inputStyle, width: 125 }} name="countryCode" aria-label="Country code"  defaultValue={"IN +91"} onChange={() => setScheduleErrors((current) => ({ ...current, countryCode: "", phone: "" }))}>
+                                         <option value="IN +91">🇮🇳 +91</option>
                                         {countryCodes.map((code) => <option key={code} value={code}>{code}</option>)}
                                     </select>
                                     <input className={`form-control ${scheduleErrors.phone ? "is-invalid" : ""}`} style={inputStyle} id="schedule-phone" type="tel" name="phone" inputMode="tel" aria-invalid={!!scheduleErrors.phone} autoComplete="tel" onChange={() => setScheduleErrors((current) => ({ ...current, phone: "" }))} />
