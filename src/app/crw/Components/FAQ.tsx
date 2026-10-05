@@ -1,5 +1,6 @@
 import ServerApi from "@/utils/Server";
 import convertData from "@/utils/convartData";
+import DropMessageButton from "@/app/Components/layout/DropMessageButton";
 import Image from "next/image";
 import FAQAccordion from "./FAQAccordion";
 
@@ -17,9 +18,6 @@ interface IFaqApiResponse {
 interface FAQProps {
   courseId?: number;
 }
-
-const WHATSAPP_HREF =
-  "https://api.whatsapp.com/send?phone=919302017656&text=Hello,%20I%20have%20a%20question%20about%20https%3A%2F%2Fthevaluationschool.com%2F";
 
 const FAQ = async ({ courseId }: FAQProps) => {
   const faqApi = new ServerApi({
@@ -61,14 +59,7 @@ const FAQ = async ({ courseId }: FAQProps) => {
               <h3>Do you have any more question?</h3>
               <p>Please drop us a message here to help us resolve it.</p>
             </div>
-            <a
-              className="have-a-question-btn"
-              href={WHATSAPP_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Drop a message
-            </a>
+            <DropMessageButton />
           </div>
         </div>
       </div>
