@@ -1,4 +1,12 @@
+"use client";
+
+import { useCallback, useState } from "react";
+import WhatsAppContactModal from "./WhatsAppContactModal";
+
 const MobileBottomNav = () => {
+  const [whatsappOpen, setWhatsappOpen] = useState(false);
+  const closeWhatsapp = useCallback(() => setWhatsappOpen(false), []);
+
   return (
     <nav className="mobile-bottom-nav" aria-label="Quick contact">
       <a className="mobile-bottom-nav-item" href="tel:8120812010">
@@ -6,15 +14,15 @@ const MobileBottomNav = () => {
         <span>Call</span>
       </a>
 
-      <a
+      <button
+        type="button"
         className="mobile-bottom-nav-item"
-        href="https://api.whatsapp.com/send?phone=919302017656&text=Hello,%20I%20have%20a%20question%20about%20https%3A%2F%2Fthevaluationschool.com%2F"
-        target="_blank"
-        rel="noopener noreferrer"
+        onClick={() => setWhatsappOpen(true)}
       >
         <i className="bi bi-whatsapp" aria-hidden="true" />
         <span>Whatsapp</span>
-      </a>
+      </button>
+      {whatsappOpen && <WhatsAppContactModal onClose={closeWhatsapp} />}
 
       {/* TODO: wire up to the site search once available */}
       {/* <button type="button" className="mobile-bottom-nav-item" aria-label="Search">

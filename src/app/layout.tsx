@@ -17,6 +17,7 @@ import ServerApi from "@/utils/Server";
 import Analytics from "./Components/layout/Analytics";
 import BodyContent from "./Components/layout/BodyContent";
 import ContactSectionWrapper from "./Components/layout/ContactSectionWrapper";
+import CoursesProvider from "./Components/layout/CoursesProvider";
 import Footer from "./Components/layout/Footer";
 import HeadScripts from "./Components/layout/HeadScripts";
 import MobileBottomNav from "./Components/layout/MobileBottomNav";
@@ -106,6 +107,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
       if (Array.isArray(parsedData)) {
         courses = parsedData;
+        console.log(courses)
       }
     }
   } catch (error) {
@@ -163,16 +165,18 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       </head>
       <body>
         <PreloadFonts />
-        <Navbar courses={courses} />
+        <CoursesProvider courses={courses}>
+          <Navbar courses={courses} />
 
-        <main>{children}</main>
-        <ContactSectionWrapper
-          countries={scheduleCountries}
-          countryCodes={scheduleCountryCodes}
-          calendar={scheduleCalendar}
-        />
-        <Footer courses={courses} />
-        <MobileBottomNav />
+          <main>{children}</main>
+          <ContactSectionWrapper
+            countries={scheduleCountries}
+            countryCodes={scheduleCountryCodes}
+            calendar={scheduleCalendar}
+          />
+          <Footer courses={courses} />
+          <MobileBottomNav />
+        </CoursesProvider>
         <BodyContent />
         <Analytics initialConsent={initialConsent} />
         <Toaster position="top-center" />

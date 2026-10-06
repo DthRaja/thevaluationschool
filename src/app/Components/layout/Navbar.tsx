@@ -6,26 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { normalizePath } from "./CoursesProvider";
 
 interface NavbarProps {
   courses: CourseMenuItem[];
 }
-
-const normalizePath = (url: string | null | undefined) => {
-  if (!url) return "/";
-
-  let path = url
-    .split("?")[0]
-    .split("#")[0]
-    .replace(/\/+$/, "")
-    .toLowerCase();
-         
-  if (!path || path === "/index") {
-    path = "/";
-  }
-
-  return path;
-};
 
 /**
  * Course URLs coming from the CMS sometimes point at "/index" for the
