@@ -10255,7 +10255,7 @@ body.no-scroll {
 
 .cookie-consent {
   position: fixed;
-  right: 16px;
+  left: 16px;
   bottom: 16px;
   z-index: 10001;
   display: flex;
@@ -10356,4 +10356,12 @@ body.no-scroll {
   .cookie-consent {
     bottom: 72px; /* clear the 64px mobile bottom nav */
   }
+}
+
+/* Swiper's own CSS sets `.swiper-vertical { touch-action: pan-x }`, which stops
+   vertical swipes over the slider from scrolling the page. Higher specificity
+   here so the browser keeps vertical scrolling regardless of CSS load order. */
+.about-swiper.swiper-vertical,
+.about-swiper.swiper-vertical .swiper-wrapper {
+  touch-action: pan-y;
 }

@@ -9,6 +9,7 @@ import "./css/fonts-global.css";
 import "./css/globals.css";
 import "./css/style.css";
 
+
 import { CONSENT_COOKIE, isConsentValue } from "@/app/lib/consent";
 import { getOrigin } from "@/app/lib/getOrigin";
 import { buildSocialMetadata } from "@/app/lib/seo";
@@ -24,6 +25,7 @@ import MobileBottomNav from "./Components/layout/MobileBottomNav";
 import Navbar from "./Components/layout/Navbar";
 import PreloadFonts from "./Components/layout/PreloadFonts";
 import JsonLdScripts from "./Components/layout/JsonLdScripts";
+import WpBotJs from "./Components/layout/WpBotJs";
 
 
 
@@ -107,7 +109,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
       if (Array.isArray(parsedData)) {
         courses = parsedData;
-        console.log(courses)
+        // console.log(courses)
       }
     }
   } catch (error) {
@@ -128,6 +130,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       new ServerApi({ withAuth: false, spName: "SPClientAnonymous", mode: 42 }).request(),
       new ServerApi({ withAuth: false, spName: "SPClientAnonymous", mode: 47 }).request(),
     ]);
+
+    // console.log(convertData(countryCodeRes?.result))
 
     scheduleCountries = labelsFrom(convertData(countryRes?.result));
     scheduleCountryCodes = labelsFrom(convertData(countryCodeRes?.result));
@@ -162,6 +166,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <head>
         <HeadScripts />
         <JsonLdScripts/>
+        <WpBotJs/>
       </head>
       <body>
         <PreloadFonts />
