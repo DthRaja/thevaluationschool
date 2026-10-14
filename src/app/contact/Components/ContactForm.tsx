@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import React, { useMemo, useState } from "react";
+import { RotateCw } from "lucide-react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
 export interface ICountryCodeOption {
@@ -20,6 +21,7 @@ interface FormValues {
   countryCode: string;
   phone: string;
   message: string;
+  code: string;
 }
 
 const DEFAULT_COUNTRY_CODE_LABEL = "IN +91";
@@ -45,6 +47,7 @@ const getInitialValues = (countryCodes: ICountryCodeOption[]): FormValues => {
       : (countryCodes[0]?.label ?? "+91"),
     phone: "",
     message: "",
+    code: "",
   };
 };
 
@@ -85,6 +88,10 @@ const validate = (values: FormValues) => {
     errors.message = "Please enter at least 10 characters.";
   }
 
+  if (!values.code.trim()) {
+    errors.code = "Please enter the captcha.";
+  }
+
   return errors;
 };
 
@@ -96,6 +103,35 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
   );
   const [submitted, setSubmitted] = useState(false);
   const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [captcha, setCaptcha] = useState({ captchaId: '', captchaImg: '' });
+
+  const loadCaptcha = useCallback(async () => {
+    try {
+      const response = await fetch("/api/captcha/generate", {
+        cache: "no-store",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Captcha request failed with status ${response.status}`);
+      }
+
+      const data: { result?: { captchaId: string; captchaImg: string } } =
+        await response.json();
+      setCaptcha({
+        captchaId: data.result?.captchaId || "",
+        captchaImg: data.result?.captchaImg || "",
+      });
+    } catch (error) {
+      console.error("Failed to load captcha", error);
+      toast.error(
+        "Unable to load captcha. Please refresh the page and try again.",
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadCaptcha();
+  }, [loadCaptcha]);
 
   const errors = useMemo(() => validate(values), [values]);
 
@@ -133,6 +169,8 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
           message: values.message.trim(),
           pageUrl: window.location.href,
           userAgent: navigator.userAgent,
+          captchaId: captcha.captchaId,
+          userEnteredCaptchaCode: values.code.trim(),
         }),
       });
 
@@ -351,6 +389,36 @@ const ContactForm = ({ countryCodes }: ContactFormProps) => {
                       ></textarea>
                       <div className="invalid-feedback">
                         Please enter at least 10 characters.
+                      </div>
+                    </div>
+                  </div>
+                  {/* CAPTCHA */}
+                  <div className="form-row">
+                    <div className={`form-col full ${showError("code") ? "has-error" : ""}`}>
+                      <img src={captcha.captchaImg} alt="captcha" />
+                      <div className="position-relative">
+                        <input
+                          id="code"
+                          name="code"
+                          placeholder="Enter Captcha Code"
+                          required
+                          aria-describedby="codeHelp"
+                          className="captcha-input"
+                          value={values.code}
+                          onChange={(e) => update("code", e.target.value)}
+                        />
+                      <button
+                        type="button"
+                        className="position-absolute end-0 top-0 mt-2 me-3 border-0 bg-transparent cursor-pointer"
+                        title="Reload Captcha"
+                        aria-label="Reload captcha"
+                        onClick={() => void loadCaptcha()}
+                      >
+                        <RotateCw size={16} aria-hidden="true" />
+                      </button>
+                      </div>
+                      <div className="invalid-feedback">
+                        Please enter the captcha code.
                       </div>
                     </div>
                   </div>

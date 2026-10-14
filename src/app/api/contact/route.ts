@@ -1,4 +1,5 @@
 import ServerApi from "@/utils/Server";
+import { validateCaptcha } from "../captcha/captchaApi";
 
 const SHEET_WEB_APP_URL =
   "https://script.google.com/macros/s/AKfycbxq_lO-65v-ZP3YGH5JZtrnmK4y1De__sPv3kOUbwJB-LTEisMLxTbXcq_JZqcQlTJn_Q/exec";
@@ -13,6 +14,8 @@ interface ContactSubmitBody {
   message: string;
   pageUrl?: string;
   userAgent?: string;
+  captchaId: string;
+  userEnteredCaptchaCode: string;
 }
 
 // Mirrors src/app/api/avfm/brochure/route.ts: the backend (panel.dthlms.com)
@@ -31,9 +34,32 @@ export async function POST(request: Request) {
     message,
     pageUrl,
     userAgent,
+    captchaId,
+    userEnteredCaptchaCode,
   } = body;
 
   const formattedPhone = `${dialCode} ${digitsOnly}`;
+
+  const captchaValidateResponse = await validateCaptcha(captchaId, userEnteredCaptchaCode);
+
+  if (!captchaValidateResponse.ok) {
+    const errorData = await captchaValidateResponse.json();
+    console.error("Captcha validation failed:", errorData);
+    return Response.json(errorData, {
+      status: captchaValidateResponse.status,
+      headers: captchaValidateResponse.headers,
+    });
+  }
+
+  const validationResult = await captchaValidateResponse.json();
+  if (validationResult.isSuccess !== true) {
+    return Response.json(validationResult,
+      {
+        status: captchaValidateResponse.status,
+        headers: captchaValidateResponse.headers,
+      }
+    );
+  }
 
   const api = new ServerApi({
     withAuth: false,
